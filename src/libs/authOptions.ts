@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
                     id: user._id.toString(),
                     email: user.email,
                     name: user.name,
-                    role: user.role, // 'admin' hoặc 'user'
+                    role: user.role,
                 };
             },
         }),
@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
-                token.role = user.role; // lưu role vào token
+                token.role = user.role;
             }
             return token;
         },
@@ -69,7 +69,7 @@ export const authOptions: NextAuthOptions = {
 
     session: {
         strategy: "jwt",
-        maxAge: 24 * 60 * 60, // 1 ngày
-        updateAge: 60 * 60,   // refresh mỗi giờ
+        maxAge: 24 * 60 * 60,
+        updateAge: 60 * 60,
     },
 };

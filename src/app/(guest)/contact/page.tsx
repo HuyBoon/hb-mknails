@@ -1,7 +1,7 @@
 import React from "react";
 
-const GiftCard = () => {
+const ContactUs = () => {
 	return <div>git card</div>;
 };
 
-export default GiftCard;
+export default ContactUs;

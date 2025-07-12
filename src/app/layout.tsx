@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Lora, Satisfy } from "next/font/google";
 import "./globals.css";
-
 import { Toaster } from "sonner";
 import { AppProvider } from "@/components/contexts/AppContext";
-import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
 	title: "MK NAIL & SPA",
@@ -34,7 +32,6 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${lora.variable}  antialiased`}>
 				<AppProvider>{children}</AppProvider>
-				<Footer />
 				<Toaster richColors position="top-right" />
 			</body>
 		</html>

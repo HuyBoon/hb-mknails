@@ -44,22 +44,24 @@ export default function Header() {
 			className={`fixed w-full left-0 z-[999] transition-all duration-900 `}
 		>
 			<div
-				className={` px-[20px] xl:px-[2%] mx-auto flex items-center justify-between  transition-all ${
+				className={`w-full mx-auto flex items-center justify-between px-[20px] xl:px-[2%] transition-all ${
 					navbar
-						? "bg-header-dark  backdrop-blur-[1.5px] h-16"
+						? "bg-header-dark  backdrop-blur-[1.5px] h-18"
 						: "bg-transparent w-full  backdrop-blur-[1.5px] "
 				}`}
 			>
 				<Link
 					href="/"
-					className="flex items-center text-xl font-bold text-primary"
+					className="min-w-[120px] flex items-center text-xl font-bold text-primary"
 				>
 					{navbar ? (
-						<h1 className="leading-none">MK NAILS</h1>
+						<div className="h-16 flex items-center text-white text-xl font-bold">
+							MK NAILS
+						</div>
 					) : (
 						<Image
 							src={"/logo.png"}
-							alt="coocooplant logo"
+							alt="mknails logo"
 							width={120}
 							height={80}
 							className="object-cover"
@@ -67,7 +69,7 @@ export default function Header() {
 					)}
 				</Link>
 
-				<div className="flex items-center justify-end gap-10 w-full">
+				<div className="w-full flex items-center justify-end gap-10">
 					{/* Desktop Nav */}
 					<nav className="hidden lg:flex items-center gap-4 text-white">
 						{navLinks.map((link) => (

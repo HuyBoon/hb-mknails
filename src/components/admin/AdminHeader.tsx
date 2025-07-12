@@ -47,7 +47,7 @@ const AdminHeader = ({ collapsed }: { collapsed: boolean }) => {
 				{status === "authenticated" ? (
 					<div className="flex items-center gap-2">
 						<Image
-							src={session.user.image || "/bannerdt.png"}
+							src={session.user.image || "/logo.png"}
 							alt="User Avatar"
 							width={36}
 							height={36}

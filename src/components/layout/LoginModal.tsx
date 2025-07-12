@@ -63,7 +63,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
 
 		const session = await getSession();
 		if (session) {
-			router.push(session.user?.admin ? "/admin/dashboard" : "/login");
+			router.push(session.user?.role === "admin" ? "/admin/dashboard" : "/");
 			onClose(); // Close modal after successful login
 		} else {
 			setError("Failed to retrieve session. Please try again.");
@@ -92,7 +92,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
 			>
 				<div className="w-full h-30 relative">
 					<Image
-						src="/banner.jpg"
+						src="/banner.png"
 						alt="Login Banner"
 						fill
 						className="object-cover"

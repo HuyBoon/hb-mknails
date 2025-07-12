@@ -139,7 +139,7 @@ export default function AsideCustomer({
 					variants={textVariants}
 					transition={{ duration: animationDuration }}
 				>
-					COOCOO
+					MKNAILS
 				</motion.h1>
 				<span
 					onClick={() => setCollapsed(!collapsed)}
