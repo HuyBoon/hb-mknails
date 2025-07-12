@@ -4,6 +4,8 @@ import Header from "@/components/layout/Header";
 import Banner from "@/components/layout/Banner";
 import GreenSlogan from "@/components/layout/GreenSlogan";
 import Services from "@/components/layout/Promotions";
+import Separate from "@/components/layout/Separate";
+import Shopping from "@/components/layout/Shopping";
 
 export default function Home() {
 	return (
@@ -13,6 +15,8 @@ export default function Home() {
 			<HotProduct />
 			<GreenSlogan />
 			<Services />
+			<Separate />
+			<Shopping />
 		</>
 	);
 }
