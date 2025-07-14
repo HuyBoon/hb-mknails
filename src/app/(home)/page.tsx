@@ -6,6 +6,7 @@ import GreenSlogan from "@/components/layout/GreenSlogan";
 import Services from "@/components/layout/Promotions";
 import Separate from "@/components/layout/Separate";
 import Shopping from "@/components/layout/Shopping";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
 	return (
@@ -17,6 +18,7 @@ export default function Home() {
 			<Services />
 			<Separate />
 			<Shopping />
+			<Footer />
 		</>
 	);
 }

@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
     try {
         const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
         if (!token) {
-            console.warn(`🔒 Unauthorized access to ${pathname}. Redirecting to /login`);
+            console.warn(`Unauthorized access to ${pathname}. Redirecting to /login`);
             return NextResponse.redirect(new URL('/login', req.url));
         }
 
@@ -21,7 +21,7 @@ export async function middleware(req: NextRequest) {
         const isAdminRoute = pathname.startsWith('/admin') || pathname.startsWith('/api/admin');
 
         if (isAdminRoute && role !== 'admin') {
-            console.warn(`⛔ Access denied to ${pathname} for user ${token.email}`);
+            console.warn(`Access denied to ${pathname} for user ${token.email}`);
             return NextResponse.redirect(new URL('/unauthorized', req.url));
         }
 

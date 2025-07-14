@@ -54,7 +54,11 @@ const LoginPage = () => {
 		const session = await getSession();
 
 		if (session) {
-			router.push(session.user?.role === "admin" ? "/admin/dashboard" : "/");
+			if (session.user?.role === "admin") {
+				window.open("/admin/dashboard", "_blank"); // mở tab mới
+			} else {
+				router.push("/"); // chuyển trang bình thường
+			}
 		} else {
 			setError("Failed to retrieve session. Please try again.");
 		}

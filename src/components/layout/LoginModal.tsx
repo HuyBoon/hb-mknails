@@ -3,7 +3,7 @@
 import { signIn, getSession } from "next-auth/react";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useUser } from "../contexts/AppContext";
 import Loader from "../shared/Loader";
@@ -26,7 +26,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
 
 	useEffect(() => {
 		if (status === "authenticated") {
-			onClose(); // Close modal
+			onClose();
 			router.push("/admin/dashboard");
 		}
 	}, [status, router, onClose]);
@@ -63,8 +63,11 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
 
 		const session = await getSession();
 		if (session) {
-			router.push(session.user?.role === "admin" ? "/admin/dashboard" : "/");
-			onClose(); // Close modal after successful login
+			if (session.user?.role === "admin") {
+				window.open("/admin/dashboard", "_blank");
+			} else {
+				router.push("/");
+			}
 		} else {
 			setError("Failed to retrieve session. Please try again.");
 		}
