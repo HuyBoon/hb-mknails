@@ -16,6 +16,8 @@ interface UserContextProps {
 		id: string;
 		email: string;
 		name: string;
+		avatar?: string;
+		phone?: string;
 		role: UserRole;
 	} | null;
 	isAdmin: boolean;

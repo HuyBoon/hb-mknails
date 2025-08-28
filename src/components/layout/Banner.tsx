@@ -1,37 +1,71 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+
+const desktopImages = Array.from({ length: 5 }, (_, i) => ({
+	src: `/banners/${i + 1}.png`,
+	alt: `Desktop Banner ${i + 1}`,
+}));
+
+const mobileImages = Array.from({ length: 5 }, (_, i) => ({
+	src: `/banners/${i + 1}.png`,
+	alt: `Mobile Banner ${i + 1}`,
+}));
 
 const Banner = () => {
 	return (
 		<section className="relative w-full h-auto">
-			<div className="aspect-[16/9] overflow-hidden hidden md:block">
-				<Image
-					src="/banner.png"
-					alt="Desktop Banner"
-					width={1920}
-					height={1080}
-					className=" w-full object-cover"
-					priority
-				/>
+			{/* Desktop (16:9) */}
+			<div className="aspect-[3/2] overflow-hidden hidden md:block">
+				<Swiper
+					modules={[Autoplay, Pagination]}
+					autoplay={{ delay: 4000, disableOnInteraction: false }}
+					// pagination={{ clickable: true }}
+					loop
+					className="h-full w-full"
+				>
+					{desktopImages.map((img, index) => (
+						<SwiperSlide key={index}>
+							<Image
+								src={img.src}
+								alt={img.alt}
+								width={1200}
+								height={800}
+								className="w-full h-full object-cover"
+								priority={index === 0}
+							/>
+						</SwiperSlide>
+					))}
+				</Swiper>
 			</div>
 
-			<div className="aspect-[9/16] overflow-hidden md:hidden ">
-				<Image
-					src="/bannerdt.png"
-					alt="Mobile Banner"
-					width={768}
-					height={768}
-					className="block w-full  object-cover"
-					priority
-				/>
+			{/* Mobile (9:16) */}
+			<div className="aspect-[9/16] overflow-hidden md:hidden">
+				<Swiper
+					modules={[Autoplay, Pagination]}
+					autoplay={{ delay: 3000, disableOnInteraction: false }}
+					pagination={{ clickable: true }}
+					loop
+					className="h-full w-full"
+				>
+					{mobileImages.map((img, index) => (
+						<SwiperSlide key={index}>
+							<Image
+								src={img.src}
+								alt={img.alt}
+								width={768}
+								height={1366}
+								className="w-full h-full object-cover"
+								priority={index === 0}
+							/>
+						</SwiperSlide>
+					))}
+				</Swiper>
 			</div>
-			{/* Text Overlay */}
-			{/* <div className="absolute top-[20%] left-1/2 transform -translate-x-1/2 text-center">
-				<h2 className="text-4xl font-satify md:text-6xl lg:text-7xl font-bold text-slate-500 drop-shadow-lg">
-					CooCoo
-				</h2>
-			</div> */}
 		</section>
 	);
 };

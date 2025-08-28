@@ -4,16 +4,13 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
 	LayoutDashboard,
-	NotebookPen,
-	Settings,
-	Shapes,
+	Scissors,
+	Calendar,
 	UsersRound,
+	Settings,
+	Image as ImageIcon,
 	ChevronDown,
 	ChevronRight,
-	Dribbble,
-	Video,
-	FileText,
-	Layout,
 } from "lucide-react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { useState } from "react";
@@ -45,7 +42,6 @@ export default function AsideCustomer({
 		}));
 	};
 
-	// Cấu trúc menu được tối ưu hóa
 	const navLinks: NavLink[] = [
 		{
 			url: "/admin/dashboard",
@@ -53,45 +49,34 @@ export default function AsideCustomer({
 			label: "Dashboard",
 		},
 		{
-			url: "/admin/manageproducts",
-			icon: <Shapes size={20} />,
-			label: "Products",
+			url: "/admin/services",
+			icon: <Scissors size={20} />,
+			label: "Services",
 			submenu: [
 				{
-					url: "/admin/manageproducts/categories",
-					label: "Categories",
+					url: "/admin/services/categories",
+					label: "Service Categories",
 				},
 				{
-					url: "/admin/manageproducts/products",
-					label: "Plants",
+					url: "/admin/services/list",
+					label: "Service List",
 				},
 			],
 		},
 		{
-			url: "/admin/manageblogs",
-			icon: <NotebookPen size={20} />,
-			label: "Blogs",
-			submenu: [
-				{
-					url: "/admin/manageblogs/category",
-					label: "Categories",
-				},
-				{
-					url: "/admin/manageblogs/blogs",
-					label: "BlogPost",
-				},
-			],
+			url: "/admin/bookings",
+			icon: <Calendar size={20} />,
+			label: "Bookings",
 		},
-
 		{
-			url: "/admin/users",
+			url: "/admin/customers",
 			icon: <UsersRound size={20} />,
-			label: "Users",
+			label: "Customers",
 		},
 		{
-			url: "/admin/media",
-			icon: <Video size={20} />,
-			label: "Media",
+			url: "/admin/gallery",
+			icon: <ImageIcon size={20} />,
+			label: "Gallery",
 		},
 		{
 			url: "/admin/settings",
@@ -103,10 +88,9 @@ export default function AsideCustomer({
 	const isActive = (url: string) =>
 		pathname === url || pathname.startsWith(url + "/");
 
-	// Animation variants đồng bộ duration
 	const sidebarVariants = {
-		expanded: { width: "16rem" }, // 256px
-		collapsed: { width: "4rem" }, // 64px
+		expanded: { width: "16rem" },
+		collapsed: { width: "4rem" },
 	};
 
 	const textVariants = {
@@ -119,31 +103,29 @@ export default function AsideCustomer({
 		collapsed: { height: 0, opacity: 0 },
 	};
 
-	// Đồng bộ duration cho tất cả hiệu ứng
 	const animationDuration = 0.5;
 
 	return (
 		<motion.aside
-			className="fixed left-0 top-0 shadow-md z-30 min-h-screen overflow-y-auto bg-light border-r border-slate-200 "
+			className="fixed left-0 top-0 shadow-md z-30 min-h-screen overflow-y-auto bg-white border-r border-gray-200"
 			initial={collapsed ? "collapsed" : "expanded"}
 			animate={collapsed ? "collapsed" : "expanded"}
 			variants={sidebarVariants}
 			transition={{ duration: animationDuration, ease: "easeInOut" }}
 		>
-			{/* Header top bar */}
-			<div className="flex items-center justify-between px-3 py-3 border-b border-slate-200  relative">
+			<div className="flex items-center justify-between px-3 py-3 border-b border-gray-200 relative">
 				<motion.h1
-					className={`mx-auto font-bold text-2xl text-secondary  transition-all ${
+					className={`mx-auto font-bold text-2xl text-pink-600 transition-all ${
 						collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
 					}`}
 					variants={textVariants}
 					transition={{ duration: animationDuration }}
 				>
-					MKNAILS
+					NAIL & SPA
 				</motion.h1>
 				<span
 					onClick={() => setCollapsed(!collapsed)}
-					className="cursor-pointer text-primary p-1 rounded hover:bg-slate-200  transition-all "
+					className="cursor-pointer text-pink-600 p-1 rounded hover:bg-gray-100 transition-all"
 				>
 					{collapsed ? (
 						<AiOutlineMenuUnfold size={22} />
@@ -152,7 +134,6 @@ export default function AsideCustomer({
 					)}
 				</span>
 			</div>
-			{/* Navigation menu */}
 			<div className="flex-grow h-[calc(100vh-130px)] mt-2 overflow-y-auto">
 				<ul className="space-y-1 px-2">
 					{navLinks.map((item) => {
@@ -164,8 +145,8 @@ export default function AsideCustomer({
 								<div
 									className={`flex items-center justify-between gap-2 rounded-md px-2 py-4 cursor-pointer transition-colors ${
 										isItemActive
-											? "bg-accent text-primary font-semibold"
-											: "hover:bg-slate-100  text-slate-700"
+											? "bg-pink-100 text-pink-600 font-semibold"
+											: "hover:bg-gray-100 text-gray-700"
 									}`}
 								>
 									<Link
@@ -188,11 +169,10 @@ export default function AsideCustomer({
 											)}
 										</AnimatePresence>
 									</Link>
-
 									{hasSubmenu && !collapsed && (
 										<button
 											onClick={() => toggleMenu(item.label)}
-											className="ml-auto hover:text-slate-700 "
+											className="ml-auto hover:text-pink-600"
 										>
 											{openMenus[item.label] ? (
 												<ChevronDown size={16} />
@@ -202,15 +182,11 @@ export default function AsideCustomer({
 										</button>
 									)}
 								</div>
-
-								{/* Tooltip for collapsed */}
 								{collapsed && (
-									<span className="fixed z-50 left-16 ml-1 top-auto translate-y-[-50%] text-white bg-slate-900 text-xs px-2 py-1 rounded shadow-md whitespace-nowrap pointer-events-none group-hover:opacity-100 opacity-0 transition-all duration-200">
+									<span className="fixed z-50 left-16 ml-1 top-auto translate-y-[-50%] text-white bg-gray-900 text-xs px-2 py-1 rounded shadow-md whitespace-nowrap pointer-events-none group-hover:opacity-100 opacity-0 transition-all duration-200">
 										{item.label}
 									</span>
 								)}
-
-								{/* Submenu */}
 								<AnimatePresence>
 									{hasSubmenu && openMenus[item.label] && !collapsed && (
 										<motion.ul
@@ -228,8 +204,8 @@ export default function AsideCustomer({
 														onClick={onSelect}
 														className={`block px-2 py-2 rounded-md text-sm transition-colors ${
 															isActive(sub.url)
-																? "bg-accent text-primary font-medium"
-																: "text-slate-600  hover:bg-slate-100 "
+																? "bg-pink-100 text-pink-600 font-medium"
+																: "text-gray-600 hover:bg-gray-100"
 														}`}
 													>
 														{sub.label}
@@ -244,14 +220,13 @@ export default function AsideCustomer({
 					})}
 				</ul>
 			</div>
-			{/* Footer top bar */}
-			<div className="px-4 border-t border-slate-200 ">
+			<div className="px-4 border-t border-gray-200">
 				<motion.h4
-					className="text-center font-bold text-sm text-secondary pt-4 "
+					className="text-center font-bold text-sm text-pink-600 pt-4"
 					variants={textVariants}
 					transition={{ duration: animationDuration }}
 				>
-					© 2025 CooCoo
+					© 2025 NAIL & SPA
 				</motion.h4>
 			</div>
 		</motion.aside>

@@ -20,10 +20,10 @@ const Services = () => {
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
 	return (
-		<section className="relative container w-full mx-auto mt-[-10%] z-20">
+		<section className="relative container w-full mx-auto z-20 py-24 ">
 			{/* Title */}
-			<div className="absolute top-[-3%] left-1/2 transform -translate-x-1/2 text-center px-[40px] py-[20px] rounded-2xl bg-btn border border-white z-30">
-				<h1 className="text-white text-[50px] font-bold">PRODUCT</h1>
+			<div className="absolute left-1/2 transform -translate-x-1/2 text-center px-[40px] py-[20px] rounded-2xl bg-btn border border-white z-30">
+				<h1 className="text-white text-[50px] font-bold">SERVICES</h1>
 			</div>
 
 			<div className="relative w-full px-3 overflow-visible">
@@ -60,7 +60,7 @@ const Services = () => {
 										transition: "flex 0.5s ease",
 										display: "flex",
 										flexDirection: "column",
-										flex: hoveredIndex === null ? 1 : isHovered ? 2 : 1, // hovered slide gets more flex
+										flex: hoveredIndex === null ? 1 : isHovered ? 2 : 1,
 									}}
 								>
 									<div
@@ -85,20 +85,20 @@ const Services = () => {
 				{/* Prev Button */}
 				<div className="absolute top-1/2 left-[15px] -translate-y-1/2 z-10">
 					<button
-						className="card2-prev bg-white cursor-pointer shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:bg-[#e98585] hover:text-white transition-all duration-300"
+						className="card2-prev bg-white cursor-pointer shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:bg-btn hover:text-white transition-all duration-300"
 						aria-label="Previous slide"
 					>
-						<ArrowLeft className="w-6 h-6 text-primary" />
+						<ArrowLeft className="w-6 h-6 hover:text-[#f2ecdb] text-bg-btn" />
 					</button>
 				</div>
 
 				{/* Next Button */}
 				<div className="absolute top-1/2 right-[15px] -translate-y-1/2 z-10">
 					<button
-						className="card2-next bg-white cursor-pointer shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:bg-[#e98585] hover:text-white transition-all duration-300"
+						className="card2-next bg-white cursor-pointer shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:bg-btn hover:text-white transition-all duration-300"
 						aria-label="Next slide"
 					>
-						<ArrowRight className="w-6 h-6 text-primary" />
+						<ArrowRight className="w-6 h-6 hover:text-[#f2ecdb] text-bg-btn" />
 					</button>
 				</div>
 			</div>

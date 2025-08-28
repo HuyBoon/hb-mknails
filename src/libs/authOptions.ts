@@ -1,15 +1,17 @@
-import clientPromise from "@/libs/mongoConnect";
 import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { NextAuthOptions } from "next-auth";
 import type { Adapter } from "next-auth/adapters";
-import { dbConnect } from "./dbConnect";
+import { connectToDatabase, dbConnect } from "./dbConnection";
 import { User } from "@/models/User";
 
 export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
-    adapter: MongoDBAdapter(clientPromise) as Adapter,
+    adapter: MongoDBAdapter((async () => {
+        const { client } = await connectToDatabase();
+        return client;
+    })()) as Adapter,
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -39,34 +41,34 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("Invalid email or password");
                 }
 
-                // Trả về user info cho JWT
                 return {
                     id: user._id.toString(),
                     email: user.email,
                     name: user.name,
-                    role: user.role,
+                    avatar: user.avatar ?? null,
+                    role: user.role ?? "user",
                 };
             },
         }),
     ],
-
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
-                token.role = user.role;
+                token.avatar = user.avatar ?? null;
+                token.role = user.role ?? "user";
             }
             return token;
         },
         async session({ session, token }) {
             if (session?.user) {
-                session.user.id = token.id as string;
-                session.user.role = token.role as "admin" | "user";
+                session.user.id = token.id;
+                session.user.avatar = token.avatar ?? null;
+                session.user.role = token.role ?? "user";
             }
             return session;
         },
     },
-
     session: {
         strategy: "jwt",
         maxAge: 24 * 60 * 60,

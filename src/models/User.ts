@@ -1,5 +1,4 @@
 import mongoose, { Schema, model, models } from 'mongoose';
-
 const UserSchema = new Schema({
     name: {
         type: String,
@@ -22,26 +21,25 @@ const UserSchema = new Schema({
 
     avatar: {
         type: String,
-        default: "", // URL ảnh đại diện nếu có
+        default: "",
     },
 
     phone: {
         type: String,
-        default: "", // khách đặt lịch có thể điền số điện thoại
+        default: "",
     },
 
     role: {
         type: String,
         enum: ["user", "admin"],
-        default: "user", // admin mới có quyền quản trị
+        default: "user",
     },
 
     isActive: {
         type: Boolean,
-        default: true, // dùng để khóa tài khoản nếu cần
+        default: false,
     },
 
-    // Optional: danh sách lịch hẹn đã đặt
     appointments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Appointment",

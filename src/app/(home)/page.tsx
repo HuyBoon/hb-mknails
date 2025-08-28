@@ -10,15 +10,17 @@ import Footer from "@/components/layout/Footer";
 
 export default function Home() {
 	return (
-		<>
+		<div className="">
 			<Header />
 			<Banner />
-			<HotProduct />
+			<div className="bg-[#f2ecdb]">
+				<HotProduct />
+			</div>
 			<GreenSlogan />
 			<Services />
 			<Separate />
 			<Shopping />
 			<Footer />
-		</>
+		</div>
 	);
 }

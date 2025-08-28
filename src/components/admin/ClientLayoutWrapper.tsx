@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AsideCustomer from "./AsideCustomer";
 import AdminHeader from "./AdminHeader";
 
