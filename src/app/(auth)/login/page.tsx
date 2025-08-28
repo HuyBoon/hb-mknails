@@ -55,9 +55,10 @@ const LoginPage = () => {
 
 		if (session) {
 			if (session.user?.role === "admin") {
-				window.open("/admin/dashboard", "_blank"); // mở tab mới
+				window.open("/admin/dashboard", "_blank");
+				router.push("/");
 			} else {
-				router.push("/"); // chuyển trang bình thường
+				router.push("/");
 			}
 		} else {
 			setError("Failed to retrieve session. Please try again.");
