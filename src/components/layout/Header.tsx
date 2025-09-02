@@ -30,8 +30,7 @@ export default function Header() {
 	const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
 	const navLinks = [
-		{ href: `/booknow`, label: "Book now" },
-		{ href: `/shop`, label: "Shop" },
+		{ href: `/services`, label: "Services" },
 		{ href: `/aboutus`, label: "About Us" },
 		{ href: `/contact`, label: "Contact Us" },
 	];

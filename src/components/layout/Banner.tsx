@@ -6,13 +6,13 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const desktopImages = Array.from({ length: 5 }, (_, i) => ({
-	src: `/banners/${i + 1}.png`,
+const desktopImages = Array.from({ length: 4 }, (_, i) => ({
+	src: `/banners/${i + 1}.svg`,
 	alt: `Promotion Banner Desktop ${i + 1} | YourBrand`,
 }));
 
-const mobileImages = Array.from({ length: 5 }, (_, i) => ({
-	src: `/banners/${i + 1}.png`,
+const mobileImages = Array.from({ length: 4 }, (_, i) => ({
+	src: `/banners/${i + 1}.svg`,
 	alt: `Promotion Banner Mobile ${i + 1} | YourBrand`,
 }));
 

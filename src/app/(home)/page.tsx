@@ -18,7 +18,7 @@ export default function Home() {
 			</div>
 			<GreenSlogan />
 			<Services />
-			<Separate />
+			{/* <Separate /> */}
 			<Shopping />
 			<Footer />
 		</div>

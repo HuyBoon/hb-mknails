@@ -13,11 +13,6 @@ const Footer = () => {
 				</div>
 				<div>
 					<div className="mb-4">
-						<p>Mon - Fri | 10AM - 6:30PM</p>
-						<p>Sat | 10AM - 6PM</p>
-						<p>Sun | Closed</p>
-					</div>
-					<div className="mb-4">
 						<p>221 Main St, Port Dover, ON N0A 1N0, Canada</p>
 						<p>(519) 429 2637</p>
 					</div>

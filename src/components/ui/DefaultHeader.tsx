@@ -24,8 +24,7 @@ export default function DefaultHeader() {
 	const [modalLogin, setModalLogin] = useState(false);
 
 	const navLinks = [
-		{ href: `/booknow`, label: "Book now" },
-		{ href: `/shop`, label: "Shop" },
+		{ href: `/services`, label: "Services" },
 		{ href: `/aboutus`, label: "About Us" },
 		{ href: `/contact`, label: "Contact Us" },
 	];

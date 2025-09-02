@@ -12,7 +12,7 @@ export default function GuestLayout({
 	return (
 		<>
 			<DefaultHeader />
-			<main className="pt-16 min-h-screen p-4">{children}</main>
+			<main className="pt-18 min-h-screen ">{children}</main>
 			<Footer />
 		</>
 	);

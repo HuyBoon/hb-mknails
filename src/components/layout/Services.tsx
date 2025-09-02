@@ -5,24 +5,21 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, Leaf } from "lucide-react";
-
-const products = [
-	{ src: "/services/1.png", alt: "Plant 1" },
-	{ src: "/services/2.png", alt: "Plant 1" },
-	{ src: "/services/3.png", alt: "Plant 1" },
-	{ src: "/services/4.png", alt: "Plant 1" },
-	{ src: "/services/5.png", alt: "Plant 1" },
-];
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { servicesData } from "@/utils/data/servicesData";
 
 const Services = () => {
 	const [activeIndex, setActiveIndex] = useState(1);
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+	const router = useRouter();
+
+	const categories = Object.values(servicesData);
 
 	return (
-		<section className="relative container w-full mx-auto z-20 py-24 ">
+		<section className="relative container w-full mx-auto z-20 py-24">
 			{/* Title */}
-			<div className="absolute left-1/2 transform -translate-x-1/2 text-center px-[40px] py-[20px] rounded-2xl bg-btn border border-white z-30">
+			<div className="absolute left-1/2 transform -translate-x-1/2 text-center px-10 py-5 rounded-2xl bg-btn border border-white z-30">
 				<h1 className="text-white text-[50px] font-bold">SERVICES</h1>
 			</div>
 
@@ -45,23 +42,17 @@ const Services = () => {
 					}}
 					className="w-[85%] mx-auto mb-[50px]"
 				>
-					{products.map((product, idx) => {
+					{categories.map((cat, idx) => {
 						const isActive = idx === activeIndex;
 						const isHovered = idx === hoveredIndex;
-						const isOtherHovered = hoveredIndex !== null && !isHovered;
 
 						return (
-							<SwiperSlide key={idx}>
+							<SwiperSlide key={cat.key}>
 								<div
-									className={`group relative h-full transition-all duration-500 ease-in-out`}
+									className="group relative h-full transition-all duration-500 ease-in-out cursor-pointer"
 									onMouseEnter={() => setHoveredIndex(idx)}
 									onMouseLeave={() => setHoveredIndex(null)}
-									style={{
-										transition: "flex 0.5s ease",
-										display: "flex",
-										flexDirection: "column",
-										flex: hoveredIndex === null ? 1 : isHovered ? 2 : 1,
-									}}
+									onClick={() => router.push(`/services?category=${cat.key}`)}
 								>
 									<div
 										className={`aspect-[3/4] overflow-hidden rounded-2xl border border-white transition-all duration-500 ${
@@ -69,42 +60,34 @@ const Services = () => {
 										}`}
 									>
 										<Image
-											src={product.src}
-											alt={product.alt}
+											src={cat.image}
+											alt={cat.title}
 											width={800}
 											height={600}
 											className="object-cover rounded-2xl w-full h-full"
 										/>
 									</div>
+									<p className="text-center mt-3 font-semibold text-lg">
+										{cat.title}
+									</p>
 								</div>
 							</SwiperSlide>
 						);
 					})}
 				</Swiper>
 
-				{/* Prev Button */}
+				{/* Prev/Next Buttons */}
 				<div className="absolute top-1/2 left-[15px] -translate-y-1/2 z-10">
-					<button
-						className="card2-prev bg-white cursor-pointer shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:bg-btn hover:text-white transition-all duration-300"
-						aria-label="Previous slide"
-					>
+					<button className="card2-prev bg-white cursor-pointer shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:bg-btn hover:text-white transition-all duration-300">
 						<ArrowLeft className="w-6 h-6 hover:text-[#f2ecdb] text-bg-btn" />
 					</button>
 				</div>
 
-				{/* Next Button */}
 				<div className="absolute top-1/2 right-[15px] -translate-y-1/2 z-10">
-					<button
-						className="card2-next bg-white cursor-pointer shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:bg-btn hover:text-white transition-all duration-300"
-						aria-label="Next slide"
-					>
+					<button className="card2-next bg-white cursor-pointer shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:bg-btn hover:text-white transition-all duration-300">
 						<ArrowRight className="w-6 h-6 hover:text-[#f2ecdb] text-bg-btn" />
 					</button>
 				</div>
-			</div>
-
-			<div className="absolute bottom-[-20%] left-1/2 transform -translate-x-1/2 text-center px-[40px] py-[20px] rounded-2xl bg-btn  border border-white z-30">
-				<button className=" text-white text-[50px] font-bold">Book Now</button>
 			</div>
 		</section>
 	);

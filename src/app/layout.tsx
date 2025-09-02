@@ -16,13 +16,6 @@ const lora = Lora({
 	display: "swap",
 });
 
-const satify = Satisfy({
-	subsets: ["latin"],
-	weight: ["400"],
-	variable: "--font-satify",
-	display: "swap",
-});
-
 export default function RootLayout({
 	children,
 }: Readonly<{
