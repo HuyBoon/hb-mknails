@@ -45,7 +45,7 @@ const Shopping = () => {
 						{/* Form */}
 						<div className="bg-white rounded-xl shadow-lg p-6 flex-1">
 							<h2 className="text-xl sm:text-2xl font-bold mb-4 text-pink-600">
-								Book an Appointment
+								Contact Us
 							</h2>
 							<div className="space-y-4">
 								<div>
