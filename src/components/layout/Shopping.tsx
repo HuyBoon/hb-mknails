@@ -1,106 +1,137 @@
 "use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
-const Shopping = () => {
+export default function Shopping() {
+	const [formData, setFormData] = useState({
+		name: "",
+		email: "",
+		phone: "",
+		message: "",
+	});
+
+	const handleInputChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({ ...prev, [name]: value }));
+	};
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		console.log("Form submitted:", formData);
+		setFormData({ name: "", email: "", phone: "", message: "" });
+	};
+
 	return (
-		<div className="bg-[#f2ecdb] w-full py-12 sm:py-16">
-			<div className="container mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
-					{/* Image Section */}
-					<div className="lg:w-1/2 w-full">
-						<div className="rounded-xl overflow-hidden shadow-lg">
-							<Image
-								src="/mkshop.png"
-								alt="All Packages"
-								width={800}
-								height={600}
-								className="h-auto w-full object-cover aspect-[4/3]"
-								priority
-							/>
-						</div>
+		<div className="mx-auto bg-[#f2ecdb] max-w-[1440px] px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 xl:py-16">
+			<div className="flex flex-col lg:flex-row  items-center gap-4">
+				{/* Image with Opening Hours Overlay */}
+				<div className="lg:w-1/2 w-full relative">
+					<div className="rounded-2xl overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-300">
+						<Image
+							src="/mkshop.png"
+							alt="Spa Packages"
+							width={800}
+							height={600}
+							className="h-auto w-full object-cover aspect-[4/3]"
+							priority
+						/>
 					</div>
+					<div className="absolute bottom-4 right-4 bg-white/90 rounded-xl p-2 sm:p-4 shadow-lg max-w-[90%] sm:max-w-[300px]">
+						<h2 className="text-xl sm:text-2xl font-extrabold text-pink-600 mb-3 tracking-tight">
+							Opening Hours
+						</h2>
+						<ul className="space-y-1 text-gray-700 text-sm sm:text-base">
+							<li>
+								<span className="font-semibold">Mon - Fri:</span> 10:00 AM -
+								6:30 PM
+							</li>
+							<li>
+								<span className="font-semibold">Sat:</span> 10:00 AM - 6:00 PM
+							</li>
+							<li>
+								<span className="font-semibold">Sun:</span> Closed
+							</li>
+						</ul>
+					</div>
+				</div>
 
-					{/* Content Section */}
-					<div className="lg:w-1/2 w-full flex flex-col gap-6">
-						{/* Opening Hours */}
-						<div className="bg-white rounded-xl shadow-lg p-6 flex-1">
-							<h2 className="text-xl sm:text-2xl font-bold mb-4 text-pink-600">
-								Opening Hours
-							</h2>
-							<ul className="space-y-2 text-gray-700 text-sm sm:text-base">
-								<li>
-									<span className="font-medium">Mon - Fri:</span> 10:00 AM -
-									6:30 PM
-								</li>
-								<li>
-									<span className="font-medium">Sat:</span> 10:00 AM - 6:00 PM
-								</li>
-								<li>
-									<span className="font-medium">Sun:</span> Closed
-								</li>
-							</ul>
-						</div>
-
-						{/* Form */}
-						<div className="bg-white rounded-xl shadow-lg p-6 flex-1">
-							<h2 className="text-xl sm:text-2xl font-bold mb-4 text-pink-600">
-								Contact Us
-							</h2>
-							<div className="space-y-4">
-								<div>
-									<label className="block text-sm font-medium text-gray-700 mb-1">
+				{/* Contact Form */}
+				<div className="lg:w-1/2 w-full">
+					<div className="p-6 sm:p-8 ">
+						<h2 className="text-2xl sm:text-3xl text-center font-extrabold text-pink-600 mb-6 tracking-tight">
+							Contact Us
+						</h2>
+						<form onSubmit={handleSubmit} className="space-y-2">
+							<div className="w-full flex flex-col sm:flex-row gap-4">
+								<div className="flex-1">
+									<label className="block text-sm font-medium text-gray-700 mb-1.5">
 										Name
 									</label>
 									<input
 										type="text"
+										name="name"
+										value={formData.name}
+										onChange={handleInputChange}
 										placeholder="Your Name"
-										className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition"
+										required
+										className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition-colors bg-gray-50"
 									/>
 								</div>
-								<div>
-									<label className="block text-sm font-medium text-gray-700 mb-1">
-										Email
-									</label>
-									<input
-										type="email"
-										placeholder="Your Email"
-										className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition"
-									/>
-								</div>
-								<div>
-									<label className="block text-sm font-medium text-gray-700 mb-1">
+								<div className="flex-1">
+									<label className="block text-sm font-medium text-gray-700 mb-1.5">
 										Phone
 									</label>
 									<input
 										type="tel"
+										name="phone"
+										value={formData.phone}
+										onChange={handleInputChange}
 										placeholder="Your Phone Number"
-										className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition"
+										className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition-colors bg-gray-50"
 									/>
 								</div>
-								<div>
-									<label className="block text-sm font-medium text-gray-700 mb-1">
-										Message
-									</label>
-									<textarea
-										placeholder="Your Message"
-										rows={4}
-										className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition"
-									/>
-								</div>
-								<button
-									// type="submit"
-									className="w-full bg-pink-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-pink-600 transition duration-200 text-sm sm:text-base"
-								>
-									Submit
-								</button>
 							</div>
-						</div>
+							<div>
+								<label className="block text-sm font-medium text-gray-700 mb-1.5">
+									Email
+								</label>
+								<input
+									type="email"
+									name="email"
+									value={formData.email}
+									onChange={handleInputChange}
+									placeholder="Your Email"
+									required
+									className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition-colors bg-gray-50"
+								/>
+							</div>
+
+							<div>
+								<label className="block text-sm font-medium text-gray-700 mb-1.5">
+									Message
+								</label>
+								<textarea
+									name="message"
+									value={formData.message}
+									onChange={handleInputChange}
+									placeholder="Your Message"
+									rows={5}
+									className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition-colors bg-gray-50"
+								/>
+							</div>
+							<button
+								type="submit"
+								className="w-full bg-pink-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-pink-700 focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-colors duration-200 text-sm sm:text-base"
+							>
+								Submit
+							</button>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
-};
-
-export default Shopping;
+}
