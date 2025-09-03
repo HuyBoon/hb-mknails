@@ -39,11 +39,11 @@ export default function Shopping() {
 							priority
 						/>
 					</div>
-					<div className="absolute bottom-4 right-4 bg-white/90 rounded-xl p-2 sm:p-4 shadow-lg max-w-[90%] sm:max-w-[300px]">
-						<h2 className="text-xl sm:text-2xl font-extrabold text-pink-600 mb-3 tracking-tight">
+					<div className="absolute bottom-2 right-2 bg-black/80 rounded-xl p-2 sm:p-4 shadow-lg max-w-[90%] sm:max-w-[300px]">
+						<h2 className="text-xl sm:text-2xl font-extrabold text-white mb-3 tracking-tight">
 							Opening Hours
 						</h2>
-						<ul className="space-y-1 text-gray-700 text-sm sm:text-base">
+						<ul className="space-y-1 text-white text-sm sm:text-base">
 							<li>
 								<span className="font-semibold">Mon - Fri:</span> 10:00 AM -
 								6:30 PM
@@ -61,8 +61,8 @@ export default function Shopping() {
 				{/* Contact Form */}
 				<div className="lg:w-1/2 w-full">
 					<div className="p-6 sm:p-8 ">
-						<h2 className="text-2xl sm:text-3xl text-center font-extrabold text-pink-600 mb-6 tracking-tight">
-							Contact Us
+						<h2 className="text-2xl sm:text-3xl text-center font-extrabold text-primary mb-6 tracking-tight">
+							For more infomation, please contact us!
 						</h2>
 						<form onSubmit={handleSubmit} className="space-y-2">
 							<div className="w-full flex flex-col sm:flex-row gap-4">
@@ -124,7 +124,7 @@ export default function Shopping() {
 							</div>
 							<button
 								type="submit"
-								className="w-full bg-pink-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-pink-700 focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-colors duration-200 text-sm sm:text-base"
+								className="w-full bg-primary text-white font-semibold py-3 px-4 rounded-lg hover:bg-pink-700 focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-colors duration-200 text-sm sm:text-base"
 							>
 								Submit
 							</button>

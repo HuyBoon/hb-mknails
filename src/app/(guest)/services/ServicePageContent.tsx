@@ -56,7 +56,7 @@ const ServicePageContent = () => {
 									}}
 									className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border transition-all duration-300 ${
 										activeCategory === key
-											? "bg-pink-600 text-white border-pink-600 shadow-sm"
+											? "bg-primary text-white border-primary shadow-sm"
 											: "bg-white text-gray-700 border-gray-200 hover:bg-gray-100"
 									}`}
 								>

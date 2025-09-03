@@ -24,27 +24,27 @@ const Footer = () => {
 
 					{/* Quick Links Section */}
 					<div className="flex flex-col items-center lg:items-start">
-						<h3 className="text-lg font-semibold text-pink-500 mb-4">
+						<h3 className="text-lg font-semibold text-white mb-4">
 							Quick Links
 						</h3>
 						<ul className="space-y-2 text-sm text-gray-300">
 							<li>
-								<a href="/services" className="hover:text-pink-400 transition">
+								<a href="/services" className="hover:text-primary transition">
 									Services
 								</a>
 							</li>
 							<li>
-								<a href="/booking" className="hover:text-pink-400 transition">
+								<a href="/booking" className="hover:text-primary transition">
 									Book an Appointment
 								</a>
 							</li>
 							<li>
-								<a href="/about" className="hover:text-pink-400 transition">
+								<a href="/about" className="hover:text-primary transition">
 									About Us
 								</a>
 							</li>
 							<li>
-								<a href="/contact" className="hover:text-pink-400 transition">
+								<a href="/contact" className="hover:text-primary transition">
 									Contact
 								</a>
 							</li>
@@ -53,7 +53,7 @@ const Footer = () => {
 
 					{/* Contact & Social Media Section */}
 					<div className="flex flex-col items-center lg:items-start">
-						<h3 className="text-lg font-semibold text-pink-500 mb-4">
+						<h3 className="text-lg font-semibold text-white mb-4">
 							Contact Us
 						</h3>
 						<div className="text-sm text-gray-300 mb-4">
@@ -65,7 +65,7 @@ const Footer = () => {
 								href="https://facebook.com"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="text-gray-300 hover:text-pink-400 transition"
+								className="text-gray-300 hover:text-primary transition"
 							>
 								<svg
 									className="w-6 h-6"
@@ -84,7 +84,7 @@ const Footer = () => {
 								href="https://instagram.com"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="text-gray-300 hover:text-pink-400 transition"
+								className="text-gray-300 hover:text-primary transition"
 							>
 								<svg
 									className="w-6 h-6"
@@ -103,7 +103,7 @@ const Footer = () => {
 								href="https://tiktok.com"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="text-gray-300 hover:text-pink-400 transition"
+								className="text-gray-300 hover:text-primary transition"
 							>
 								<svg
 									className="w-6 h-6"

@@ -11,7 +11,8 @@ export default function PromotionsSection() {
 				backgroundImage: `url(/separate.png)`,
 			}}
 		>
-			<div className="relative mx-auto max-w-[1440px]">
+			<div className="relative w-full mx-auto max-w-[1440px]">
+				{/* Swiper cho giới thiệu promotion */}
 				<div className="w-full mx-auto grid grid-cols-1 md:grid-cols-12">
 					<div className="w-full md:col-span-5 flex flex-col items-center">
 						<div className="text-center px-10 py-5 rounded-2xl bg-btn border border-white mb-12">
