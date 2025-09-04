@@ -62,7 +62,7 @@ export default function Shopping() {
 				<div className="lg:w-1/2 w-full">
 					<div className="p-6 sm:p-8 ">
 						<h2 className="text-2xl sm:text-3xl text-center font-extrabold text-primary mb-6 tracking-tight">
-							For more infomation, please contact us!
+							For more infomation
 						</h2>
 						<form onSubmit={handleSubmit} className="space-y-2">
 							<div className="w-full flex flex-col sm:flex-row gap-4">

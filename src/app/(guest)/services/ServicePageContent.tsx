@@ -4,17 +4,16 @@ import { useSearchParams } from "next/navigation";
 import { servicesData } from "@/utils/data/servicesData";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+
 import "swiper/css";
 import "swiper/css/navigation";
-import { Menu, X, ShoppingCart, Plus } from "lucide-react";
+
 import { ServiceItem } from "@/types/types";
 
 const ServicePageContent = () => {
 	const searchParams = useSearchParams();
 	const categoryParam = searchParams.get("category") || "hand";
 	const [activeCategory, setActiveCategory] = useState(categoryParam);
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	useEffect(() => {
 		setActiveCategory(categoryParam);
@@ -52,7 +51,6 @@ const ServicePageContent = () => {
 								<button
 									onClick={() => {
 										setActiveCategory(key);
-										setIsMenuOpen(false);
 									}}
 									className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border transition-all duration-300 ${
 										activeCategory === key
@@ -77,61 +75,6 @@ const ServicePageContent = () => {
 					{/* <div className="swiper-button-prev !text-gray-600 !w-8 !h-8 after:!text-sm hidden lg:block" />
 					<div className="swiper-button-next !text-gray-600 !w-8 !h-8 after:!text-sm hidden lg:block" /> */}
 				</Swiper>
-
-				{/* Mobile Menu Button */}
-				<div className="md:hidden flex justify-between items-center mt-4">
-					<h2 className="text-xl font-semibold text-gray-800">
-						{servicesData[activeCategory].title}
-					</h2>
-					<button
-						onClick={() => setIsMenuOpen(!isMenuOpen)}
-						className="p-2 rounded-md hover:bg-gray-100"
-					>
-						{isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-					</button>
-				</div>
-
-				{/* Mobile Slide Menu */}
-				<div
-					className={`md:hidden fixed top-0 left-0 w-64 h-full bg-white shadow-xl z-50 transform transition-transform duration-300 ${
-						isMenuOpen ? "translate-x-0" : "-translate-x-full"
-					}`}
-				>
-					<div className="p-4">
-						<button
-							onClick={() => setIsMenuOpen(false)}
-							className="mb-4 p-2 rounded-md hover:bg-gray-100"
-						>
-							<X size={24} />
-						</button>
-						<div className="flex flex-col gap-2">
-							{categories.map((key) => (
-								<button
-									key={key}
-									onClick={() => {
-										setActiveCategory(key);
-										setIsMenuOpen(false);
-									}}
-									className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium ${
-										activeCategory === key
-											? "bg-pink-600 text-white"
-											: "text-gray-700 hover:bg-gray-100"
-									}`}
-								>
-									{servicesData[key].title}
-								</button>
-							))}
-						</div>
-					</div>
-				</div>
-
-				{/* Overlay for Mobile Menu */}
-				{isMenuOpen && (
-					<div
-						className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
-						onClick={() => setIsMenuOpen(false)}
-					/>
-				)}
 			</div>
 
 			{/* Content */}
@@ -142,7 +85,7 @@ const ServicePageContent = () => {
 						alt={servicesData[activeCategory].title}
 						width={800}
 						height={600}
-						className="object-cover rounded-2xl w-full h-full max-h-[300px] sm:max-h-[400px] lg:max-h-[500px]"
+						className="bg-white object-cover rounded-2xl w-[300px] sm:w-[400px] aspect-[3/4]"
 						priority
 					/>
 				</div>
@@ -160,6 +103,9 @@ const ServicePageContent = () => {
 									<span className="text-base sm:text-lg text-gray-700">
 										{item.name}
 									</span>
+									{item.description && (
+										<p className="text-sm text-gray-500">{item.description}</p>
+									)}
 								</div>
 								<div className="flex items-center gap-4">
 									<span className="text-base font-bold text-gray-500">

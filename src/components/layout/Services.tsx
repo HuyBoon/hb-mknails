@@ -5,7 +5,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+
 import { useRouter } from "next/navigation";
 import { servicesData } from "@/utils/data/servicesData";
 
@@ -60,7 +60,7 @@ const Services = () => {
 										}`}
 									>
 										<Image
-											src={cat.image}
+											src={cat.imageHome}
 											alt={cat.title}
 											width={800}
 											height={600}
@@ -74,15 +74,28 @@ const Services = () => {
 				</Swiper>
 
 				{/* Prev/Next Buttons */}
+				{/* Prev/Next Buttons */}
 				<div className="absolute top-1/2 left-[5px] -translate-y-1/2 z-10">
 					<button className="card2-prev bg-white cursor-pointer shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:bg-btn hover:text-white transition-all duration-300">
-						<ArrowLeft className="w-6 h-6 hover:text-[#f2ecdb] text-bg-btn" />
+						<Image
+							src="/arrow.png"
+							alt="Previous"
+							width={100}
+							height={100}
+							className="w-14 h-14 rotate-180 mr-1"
+						/>
 					</button>
 				</div>
 
 				<div className="absolute top-1/2 right-[5px] -translate-y-1/2 z-10">
 					<button className="card2-next bg-white cursor-pointer shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:bg-btn hover:text-white transition-all duration-300">
-						<ArrowRight className="w-6 h-6 hover:text-[#f2ecdb] text-bg-btn" />
+						<Image
+							src="/arrow.png"
+							alt="Next"
+							width={100}
+							height={100}
+							className="w-14 h-14 ml-1"
+						/>
 					</button>
 				</div>
 			</div>

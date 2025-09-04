@@ -4,7 +4,8 @@ export const servicesData: ServicesData = {
     hand: {
         key: "hand",
         title: "Hand",
-        image: "/services/hand.png",
+        imageHome: "/services/hand.png",
+        image: "/servicepage/hand.png",
         items: [
             { name: "Regular Manicure", price: 30 },
             { name: "Shellac Manicure", price: 43 },
@@ -16,10 +17,11 @@ export const servicesData: ServicesData = {
     foot: {
         key: "foot",
         title: "Foot",
-        image: "/services/foot.png",
+        imageHome: "/services/foot.png",
+        image: "/servicepage/foot.png",
         items: [
-            { name: "Regular Pedicure (Includes hot stone, Hot towel)", price: 45 },
-            { name: "Deluxe Pedicure (Regular Polish)", price: 60 },
+            { name: "Regular Pedicure", description: "(Includes hot stone, Hot towel)", price: 45 },
+            { name: "Deluxe Pedicure (Regular Polish)", description: "(Salt soak + Sugar scrub + Foot mask + Lotion + Extra massage time)", price: 60 },
             { name: "Shellac Pedicure", price: 55 },
             { name: "Deluxe Pedicure (Shellac Polish)", price: 70 },
             { name: "Shellac Polish Change", price: 35 },
@@ -31,7 +33,8 @@ export const servicesData: ServicesData = {
     packages: {
         key: "packages",
         title: "Packages",
-        image: "/services/packages.png",
+        imageHome: "/services/packages.png",
+        image: "/servicepage/packages.png",
         items: [
             { name: "Regular Manicure & Regular Pedicure", price: 70 },
             { name: "Shellac Manicure & Regular Pedicure", price: 85 },
@@ -43,7 +46,8 @@ export const servicesData: ServicesData = {
     nailExtensions: {
         key: "nailExtensions",
         title: "Nail Extensions",
-        image: "/services/nailExtensions.png",
+        imageHome: "/services/nailExtensions.png",
+        image: "/servicepage/nailExtensions.png",
         items: [
             { name: "Bio Gel Full Set (Shellac)", price: 68 },
             { name: "Bio Gel Refill (Shellac)", price: 58 },
@@ -57,18 +61,20 @@ export const servicesData: ServicesData = {
     headSpa: {
         key: "headSpa",
         title: "Head Spa",
-        image: "/services/headSpa.png",
+        imageHome: "/services/headSpa.png",
+        image: "/servicepage/headSpa.png",
         items: [
-            { name: "Signature Head Spa (50 Minutes)", price: 70 },
-            { name: "Deluxe Head Spa (45 Minutes)", price: 60 },
-            { name: "Standard Head Spa (35 Minutes)", price: 45 },
-            { name: "Facial Massage (30 Minutes)", price: 50 },
+            { name: "Signature Head Spa (50 Minutes)", description: "(Hair wash, neck + Shoulder + Face massages + Mask)", price: 70 },
+            { name: "Deluxe Head Spa (45 Minutes)", description: "(Hair wash, neck + Face massages)", price: 60 },
+            { name: "Standard Head Spa (35 Minutes)", description: "(Hair wash, neck massages)", price: 45 },
+            { name: "Facial Massage (30 Minutes)", description: "(With Nu skin Ageloc Galvanic Spa)", price: 50 },
         ],
     },
     waxing: {
         key: "waxing",
         title: "Waxing",
-        image: "/services/waxing.png",
+        imageHome: "/services/waxing.png",
+        image: "/servicepage/waxing.png",
         items: [
             { name: "Eyebrow", price: 15 },
             { name: "Eyebrow Wax + Tinting", price: 35 },
@@ -95,7 +101,8 @@ export const servicesData: ServicesData = {
     otherServices: {
         key: "otherServices",
         title: "Other ",
-        image: "/services/otherServices.png",
+        imageHome: "/services/otherServices.png",
+        image: "/servicepage/otherServices.png",
         items: [
             { name: "Design Nail Art", price: "From $10" },
             { name: "Paraffin Hands/Feet", price: "$15/$20" },

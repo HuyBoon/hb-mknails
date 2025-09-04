@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Lora, Satisfy } from "next/font/google";
+import { Lora } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "sonner";
 import { AppProvider } from "@/components/contexts/AppContext";
+import { ClientToaster } from "@/components/shared/ClientToaster";
 
 export const metadata: Metadata = {
 	title: "MK NAIL & SPA",
@@ -23,9 +23,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${lora.variable}  antialiased`}>
+			<body className={lora.variable}>
 				<AppProvider>{children}</AppProvider>
-				<Toaster richColors position="top-right" />
+				<ClientToaster />
 			</body>
 		</html>
 	);
