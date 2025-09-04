@@ -21,7 +21,7 @@ export const servicesData: ServicesData = {
         image: "/servicepage/foot.png",
         items: [
             { name: "Regular Pedicure", description: "(Includes hot stone, Hot towel)", price: 45 },
-            { name: "Deluxe Pedicure (Regular Polish)", description: "(Salt soak + Sugar scrub + Foot mask + Lotion + Extra massage time)", price: 60 },
+            { name: "Deluxe Pedicure (Regular Polish)", description: "Regular + (Salt soak + Sugar scrub + Foot mask + Lotion + Extra massage time)", price: 60 },
             { name: "Shellac Pedicure", price: 55 },
             { name: "Deluxe Pedicure (Shellac Polish)", price: 70 },
             { name: "Shellac Polish Change", price: 35 },

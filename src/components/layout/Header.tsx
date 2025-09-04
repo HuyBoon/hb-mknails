@@ -78,22 +78,22 @@ export default function Header() {
 	];
 	return (
 		<header
-			className={`fixed w-full left-0 z-[999] transition-all duration-900 `}
+			className={`fixed w-full left-0 z-[999] transition-all duration-900`}
 		>
 			<div
 				className={`w-full mx-auto flex items-center justify-between px-[20px] xl:px-[2%] transition-all ${
 					navbar
-						? "bg-header-dark  backdrop-blur-[1.5px] h-18"
-						: "bg-transparent w-full  backdrop-blur-[1.5px] "
+						? "bg-header-dark backdrop-blur-[1.5px] h-18"
+						: "bg-transparent w-full backdrop-blur-[1.5px]"
 				}`}
 			>
 				<Link
 					href="/"
-					className="min-w-[120px] flex items-center text-xl font-bold text-primary"
+					className="min-w-[150px] flex items-center text-xl font-bold text-primary flex-shrink-0" // Tăng min-w và thêm flex-shrink-0
 				>
 					{navbar ? (
-						<div className="h-16 flex items-center text-white text-xl font-bold">
-							MK NAILS
+						<div className="h-16 flex items-center text-white text-xl font-bold whitespace-nowrap hover:text-primary transition-colors">
+							MK NAILS & SPA
 						</div>
 					) : (
 						<Image
@@ -106,7 +106,7 @@ export default function Header() {
 					)}
 				</Link>
 
-				<div className="w-full flex items-center justify-end gap-10">
+				<div className="w-full flex items-center justify-end gap-6 md:gap-10">
 					{/* Desktop Nav */}
 					<nav className="hidden lg:flex items-center gap-4 text-white">
 						{navLinks.map((link) => (
@@ -127,8 +127,8 @@ export default function Header() {
 					</nav>
 
 					{/* Right placeholder */}
-					<div className=" flex items-center justify-between gap-4 px-[20px] py-[5px] rounded-2xl bg-btn border border-white">
-						<div className=" flex items-center">
+					<div className="flex items-center justify-between gap-4 px-[20px] py-[5px] rounded-2xl bg-btn border border-white">
+						<div className="flex items-center">
 							<Search
 								size={25}
 								className="cursor-pointer hover:text-primary text-white"
@@ -136,12 +136,6 @@ export default function Header() {
 							/>
 						</div>
 						<div className="flex items-center">
-							{/* <User
-								size={25}
-								className="cursor-pointer hover:text-primary text-white"
-								onClick={() => setModalLogin(!modalLogin)}
-							/> */}
-							{/* User */}
 							<div className="relative">
 								{user ? (
 									<div
@@ -192,13 +186,11 @@ export default function Header() {
 										)}
 									</div>
 								) : (
-									<>
-										<User
-											size={25}
-											className="cursor-pointer hover:text-primary text-white"
-											onClick={() => setModalLogin(!modalLogin)}
-										/>
-									</>
+									<User
+										size={25}
+										className="cursor-pointer hover:text-primary text-white"
+										onClick={() => setModalLogin(!modalLogin)}
+									/>
 								)}
 							</div>
 						</div>
@@ -208,7 +200,6 @@ export default function Header() {
 
 			{/* Mobile Nav */}
 			{mobileOpen && <MobileNav onClose={() => setMobileOpen(false)} />}
-			{/* Sidebar */}
 			{/* Login modal */}
 			{modalLogin && <LoginModal onClose={() => setModalLogin(false)} />}
 		</header>

@@ -135,7 +135,8 @@ export default function PromotionsSection({
 									alt={leftImg.alt ?? ""}
 									width={800}
 									height={600}
-									className="w-[400px] aspect-[4/3] object-cover transition-opacity duration-300"
+									sizes="(max-width: 768px) 100vw, 40vw"
+									className="w-full h-full object-cover rounded-xl transition-opacity duration-300"
 								/>
 							)}
 						</div>
@@ -155,7 +156,8 @@ export default function PromotionsSection({
 									alt={topRightImg.alt ?? ""}
 									width={800}
 									height={600}
-									className="w-[400px] aspect-[4/3] rounded-xl object-cover transition-opacity duration-300"
+									sizes="(max-width: 768px) 100vw, 35vw"
+									className="w-full h-full object-cover rounded-xl transition-opacity duration-300"
 								/>
 							)}
 						</div>
@@ -173,7 +175,8 @@ export default function PromotionsSection({
 									alt={bottomRightImg.alt ?? ""}
 									width={800}
 									height={600}
-									className="w-[400px] aspect-[4/3] rounded-xl object-cover transition-opacity duration-300"
+									sizes="(max-width: 768px) 100vw, 35vw"
+									className="w-full h-full object-cover rounded-xl transition-opacity duration-300"
 								/>
 							)}
 						</div>
@@ -194,7 +197,7 @@ export default function PromotionsSection({
 								alt="Prev"
 								width={100}
 								height={100}
-								className="w-6 h-6 rotate-180"
+								className="w-14 h-14 rotate-180 mr-1"
 								draggable={false}
 							/>
 						</button>
@@ -213,7 +216,7 @@ export default function PromotionsSection({
 								alt="Next"
 								width={100}
 								height={100}
-								className="w-6 h-6"
+								className="w-14 h-14 ml-1"
 								draggable={false}
 							/>
 						</button>
@@ -226,7 +229,8 @@ export default function PromotionsSection({
 						alt="Spa items"
 						width={800}
 						height={600}
-						className="w-[450px] object-cover aspect-[4/3]"
+						sizes="(max-width: 768px) 100vw, 30vw"
+						className="w-[clamp(300px,30vw,450px)] object-cover aspect-[4/3]"
 					/>
 				</div>
 			</div>
