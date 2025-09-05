@@ -77,7 +77,7 @@ export default function Shopping() {
 										onChange={handleInputChange}
 										placeholder="Your Name"
 										required
-										className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition-colors bg-gray-50"
+										className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-colors bg-gray-50"
 									/>
 								</div>
 								<div className="flex-1">
@@ -90,7 +90,7 @@ export default function Shopping() {
 										value={formData.phone}
 										onChange={handleInputChange}
 										placeholder="Your Phone Number"
-										className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition-colors bg-gray-50"
+										className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-colors bg-gray-50"
 									/>
 								</div>
 							</div>
@@ -105,7 +105,7 @@ export default function Shopping() {
 									onChange={handleInputChange}
 									placeholder="Your Email"
 									required
-									className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition-colors bg-gray-50"
+									className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-colors bg-gray-50"
 								/>
 							</div>
 
@@ -119,12 +119,12 @@ export default function Shopping() {
 									onChange={handleInputChange}
 									placeholder="Your Message"
 									rows={5}
-									className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 transition-colors bg-gray-50"
+									className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-colors bg-gray-50"
 								/>
 							</div>
 							<button
 								type="submit"
-								className="w-full bg-primary text-white font-semibold py-3 px-4 rounded-lg hover:bg-pink-700 focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-colors duration-200 text-sm sm:text-base"
+								className="w-full bg-primary text-white font-semibold py-3 px-4 rounded-lg hover:bg-secondary focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-200 text-sm sm:text-base"
 							>
 								Submit
 							</button>

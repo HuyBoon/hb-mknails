@@ -112,8 +112,8 @@ export default function PromotionsSection({
 			className={`relative w-full mx-auto py-24 px-4 md:px-16 bg-cover bg-center ${className}`}
 			style={{ backgroundImage: `url(/separate.png)` }}
 		>
-			<div className="relative w-full mx-auto max-w-[1440px]">
-				<div className="w-full mx-auto grid grid-cols-1 md:grid-cols-12 px-14">
+			<div className="relative mx-auto max-w-[1440px]">
+				<div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-12">
 					<div className="w-full md:col-span-5 flex flex-col items-start ">
 						<div className="text-center px-10 py-5 rounded-2xl bg-btn border border-white mb-12">
 							<h2 className="text-white uppercase text-[50px] font-bold">
@@ -142,7 +142,7 @@ export default function PromotionsSection({
 						</div>
 					</div>
 
-					<div className="w-full md:col-span-7 flex flex-col items-end justify-end  ">
+					<div className="w-full md:col-span-7 flex flex-col items-end justify-end">
 						<div className="mr-[30%] overflow-hidden mb-12 w-[400px] aspect-[4/3] rounded-xl">
 							{!topRightImg && (
 								<div className="w-full h-full bg-gray-100 flex items-center justify-center">

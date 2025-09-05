@@ -89,7 +89,7 @@ export default function Header() {
 			>
 				<Link
 					href="/"
-					className="min-w-[150px] flex items-center text-xl font-bold text-primary flex-shrink-0" // Tăng min-w và thêm flex-shrink-0
+					className="min-w-[150px] flex items-center text-xl font-bold text-primary flex-shrink-0"
 				>
 					{navbar ? (
 						<div className="h-16 flex items-center text-white text-xl font-bold whitespace-nowrap hover:text-primary transition-colors">

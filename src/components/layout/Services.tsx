@@ -23,14 +23,10 @@ const Services = () => {
 			</div>
 
 			<div className="relative w-full px-3 overflow-visible">
-				{/* Fixed-height container for Swiper */}
 				<div className="relative h-[600px]">
-					{" "}
-					{/* Adjust height as needed */}
 					<Swiper
 						onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
 						modules={[Navigation]}
-						slidesPerView={3}
 						centeredSlides
 						navigation={{
 							nextEl: ".card2-next",
@@ -38,7 +34,7 @@ const Services = () => {
 						}}
 						speed={1500}
 						spaceBetween={30}
-						initialSlide={1} // Start with second slide
+						initialSlide={1}
 						breakpoints={{
 							480: { slidesPerView: 1 },
 							768: { slidesPerView: 3 },
@@ -76,43 +72,44 @@ const Services = () => {
 						})}
 					</Swiper>
 				</div>
-			</div>
-			<div className="absolute top-[calc(50%+50px)] left-[5px] -translate-y-1/2 z-10">
-				<button
-					className={`card2-prev bg-white shadow-lg w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-						activeIndex === 1
-							? "opacity-50 cursor-not-allowed"
-							: "hover:bg-btn hover:text-white cursor-pointer"
-					}`}
-					disabled={activeIndex === 1}
-				>
-					<Image
-						src="/arrow.png"
-						alt="Previous"
-						width={100}
-						height={100}
-						className="w-14 h-14 rotate-180 mr-1"
-					/>
-				</button>
-			</div>
 
-			<div className="absolute top-[calc(50%+50px)] right-[5px] -translate-y-1/2 z-10">
-				<button
-					className={`card2-next bg-white shadow-lg w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-						activeIndex === categories.length - 2
-							? "opacity-50 cursor-not-allowed"
-							: "hover:bg-btn hover:text-white cursor-pointer"
-					}`}
-					disabled={activeIndex === categories.length - 2}
-				>
-					<Image
-						src="/arrow.png"
-						alt="Next"
-						width={100}
-						height={100}
-						className="w-14 h-14 ml-1"
-					/>
-				</button>
+				<div className="absolute top-1/2 left-[5px] -translate-y-1/2 z-10">
+					<button
+						className={`card2-prev bg-white shadow-lg w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+							activeIndex === 1
+								? "opacity-50 cursor-not-allowed"
+								: "hover:bg-btn hover:text-white cursor-pointer"
+						}`}
+						disabled={activeIndex === 1}
+					>
+						<Image
+							src="/arrow.png"
+							alt="Previous"
+							width={100}
+							height={100}
+							className="w-14 h-14 rotate-180 mr-1"
+						/>
+					</button>
+				</div>
+
+				<div className="absolute top-1/2 right-[5px] -translate-y-1/2 z-10">
+					<button
+						className={`card2-next bg-white shadow-lg w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+							activeIndex === categories.length - 2
+								? "opacity-50 cursor-not-allowed"
+								: "hover:bg-btn hover:text-white cursor-pointer"
+						}`}
+						disabled={activeIndex === categories.length - 2}
+					>
+						<Image
+							src="/arrow.png"
+							alt="Next"
+							width={100}
+							height={100}
+							className="w-14 h-14 ml-1"
+						/>
+					</button>
+				</div>
 			</div>
 		</section>
 	);
