@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { servicesData } from "@/utils/data/servicesData";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,11 +11,17 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const ServicePageContent = () => {
 	const searchParams = useSearchParams();
+	const router = useRouter();
 	const categoryParam = searchParams.get("category") || "hand";
 	const [activeCategory, setActiveCategory] = useState(categoryParam);
 	const [showServices, setShowServices] = useState(!!categoryParam);
 
 	useEffect(() => {
+		// Clear search params on initial load
+		const url = new URL(window.location.href);
+		url.searchParams.delete("category");
+		router.replace(url.pathname, { scroll: false });
+
 		setActiveCategory(categoryParam);
 		if (categoryParam) {
 			setShowServices(true);
@@ -23,7 +29,7 @@ const ServicePageContent = () => {
 				.getElementById("services-section")
 				?.scrollIntoView({ behavior: "smooth" });
 		}
-	}, [categoryParam]);
+	}, [categoryParam, router]);
 
 	const categories = Object.keys(servicesData);
 
@@ -44,23 +50,23 @@ const ServicePageContent = () => {
 	return (
 		<div className="flex flex-col bg-gray-50">
 			<motion.div
-				className="w-full h-screen flex items-center justify-center"
+				className="w-full h-[90vh] flex items-center justify-center"
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.5 }}
 			>
-				<div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+				<div className="max-w-[1024px] mx-auto px-4 sm:px-6 lg:px-8">
 					<motion.h2
-						className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6 text-center"
+						className="text-3xl sm:text-4xl font-bold text-gray-800 mb-14 text-center"
 						initial={{ y: -20, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
 					>
 						Our Services
 					</motion.h2>
-					<div className="flex flex-wrap -mx-3 gap-y-4 justify-between px-18 pb-18">
+					<div className="flex flex-wrap -mx-3 gap-y-4 justify-between px-16">
 						<motion.div
-							className="px-3 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4"
+							className="px-3 w-full sm:w-1/3 lg:w-1/4 xl:w-[200px]"
 							initial={{ scale: 0.9, opacity: 0 }}
 							animate={{ scale: 1, opacity: 1 }}
 							transition={{ duration: 0.5, delay: 0.3 }}
@@ -69,11 +75,11 @@ const ServicePageContent = () => {
 								<Image
 									src="/banner.png"
 									alt="MK's Services"
-									width={600}
-									height={800}
-									className="object-cover"
+									width={250}
+									height={187.5}
+									className="object-cover w-[200px] sm:w-[250px] mx-auto"
 								/>
-								<div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+								<div className="absolute inset-0 bg-black/60 flex items-center justify-center">
 									<h2 className="text-xl sm:text-2xl font-bold text-white text-center">
 										MK&apos;s Services
 									</h2>
@@ -84,7 +90,7 @@ const ServicePageContent = () => {
 						{categories.map((key, index) => (
 							<motion.div
 								key={key}
-								className="px-3 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4"
+								className="px-3 w-full sm:w-1/3 lg:w-1/4 xl:w-[200px]"
 								initial={{ scale: 0.9, opacity: 0 }}
 								animate={{ scale: 1, opacity: 1 }}
 								transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
@@ -98,13 +104,13 @@ const ServicePageContent = () => {
 									<Image
 										src={servicesData[key].image}
 										alt={servicesData[key].title}
-										width={600}
-										height={800}
-										className="object-cover transition-transform duration-300 group-hover:scale-105"
+										width={250}
+										height={187.5}
+										className="object-cover w-[200px] sm:w-[250px] mx-auto transition-transform duration-300 group-hover:scale-105"
 									/>
 									<div
 										className={`absolute inset-0 flex items-center justify-center transition-colors ${
-											activeCategory === key ? "bg-black/30" : "bg-black/40"
+											activeCategory === key ? "bg-black/30" : "bg-black/60"
 										}`}
 									>
 										<span
@@ -126,7 +132,7 @@ const ServicePageContent = () => {
 				{showServices && (
 					<motion.div
 						id="services-section"
-						className="pt-26"
+						className="pt-24"
 						initial={{ y: 0, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						exit={{ y: 50, opacity: 0 }}
@@ -193,8 +199,8 @@ const ServicePageContent = () => {
 									<Image
 										src={servicesData[activeCategory].image}
 										alt={servicesData[activeCategory].title}
-										width={700}
-										height={800}
+										width={400}
+										height={457}
 										className="bg-white object-cover rounded-2xl w-[300px] sm:w-[400px] aspect-[7/8]"
 										priority
 									/>
@@ -208,8 +214,8 @@ const ServicePageContent = () => {
 										<Image
 											src={servicesData[activeCategory].imagePage}
 											alt={servicesData[activeCategory].title}
-											width={700}
-											height={800}
+											width={400}
+											height={457}
 											className="bg-white object-cover rounded-2xl w-[300px] sm:w-[400px] aspect-[7/8] mt-24 ml-8"
 											priority
 										/>
