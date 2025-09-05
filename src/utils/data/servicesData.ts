@@ -75,6 +75,7 @@ export const servicesData: ServicesData = {
         title: "Waxing",
         imageHome: "/services/waxing.png",
         image: "/servicepage/waxing.png",
+        imagePage: "/servicepage/waxing2.png",
         items: [
             { name: "Eyebrow", price: 15 },
             { name: "Eyebrow Wax + Tinting", price: 35 },

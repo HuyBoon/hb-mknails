@@ -92,9 +92,13 @@ export default function Header() {
 					className="min-w-[150px] flex items-center text-xl font-bold text-primary flex-shrink-0"
 				>
 					{navbar ? (
-						<div className="h-16 flex items-center text-white text-xl font-bold whitespace-nowrap hover:text-primary transition-colors">
-							MK NAILS & SPA
-						</div>
+						<Image
+							src={"/logoName.png"}
+							alt="mknails logo"
+							width={200}
+							height={40}
+							className="object-cover"
+						/>
 					) : (
 						<Image
 							src={"/logo.png"}
@@ -113,7 +117,7 @@ export default function Header() {
 							<Link
 								key={link.label}
 								href={link.href}
-								className={`hover:text-primary transition-colors uppercase text-base font-medium px-[20px] py-[5px] rounded-2xl bg-btn border border-white ${
+								className={`hover:bg-[#e5c9af] hover:text-black transition-colors uppercase text-base font-medium px-[20px] py-[5px] rounded-2xl bg-btn border border-white ${
 									pathname === link.href
 										? "text-primary"
 										: navbar
@@ -131,7 +135,7 @@ export default function Header() {
 						<div className="flex items-center">
 							<Search
 								size={25}
-								className="cursor-pointer hover:text-primary text-white"
+								className="cursor-pointer hover:text-[#e5c9af] text-white"
 								onClick={() => setSidebar(!sidebar)}
 							/>
 						</div>
@@ -188,7 +192,7 @@ export default function Header() {
 								) : (
 									<User
 										size={25}
-										className="cursor-pointer hover:text-primary text-white"
+										className="cursor-pointer hover:text-[#e5c9af] text-white"
 										onClick={() => setModalLogin(!modalLogin)}
 									/>
 								)}

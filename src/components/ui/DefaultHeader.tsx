@@ -47,9 +47,16 @@ export default function DefaultHeader() {
 					href="/"
 					className="min-w-[150px] flex items-center text-xl font-bold text-primary flex-shrink-0"
 				>
-					<div className="h-16 flex items-center text-white text-xl font-bold whitespace-nowrap">
+					<Image
+						src={"/logoName.png"}
+						alt="mknails logo"
+						width={200}
+						height={40}
+						className="object-cover"
+					/>
+					{/* <div className="h-16 flex items-center text-white text-xl font-bold whitespace-nowrap">
 						MK NAILS & SPA
-					</div>
+					</div> */}
 				</Link>
 
 				<div className="w-full flex items-center justify-end gap-6 md:gap-10">
@@ -59,12 +66,12 @@ export default function DefaultHeader() {
 							<Link
 								key={link.label}
 								href={link.href}
-								className={`hover:text-primary transition-colors uppercase text-base font-medium px-[20px] py-[5px] rounded-2xl bg-btn border border-white ${
+								className={`hover:bg-[#e5c9af] hover:text-black transition-colors uppercase text-base font-medium px-[20px] py-[5px] rounded-2xl border border-white ${
 									pathname === link.href
-										? "text-primary"
+										? "text-black bg-[#e5c9af]"
 										: navbar
-										? "text-white"
-										: "text-white"
+										? "text-white bg-btn"
+										: "text-white bg-btn"
 								}`}
 							>
 								{link.label}
@@ -77,14 +84,14 @@ export default function DefaultHeader() {
 						<div className="flex items-center">
 							<Search
 								size={25}
-								className="cursor-pointer hover:text-primary text-white"
+								className="cursor-pointer hover:text-[#e5c9af] text-white"
 								onClick={() => setSidebar(!sidebar)}
 							/>
 						</div>
 						<div className="flex items-center">
 							<User
 								size={25}
-								className="cursor-pointer hover:text-primary text-white"
+								className="cursor-pointer hover:text-[#e5c9af] text-white"
 								onClick={() => setModalLogin(!modalLogin)}
 							/>
 						</div>

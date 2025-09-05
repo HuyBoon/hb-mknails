@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { servicesData } from "@/utils/data/servicesData";
+import Link from "next/link";
 
 const Services = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -19,7 +20,12 @@ const Services = () => {
 		<section className="relative max-w-[1400px] w-full mx-auto z-20 py-24">
 			{/* Title */}
 			<div className="absolute left-1/2 transform -translate-x-1/2 text-center px-10 py-5 rounded-2xl bg-btn border border-white z-30">
-				<h2 className="text-white uppercase text-[50px] font-bold">Services</h2>
+				<Link
+					href={"/services"}
+					className="block text-white uppercase text-[50px] font-bold"
+				>
+					Services
+				</Link>
 			</div>
 
 			<div className="relative w-full px-3 overflow-visible">

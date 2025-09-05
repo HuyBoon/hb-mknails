@@ -9,6 +9,7 @@ export interface ServiceCategory {
     title: string;
     imageHome: string;
     image: string;
+    imagePage?: string;
     items: ServiceItem[];
 }
 
