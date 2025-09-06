@@ -61,7 +61,7 @@ export default function Shopping() {
 				{/* Contact Form */}
 				<div className="lg:w-1/2 w-full">
 					<div className="p-6 sm:p-8 ">
-						<h2 className="text-2xl sm:text-3xl text-center font-extrabold text-primary mb-6 tracking-tight">
+						<h2 className="text-2xl sm:text-3xl text-center font-extrabold text-black mb-6 tracking-tight">
 							For more infomation
 						</h2>
 						<form onSubmit={handleSubmit} className="space-y-2">
@@ -124,7 +124,7 @@ export default function Shopping() {
 							</div>
 							<button
 								type="submit"
-								className="w-full bg-primary text-white font-semibold py-3 px-4 rounded-lg hover:bg-secondary focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-200 text-sm sm:text-base"
+								className="w-full bg-black text-white hover:text-black font-semibold py-3 px-4 rounded-lg hover:bg-[#e5c9af] focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-200 text-sm sm:text-base"
 							>
 								Submit
 							</button>
