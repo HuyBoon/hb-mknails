@@ -16,6 +16,8 @@
 @theme font {
 	--font-lora: var(--font-lora);
 	--font-satify: var(--font-satify);
+	--font-greatvibes: var(--font-greatvibes);
+	--font-cinzel-decorative: var(--font-cinzel-decorative);
 }
 
 @theme {

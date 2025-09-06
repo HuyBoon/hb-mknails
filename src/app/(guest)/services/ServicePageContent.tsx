@@ -91,7 +91,7 @@ const ServicePageContent = () => {
 			>
 				<div className="max-w-[1024px] mx-auto px-4 sm:px-6 lg:px-8">
 					<motion.h2
-						className="text-3xl sm:text-4xl font-bold text-gray-800 mb-14 text-center"
+						className="text-3xl sm:text-4xl font-bold text-btn mb-14 text-center font-cinzel-decorative"
 						initial={{ y: -20, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
@@ -144,7 +144,7 @@ const ServicePageContent = () => {
 									/>
 									<div
 										className={`absolute inset-0 flex items-center justify-center transition-colors ${
-											activeCategory === key ? "bg-black/30" : "bg-black/50"
+											activeCategory === key ? "bg-black/30" : "bg-black/40"
 										}`}
 									>
 										<span
@@ -265,7 +265,7 @@ const ServicePageContent = () => {
 								transition={{ duration: 0.5, delay: 0.2 }}
 							>
 								<h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
-									{servicesData[activeCategory].title} Services
+									{servicesData[activeCategory].title}
 								</h3>
 								<ul className="space-y-1 sm:space-y-2">
 									{servicesData[activeCategory].items.map((item, idx) => (

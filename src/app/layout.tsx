@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lora } from "next/font/google";
+import { Lora, Great_Vibes, Cinzel_Decorative } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/components/contexts/AppContext";
 import { ClientToaster } from "@/components/shared/ClientToaster";
@@ -15,6 +15,19 @@ const lora = Lora({
 	variable: "--font-lora",
 	display: "swap",
 });
+const cinzelDecorative = Cinzel_Decorative({
+	subsets: ["latin"],
+	weight: ["400", "700", "900"],
+	variable: "--font-cinzel-decorative",
+	display: "swap",
+});
+
+const greatVibes = Great_Vibes({
+	subsets: ["latin"],
+	weight: "400",
+	variable: "--font-greatvibes",
+	display: "swap",
+});
 
 export default function RootLayout({
 	children,
@@ -23,7 +36,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={lora.variable}>
+			<body
+				className={`${lora.variable} ${greatVibes.variable} ${cinzelDecorative.variable}`}
+			>
 				<AppProvider>{children}</AppProvider>
 				<ClientToaster />
 			</body>
