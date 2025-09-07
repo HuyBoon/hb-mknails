@@ -10,7 +10,7 @@ import { servicesData } from "@/utils/data/servicesData";
 import Link from "next/link";
 
 const Services = () => {
-	const [activeIndex, setActiveIndex] = useState(0);
+	const [activeIndex, setActiveIndex] = useState(1);
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 	const router = useRouter();
 
@@ -31,16 +31,16 @@ const Services = () => {
 			<div className="relative w-full px-3 overflow-visible">
 				<div className="relative h-[600px]">
 					<Swiper
-						onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+						onSlideChange={(swiper) => setActiveIndex(swiper.realIndex + 1)}
 						modules={[Navigation]}
-						centeredSlides
+						// centeredSlides
 						navigation={{
 							nextEl: ".card2-next",
 							prevEl: ".card2-prev",
 						}}
-						speed={1500}
+						speed={2000}
 						spaceBetween={30}
-						initialSlide={1}
+						initialSlide={0}
 						breakpoints={{
 							480: { slidesPerView: 1 },
 							768: { slidesPerView: 3 },

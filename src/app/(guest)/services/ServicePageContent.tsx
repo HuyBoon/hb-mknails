@@ -77,19 +77,20 @@ const ServicePageContent = () => {
 	};
 
 	return (
-		<div className="flex flex-col bg-gray-50">
+		<div className="flex flex-col ">
 			{/* phần trên */}
 			<motion.div
-				className="w-full h-[90vh] flex items-center justify-center"
+				className="w-full min-h-screen flex items-center justify-center "
 				style={{
 					backgroundImage: `url(/bannerservicepage.png)`,
 					backgroundPosition: "center",
+					backgroundSize: "cover",
 				}}
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.5 }}
 			>
-				<div className="max-w-[1024px] mx-auto px-4 sm:px-6 lg:px-8">
+				<div className="max-w-[1024px] mx-auto px-4 sm:px-6 lg:px-8 ">
 					<motion.h2
 						className="text-3xl sm:text-4xl font-bold text-btn mb-14 text-center font-cinzel-decorative"
 						initial={{ y: -20, opacity: 0 }}
@@ -166,13 +167,13 @@ const ServicePageContent = () => {
 			{showServices && activeCategory && (
 				<motion.div
 					id="services-section"
-					className="pt-24"
+					className="pt-24 mt-[-48px]"
 					initial={{ y: 0, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 0.5 }}
 				>
 					<motion.div
-						className="relative mb-6 sm:mb-8"
+						className="relative mb-6 sm:mb-12"
 						initial={{ x: -50, opacity: 0 }}
 						animate={{ x: 0, opacity: 1 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
