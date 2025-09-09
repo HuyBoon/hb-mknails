@@ -2,6 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, EffectCreative } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/effect-creative";
 
 type Img = { src: string; alt?: string };
 
@@ -20,26 +26,20 @@ const fallbackImages: Img[] = [
 interface PromotionsSectionProps {
 	images?: Img[];
 	fetchUrl?: string;
-	initialIndex?: number;
 	className?: string;
 }
 
 export default function PromotionsSection({
 	images: imagesProp,
 	fetchUrl = "/api/promotions",
-	initialIndex = 0,
 	className = "",
 }: PromotionsSectionProps) {
 	const [images, setImages] = useState<Img[]>(imagesProp ?? fallbackImages);
-	const [start, setStart] = useState<number>(Math.max(0, initialIndex));
 	const [loading, setLoading] = useState<boolean>(!imagesProp);
 
 	useEffect(() => {
 		if (imagesProp) {
 			setImages(imagesProp);
-			setStart(
-				Math.max(0, Math.min(initialIndex, Math.max(0, imagesProp.length - 3)))
-			);
 			setLoading(false);
 			return;
 		}
@@ -61,18 +61,6 @@ export default function PromotionsSection({
 					  )
 					: [];
 				setImages(normalized.length ? normalized : fallbackImages);
-				setStart((prev) =>
-					Math.max(
-						0,
-						Math.min(
-							prev,
-							Math.max(
-								0,
-								(normalized.length ? normalized : fallbackImages).length - 3
-							)
-						)
-					)
-				);
 			} catch (e) {
 				console.warn("PromotionsSection fetch error:", e);
 				setImages(fallbackImages);
@@ -84,27 +72,12 @@ export default function PromotionsSection({
 		return () => {
 			mounted = false;
 		};
-	}, [imagesProp, fetchUrl, initialIndex]);
+	}, [imagesProp, fetchUrl]);
 
-	const maxStart = Math.max(0, images.length - 3);
-	useEffect(() => {
-		if (start > maxStart) setStart(maxStart);
-	}, [maxStart, start]);
-
-	const leftImg = images[start];
-	const topRightImg = images[start + 1];
-	const bottomRightImg = images[start + 2];
-
-	const canPrev = start > 0;
-	const canNext = start < maxStart && images.length >= 3;
-
-	const onPrev = () => {
-		if (!canPrev) return;
-		setStart((s) => Math.max(0, s - 1));
-	};
-	const onNext = () => {
-		if (!canNext) return;
-		setStart((s) => Math.min(maxStart, s + 1));
+	const buttonVariants = {
+		rest: { scale: 1 },
+		hover: { scale: 1.1 },
+		pressed: { scale: 0.95 },
 	};
 
 	return (
@@ -112,83 +85,60 @@ export default function PromotionsSection({
 			className={`relative w-full mx-auto py-24 px-4 md:px-16 bg-cover bg-center ${className}`}
 			style={{ backgroundImage: `url(/separate.png)` }}
 		>
+			<div className="text-center px-10 py-5 rounded-2xl bg-btn border border-white mb-12 mx-auto w-fit">
+				<h2 className="text-white uppercase text-[40px] font-bold">
+					Promotions
+				</h2>
+			</div>
+
 			<div className="relative mx-auto max-w-[1440px]">
-				<div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-12">
-					<div className="w-full md:col-span-5 flex flex-col items-start ">
-						<div className="text-center px-10 py-5 rounded-2xl bg-btn border border-white mb-12">
-							<h2 className="text-white uppercase text-[50px] font-bold">
-								Promotions
-							</h2>
-						</div>
-
-						<div className="rounded-xl overflow-hidden w-[400px] aspect-[4/3]">
-							{!leftImg && (
-								<div className="w-full h-full bg-gray-100 flex items-center justify-center">
-									{loading ? "Loading..." : "No image"}
-								</div>
-							)}
-
-							{leftImg && (
-								<Image
-									key={leftImg.src}
-									src={leftImg.src}
-									alt={leftImg.alt ?? ""}
-									width={800}
-									height={600}
-									sizes="(max-width: 768px) 100vw, 40vw"
-									className="w-full h-full object-cover rounded-xl transition-opacity duration-300"
-								/>
-							)}
-						</div>
-					</div>
-
-					<div className="w-full md:col-span-7 flex flex-col items-end justify-end">
-						<div className="mr-[30%] overflow-hidden mb-12 w-[400px] aspect-[4/3] rounded-xl">
-							{!topRightImg && (
-								<div className="w-full h-full bg-gray-100 flex items-center justify-center">
-									{loading ? "Loading..." : ""}
-								</div>
-							)}
-							{topRightImg && (
-								<Image
-									key={topRightImg.src}
-									src={topRightImg.src}
-									alt={topRightImg.alt ?? ""}
-									width={800}
-									height={600}
-									sizes="(max-width: 768px) 100vw, 35vw"
-									className="w-full h-full object-cover rounded-xl transition-opacity duration-300"
-								/>
-							)}
-						</div>
-
-						<div className="overflow-hidden w-[400px] aspect-[4/3] rounded-xl">
-							{!bottomRightImg && (
-								<div className="w-full h-full bg-gray-100 flex items-center justify-center">
-									{loading ? "Loading..." : ""}
-								</div>
-							)}
-							{bottomRightImg && (
-								<Image
-									key={bottomRightImg.src}
-									src={bottomRightImg.src}
-									alt={bottomRightImg.alt ?? ""}
-									width={800}
-									height={600}
-									sizes="(max-width: 768px) 100vw, 35vw"
-									className="w-full h-full object-cover rounded-xl transition-opacity duration-300"
-								/>
-							)}
-						</div>
-					</div>
-				</div>
-
+				<Swiper
+					modules={[Navigation]}
+					navigation={{
+						prevEl: ".pro-prev",
+						nextEl: ".pro-next",
+					}}
+					slidesPerView={3}
+					speed={2000}
+					spaceBetween={20}
+					breakpoints={{
+						0: { slidesPerView: 1, spaceBetween: 10 },
+						640: { slidesPerView: 2, spaceBetween: 15 },
+						1024: { slidesPerView: 3, spaceBetween: 20 },
+					}}
+					className="w-[100%] mx-auto"
+				>
+					{images.map((img, index) => (
+						<SwiperSlide key={`img-${img.src}-${index}`}>
+							<div className="rounded-xl overflow-hidden w-full aspect-[3/4]">
+								{loading ? (
+									<div className="w-full h-full bg-gray-100 flex items-center justify-center">
+										Loading...
+									</div>
+								) : (
+									<Image
+										src={img.src}
+										alt={img.alt ?? ""}
+										width={800}
+										height={600}
+										sizes="(max-width: 768px) 100vw, 25vw"
+										className="w-full h-full object-cover rounded-xl transition-opacity duration-300"
+									/>
+								)}
+							</div>
+						</SwiperSlide>
+					))}
+				</Swiper>
 				<div className="pointer-events-none select-none">
-					<div className="absolute top-1/2 left-[5px] -translate-y-1/2 z-10">
+					<motion.div
+						className="pro-prev absolute top-1/2 left-[-55px] -translate-y-1/2 z-10 "
+						variants={buttonVariants}
+						initial="rest"
+						whileHover="hover"
+						whileTap="pressed"
+					>
 						<button
 							type="button"
-							onClick={onPrev}
-							disabled={!canPrev}
 							aria-label="Previous"
 							className="pointer-events-auto bg-white shadow-lg w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-btn"
 						>
@@ -201,13 +151,17 @@ export default function PromotionsSection({
 								draggable={false}
 							/>
 						</button>
-					</div>
+					</motion.div>
 
-					<div className="absolute top-1/2 right-[5px] -translate-y-1/2 z-10">
+					<motion.div
+						className="pro-next absolute top-1/2 right-[-55px] -translate-y-1/2 z-10 "
+						variants={buttonVariants}
+						initial="rest"
+						whileHover="hover"
+						whileTap="pressed"
+					>
 						<button
 							type="button"
-							onClick={onNext}
-							disabled={!canNext}
 							aria-label="Next"
 							className="pointer-events-auto bg-white shadow-lg w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-btn"
 						>
@@ -220,18 +174,7 @@ export default function PromotionsSection({
 								draggable={false}
 							/>
 						</button>
-					</div>
-				</div>
-
-				<div className="absolute bottom-[-15%] left-[15%]">
-					<Image
-						src="/package.png"
-						alt="Spa items"
-						width={800}
-						height={600}
-						sizes="(max-width: 768px) 100vw, 30vw"
-						className="w-[clamp(300px,30vw,450px)] object-cover aspect-[4/3]"
-					/>
+					</motion.div>
 				</div>
 			</div>
 		</section>

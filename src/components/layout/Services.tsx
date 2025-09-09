@@ -33,7 +33,6 @@ const Services = () => {
 					<Swiper
 						onSlideChange={(swiper) => setActiveIndex(swiper.realIndex + 1)}
 						modules={[Navigation]}
-						// centeredSlides
 						navigation={{
 							nextEl: ".card2-next",
 							prevEl: ".card2-prev",

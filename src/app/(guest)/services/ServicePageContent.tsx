@@ -108,13 +108,14 @@ const ServicePageContent = () => {
 						>
 							<div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
 								<Image
-									src="/banner.png"
+									src="/servicepage/mk.png"
 									alt="MK's Services"
-									width={250}
-									height={187.5}
-									className="object-cover w-[200px] sm:w-[250px] mx-auto"
+									width={1920}
+									height={1080}
+									// height={187.5}
+									className="object-cover h-auto w-full aspect-[4/3]"
 								/>
-								<div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+								<div className="absolute inset-0  flex items-center justify-center">
 									<h2 className="text-xl sm:text-2xl font-bold text-black uppercase text-center">
 										Our Services
 									</h2>
@@ -243,20 +244,33 @@ const ServicePageContent = () => {
 									/>
 								</motion.div>
 								{servicesData[activeCategory].imagePage && (
-									<motion.div
-										initial={{ scale: 0.9, opacity: 0 }}
-										animate={{ scale: 1, opacity: 1 }}
-										transition={{ duration: 0.5, delay: 0.1 }}
-									>
-										<Image
-											src={servicesData[activeCategory].imagePage}
-											alt={servicesData[activeCategory].title}
-											width={400}
-											height={457}
-											className="bg-white object-cover rounded-2xl w-[300px] sm:w-[400px] aspect-[7/8] mt-24 ml-8"
-											priority
-										/>
-									</motion.div>
+									<div className="relative">
+										<motion.div
+											initial={{ scale: 0.9, opacity: 0 }}
+											animate={{ scale: 1, opacity: 1 }}
+											transition={{ duration: 0.5, delay: 0.1 }}
+											className="relative"
+										>
+											<Image
+												src={servicesData[activeCategory].imagePage}
+												alt={servicesData[activeCategory].title}
+												width={400}
+												height={457}
+												className="bg-white object-cover rounded-2xl w-[300px] sm:w-[400px] aspect-[7/8] mt-24 ml-8"
+												priority
+											/>
+										</motion.div>
+										<div className="absolute bottom-[-80%] left-[-5%] ">
+											<Image
+												src="/package.png"
+												alt={"package"}
+												width={800}
+												height={600}
+												sizes="(max-width: 768px) 100vw, 35vw"
+												className="w-full h-full object-cover rounded-xl transition-opacity duration-300 blur-[1px]"
+											/>
+										</div>
+									</div>
 								)}
 							</div>
 							<motion.div
