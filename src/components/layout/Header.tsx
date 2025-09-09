@@ -83,7 +83,7 @@ export default function Header() {
 			<div
 				className={`w-full mx-auto flex items-center justify-between px-[20px] xl:px-[2%] transition-all ${
 					navbar
-						? "bg-header-dark backdrop-blur-[1.5px] h-18"
+						? "bg-header-dark backdrop-blur-[1.5px] h-16 sm:h-18"
 						: "bg-transparent w-full backdrop-blur-[1.5px]"
 				}`}
 			>
@@ -97,7 +97,7 @@ export default function Header() {
 							alt="mknails logo"
 							width={200}
 							height={40}
-							className="object-cover"
+							className="w-[150px] sm:w-[180px] lg:w-[200px] object-cover "
 						/>
 					) : (
 						<Image
@@ -105,7 +105,7 @@ export default function Header() {
 							alt="mknails logo"
 							width={120}
 							height={80}
-							className="object-cover"
+							className="w-[80px] lg:w-full object-cover "
 						/>
 					)}
 				</Link>
@@ -131,11 +131,11 @@ export default function Header() {
 					</nav>
 
 					{/* Right placeholder */}
-					<div className="flex items-center justify-between gap-4 px-[20px] py-[5px] rounded-2xl bg-btn border border-white">
+					<div className="flex items-center justify-between gap-4 px-[10px] sm:px-[20px] py-[5px] rounded-2xl bg-btn lg:border border-white">
 						<div className="flex items-center">
 							<Search
 								size={25}
-								className="cursor-pointer hover:text-[#e5c9af] text-white"
+								className="w-[20px] sm:w-full cursor-pointer hover:text-[#e5c9af] text-white"
 								onClick={() => setSidebar(!sidebar)}
 							/>
 						</div>
@@ -192,7 +192,7 @@ export default function Header() {
 								) : (
 									<User
 										size={25}
-										className="cursor-pointer hover:text-[#e5c9af] text-white"
+										className="w-[20px] sm:w-full cursor-pointer hover:text-[#e5c9af] text-white"
 										onClick={() => setModalLogin(!modalLogin)}
 									/>
 								)}

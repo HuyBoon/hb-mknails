@@ -7,37 +7,37 @@ const Footer = () => {
 			<div className="container mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center lg:text-left">
 					{/* Logo Section */}
-					<div className="flex flex-col items-center lg:items-start">
+					<div className="flex flex-col items-center ">
 						<Image
-							src="/logo.png"
+							src="/logoFooter.png"
 							alt="MK Nails Spa Logo"
-							width={120}
-							height={64}
+							width={200}
+							height={200}
 							className="mb-4"
 							priority
 						/>
-						<p className="text-sm text-gray-300">
+						{/* <p className="text-sm text-gray-300">
 							MK Nails Spa - Your destination for premium nail care and
 							relaxation.
-						</p>
+						</p> */}
 					</div>
 
 					{/* Quick Links Section */}
-					<div className="flex flex-col items-center lg:items-start">
-						<h3 className="text-lg font-semibold text-white mb-4">
+					<div className="flex flex-col items-center text-center ">
+						<h3 className="text-lg lg:text-xl font-semibold text-white mb-4">
 							Quick Links
 						</h3>
-						<ul className="space-y-2 text-sm text-gray-300">
+						<ul className="space-y-2 text-sm lg:text-lg text-gray-300">
 							<li>
 								<a href="/services" className="hover:text-primary transition">
 									Services
 								</a>
 							</li>
-							<li>
+							{/* <li>
 								<a href="/booking" className="hover:text-primary transition">
 									Book an Appointment
 								</a>
-							</li>
+							</li> */}
 							<li>
 								<a href="/about" className="hover:text-primary transition">
 									About Us
@@ -52,17 +52,19 @@ const Footer = () => {
 					</div>
 
 					{/* Contact & Social Media Section */}
-					<div className="flex flex-col items-center lg:items-start">
-						<h3 className="text-lg font-semibold text-white mb-4">
+					<div className="flex flex-col items-center text-center ">
+						<h3 className="text-lg lg:text-xl font-semibold text-white mb-4">
 							Contact Us
 						</h3>
-						<div className="text-sm text-gray-300 mb-4">
-							<p>221 Main St, Port Dover, ON N0A 1N0, Canada</p>
+						<div className="text-sm lg:text-lg text-gray-300 mb-4">
+							<p className="text-nowrap">
+								221 Main St, Port Dover, ON N0A 1N0, Canada
+							</p>
 							<p>(519) 429 2637</p>
 						</div>
 						<div className="flex justify-center lg:justify-start space-x-4">
 							<a
-								href="https://facebook.com"
+								href="https://www.facebook.com/profile.php?id=61577004843115"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="text-gray-300 hover:text-primary transition"
