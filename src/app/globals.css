@@ -56,6 +56,24 @@ button {
 	cursor: pointer;
 }
 
+.shine-effect {
+	position: relative;
+	overflow: hidden;
+}
+
+.shine-effect::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 200%;
+	height: 0;
+	transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+	background: rgba(255, 255, 255, 0.3);
+	z-index: 10;
+	animation: shineEffect 1s ease-out forwards;
+}
+
 @keyframes shineEffect {
 	0% {
 		height: 0%;

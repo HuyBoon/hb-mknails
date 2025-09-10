@@ -42,7 +42,7 @@ export default function DefaultHeader() {
 		<header
 			className={`fixed w-full left-0 z-[999] transition-all duration-900`}
 		>
-			<div className="w-full mx-auto flex items-center justify-between px-[20px] xl:px-[2%] transition-all bg-header-dark backdrop-blur-[1.5px] h-18">
+			<div className="w-full mx-auto flex items-center justify-between px-[20px] xl:px-[2%] transition-all bg-header-dark backdrop-blur-[1.5px] h-16 sm:h-18">
 				<Link
 					href="/"
 					className="min-w-[150px] flex items-center text-xl font-bold text-primary flex-shrink-0"
@@ -52,7 +52,7 @@ export default function DefaultHeader() {
 						alt="mknails logo"
 						width={200}
 						height={40}
-						className="object-cover"
+						className="w-[150px] sm:w-[180px] lg:w-[200px] object-cover "
 					/>
 					{/* <div className="h-16 flex items-center text-white text-xl font-bold whitespace-nowrap">
 						MK NAILS & SPA

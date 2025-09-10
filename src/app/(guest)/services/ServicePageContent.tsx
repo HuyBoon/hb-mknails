@@ -31,7 +31,6 @@ const ServicePageContent = () => {
 		}
 	}, [categoryParam]);
 
-	// 2) Khi showServices bật xong và activeCategory có giá trị => scroll xuống
 	useEffect(() => {
 		if (!showServices || !activeCategory) return;
 
@@ -45,7 +44,6 @@ const ServicePageContent = () => {
 			return false;
 		};
 
-		// nếu ngay lập tức chưa có element thì dùng rAF và timeout fallback
 		if (!tryScroll()) {
 			const raf = requestAnimationFrame(() => tryScroll());
 			const t = setTimeout(() => tryScroll(), 120);
@@ -62,14 +60,11 @@ const ServicePageContent = () => {
 		setActiveCategory(key);
 		setShowServices(true);
 
-		// cập nhật ?category=... (không xóa)
 		const url = new URL(window.location.href);
 		url.searchParams.set("category", key);
 		router.replace(`${url.pathname}?${url.searchParams.toString()}`, {
 			scroll: false,
 		});
-
-		// scroll sẽ thực hiện nhờ effect phụ thuộc vào showServices & activeCategory
 	};
 
 	const handleAddToCart = (item: ServiceItem) => {
@@ -78,9 +73,9 @@ const ServicePageContent = () => {
 
 	return (
 		<div className="flex flex-col ">
-			{/* phần trên */}
+			{/* Phần trên */}
 			<motion.div
-				className="w-full min-h-screen flex items-center justify-center "
+				className="w-full py-12 md:py-16 lg:py-24 px-4 sm:px-6 md:px-12 flex items-center justify-center"
 				style={{
 					backgroundImage: `url(/bannerservicepage.png)`,
 					backgroundPosition: "center",
@@ -90,18 +85,18 @@ const ServicePageContent = () => {
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.5 }}
 			>
-				<div className="max-w-[1024px] mx-auto px-4 sm:px-6 lg:px-8 ">
+				<div className="max-w-[1400px] mx-auto ">
 					<motion.h2
-						className="text-3xl sm:text-4xl font-bold text-btn mb-14 text-center font-cinzel-decorative"
+						className="text-2xl sm:text-4xl md:text-4xl font-bold text-btn mb-8 sm:mb-12 text-center font-cinzel-decorative"
 						initial={{ y: -20, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
 					>
 						Indulge in Luxury Nail & Spa Care
 					</motion.h2>
-					<div className="flex flex-wrap -mx-3 gap-y-4 justify-between px-16">
+					<div className="flex flex-wrap -mx-2 gap-y-4 justify-center">
 						<motion.div
-							className="px-3 w-full sm:w-1/3 lg:w-1/4 xl:w-[200px]"
+							className="px-2 w-1/2  sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-[250px] 2xl:w-[300px]"
 							initial={{ scale: 0.9, opacity: 0 }}
 							animate={{ scale: 1, opacity: 1 }}
 							transition={{ duration: 0.5, delay: 0.3 }}
@@ -112,11 +107,11 @@ const ServicePageContent = () => {
 									alt="MK's Services"
 									width={1920}
 									height={1080}
-									// height={187.5}
-									className="object-cover h-auto w-full aspect-[4/3]"
+									sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+									className="object-cover w-full h-full aspect-[4/3]"
 								/>
-								<div className="absolute inset-0  flex items-center justify-center">
-									<h2 className="text-xl sm:text-2xl font-bold text-black uppercase text-center">
+								<div className="absolute inset-0 flex items-center justify-center">
+									<h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-black uppercase text-center">
 										Our Services
 									</h2>
 								</div>
@@ -126,7 +121,7 @@ const ServicePageContent = () => {
 						{categories.map((key, index) => (
 							<motion.div
 								key={key}
-								className="px-3 w-full sm:w-1/3 lg:w-1/4 xl:w-[200px]"
+								className="px-2  w-1/2  sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-[250px] 2xl:w-[300px]"
 								initial={{ scale: 0.9, opacity: 0 }}
 								animate={{ scale: 1, opacity: 1 }}
 								transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
@@ -140,9 +135,10 @@ const ServicePageContent = () => {
 									<Image
 										src={servicesData[key].image}
 										alt={servicesData[key].title}
-										width={250}
-										height={187.5}
-										className="object-cover w-[200px] sm:w-[250px] mx-auto transition-transform duration-300 group-hover:scale-105"
+										width={600}
+										height={800}
+										sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+										className="object-cover w-full mx-auto transition-transform duration-300 group-hover:scale-105"
 									/>
 									<div
 										className={`absolute inset-0 flex items-center justify-center transition-colors ${
@@ -150,7 +146,7 @@ const ServicePageContent = () => {
 										}`}
 									>
 										<span
-											className={`text-white uppercase font-semibold text-base sm:text-lg text-center ${
+											className={`text-white uppercase font-semibold text-xl sm:text-2xl md:text-3xl text-center ${
 												activeCategory === key ? "text-yellow-300" : ""
 											}`}
 										>
@@ -164,17 +160,18 @@ const ServicePageContent = () => {
 				</div>
 			</motion.div>
 
-			{/* section dưới */}
+			{/* Section dưới */}
 			{showServices && activeCategory && (
 				<motion.div
 					id="services-section"
-					className="pt-24 mt-[-48px]"
+					ref={servicesRef}
+					className="pt-20 sm:pt-18 lg:pt-24 mt-[-48px]"
 					initial={{ y: 0, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 0.5 }}
 				>
 					<motion.div
-						className="relative mb-6 sm:mb-12"
+						className="relative mb-4 sm:mb-6 lg:mb-12"
 						initial={{ x: -50, opacity: 0 }}
 						animate={{ x: 0, opacity: 1 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
@@ -182,14 +179,15 @@ const ServicePageContent = () => {
 						<Swiper
 							slidesPerView="auto"
 							centeredSlides={false}
-							className="w-[90%] max-w-7xl"
+							spaceBetween={8}
+							className="w-[90%] max-w-7xl mx-auto"
 						>
 							<div className="flex justify-center">
 								{categories.map((key, index) => (
 									<SwiperSlide key={key} className="!w-auto mx-auto">
 										<motion.button
 											onClick={() => handleCategoryClick(key)}
-											className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border transition-all duration-300 ${
+											className={`flex items-center gap-2 px-4 sm:px-3 lg:px-4 py-1 sm:py-2 rounded-full border transition-all duration-300 ${
 												activeCategory === key
 													? "bg-[#f3dbc1]/50 text-black border-[#e5c9af] shadow-sm"
 													: "bg-white text-gray-700 border-gray-200 hover:bg-gray-100"
@@ -203,9 +201,10 @@ const ServicePageContent = () => {
 												alt={servicesData[key].title}
 												width={20}
 												height={20}
-												className="rounded-sm hidden sm:inline-block"
+												className="rounded-sm hidden sm:inline-block w-4 h-4 sm:w-5 sm:h-5"
+												sizes="(max-width: 640px) 0vw, 5vw"
 											/>
-											<span className="font-medium text-sm sm:text-base">
+											<span className="font-medium text-sm sm:text-sm md:text-base">
 												{servicesData[key].title}
 											</span>
 										</motion.button>
@@ -217,101 +216,105 @@ const ServicePageContent = () => {
 
 					<AnimatePresence mode="wait">
 						<motion.div
-							key={activeCategory} // Use key to trigger animation on category change
-							className="grid grid-cols-1 lg:grid-cols-12 bg-white px-4 sm:px-6 lg:px-12 py-4 sm:py-6 lg:py-12"
+							key={activeCategory}
 							style={{
 								backgroundImage: `url(/background.png)`,
 								backgroundPosition: "center",
+								backgroundSize: "cover",
 							}}
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							exit={{ opacity: 0, y: 20 }}
 							transition={{ duration: 0.5 }}
 						>
-							<div className="lg:col-span-5 w-full">
-								<motion.div
-									initial={{ scale: 0.9, opacity: 0 }}
-									animate={{ scale: 1, opacity: 1 }}
-									transition={{ duration: 0.5 }}
-								>
-									<Image
-										src={servicesData[activeCategory].image}
-										alt={servicesData[activeCategory].title}
-										width={400}
-										height={457}
-										className="bg-white object-cover rounded-2xl w-[300px] sm:w-[400px] aspect-[7/8]"
-										priority
-									/>
-								</motion.div>
-								{servicesData[activeCategory].imagePage && (
-									<div className="relative">
-										<motion.div
-											initial={{ scale: 0.9, opacity: 0 }}
-											animate={{ scale: 1, opacity: 1 }}
-											transition={{ duration: 0.5, delay: 0.1 }}
-											className="relative"
-										>
-											<Image
-												src={servicesData[activeCategory].imagePage}
-												alt={servicesData[activeCategory].title}
-												width={400}
-												height={457}
-												className="bg-white object-cover rounded-2xl w-[300px] sm:w-[400px] aspect-[7/8] mt-24 ml-8"
-												priority
-											/>
-										</motion.div>
-										<div className="absolute bottom-[-80%] left-[-5%] ">
-											<Image
-												src="/package.png"
-												alt={"package"}
-												width={800}
-												height={600}
-												sizes="(max-width: 768px) 100vw, 35vw"
-												className="w-full h-full object-cover rounded-xl transition-opacity duration-300 blur-[1px]"
-											/>
+							<div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-12 px-2 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-12">
+								<div className=" lg:col-span-5 w-full flex flex-col gap-14">
+									<motion.div
+										initial={{ scale: 0.9, opacity: 0 }}
+										animate={{ scale: 1, opacity: 1 }}
+										transition={{ duration: 0.5 }}
+									>
+										<Image
+											src={servicesData[activeCategory].image}
+											alt={servicesData[activeCategory].title}
+											width={600}
+											height={800}
+											sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+											className="aspect-[5/4] md:aspect-[3/4] object-cover rounded-2xl shadow-2xl w-[350px] sm:w-[450px] md:w-[600px] lg:w-[350px] "
+											priority
+										/>
+									</motion.div>
+									{servicesData[activeCategory].imagePage && (
+										<div className="relative hidden md:block">
+											<motion.div
+												initial={{ scale: 0.9, opacity: 0 }}
+												animate={{ scale: 1, opacity: 1 }}
+												transition={{ duration: 0.5, delay: 0.1 }}
+												className="relative xl:pl-16"
+											>
+												<Image
+													src={servicesData[activeCategory].imagePage}
+													alt={servicesData[activeCategory].title}
+													width={400}
+													height={457}
+													sizes="(min-width: 640px) (max-width: 1024px) 50vw, 33vw"
+													className="aspect-[3/4] object-cover lg:w-[350px] shadow-2xl rounded-2xl "
+													priority
+												/>
+											</motion.div>
+											<div className="absolute bottom-[-70%] left-[-5%]">
+												<Image
+													src="/package.png"
+													alt="package"
+													width={800}
+													height={600}
+													sizes="(max-width: 1024px) 50vw, 33vw"
+													className=" lg:w-[400px] h-auto object-cover rounded-xl transition-opacity duration-300 blur-[1px]"
+												/>
+											</div>
 										</div>
-									</div>
-								)}
+									)}
+								</div>
+								<motion.div
+									className="lg:col-span-7 mt-6 lg:mt-0"
+									initial={{ y: 20, opacity: 0 }}
+									animate={{ y: 0, opacity: 1 }}
+									transition={{ duration: 0.5, delay: 0.2 }}
+								>
+									<h3 className="text-lg sm:text-2xl md:text-2xl font-bold text-gray-800 mb-2 sm:mb-4">
+										{servicesData[activeCategory].title}
+									</h3>
+									<ul className="space-y-2 sm:space-y-3">
+										{servicesData[activeCategory].items.map((item, idx) => (
+											<motion.li
+												key={idx}
+												className="flex items-center justify-between border-b py-2 sm:py-3 gap-2"
+												initial={{ y: 20, opacity: 0 }}
+												animate={{ y: 0, opacity: 1 }}
+												transition={{ duration: 0.3, delay: 0.3 + idx * 0.1 }}
+											>
+												<div>
+													<span className="text-sm sm:text-lg md:text-lg text-gray-700">
+														{item.name}
+													</span>
+													{item.description && (
+														<p className="text-xs sm:text-base text-gray-500">
+															{item.description}
+														</p>
+													)}
+												</div>
+												<div className="flex items-center gap-2 sm:gap-4">
+													<span className="text-sm sm:text-lg md:text-lg font-bold text-gray-800">
+														{typeof item.price === "number"
+															? `$${item.price}`
+															: item.price}
+													</span>
+												</div>
+											</motion.li>
+										))}
+									</ul>
+								</motion.div>
 							</div>
-							<motion.div
-								className="lg:col-span-7"
-								initial={{ y: 20, opacity: 0 }}
-								animate={{ y: 0, opacity: 1 }}
-								transition={{ duration: 0.5, delay: 0.2 }}
-							>
-								<h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
-									{servicesData[activeCategory].title}
-								</h3>
-								<ul className="space-y-1 sm:space-y-2">
-									{servicesData[activeCategory].items.map((item, idx) => (
-										<motion.li
-											key={idx}
-											className="flex items-center justify-between border-b py-3 gap-2"
-											initial={{ y: 20, opacity: 0 }}
-											animate={{ y: 0, opacity: 1 }}
-											transition={{ duration: 0.3, delay: 0.3 + idx * 0.1 }}
-										>
-											<div>
-												<span className="text-base sm:text-lg text-gray-700">
-													{item.name}
-												</span>
-												{item.description && (
-													<p className="text-sm text-gray-500">
-														{item.description}
-													</p>
-												)}
-											</div>
-											<div className="flex items-center gap-4">
-												<span className="text-base font-bold text-gray-800">
-													{typeof item.price === "number"
-														? `$${item.price}`
-														: item.price}
-												</span>
-											</div>
-										</motion.li>
-									))}
-								</ul>
-							</motion.div>
 						</motion.div>
 					</AnimatePresence>
 				</motion.div>

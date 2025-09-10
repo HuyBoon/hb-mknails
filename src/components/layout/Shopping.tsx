@@ -25,8 +25,8 @@ export default function Shopping() {
 	};
 
 	return (
-		<div className="mx-auto bg-[#f2ecdb] max-w-[1440px] px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 xl:py-16">
-			<div className="flex flex-col lg:flex-row  items-center gap-4">
+		<div className=" bg-[#f2ecdb] px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 xl:py-16">
+			<div className=" max-w-[1440px] mx-auto flex flex-col lg:flex-row  items-center gap-4">
 				{/* Image with Opening Hours Overlay */}
 				<div className="lg:w-1/2 w-full relative">
 					<div className="rounded-2xl overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-300">
