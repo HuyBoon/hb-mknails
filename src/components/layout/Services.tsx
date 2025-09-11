@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { servicesData } from "@/utils/data/servicesData";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const Services = () => {
 	const [activeIndex, setActiveIndex] = useState(1);
@@ -17,29 +18,31 @@ const Services = () => {
 	const categories = Object.values(servicesData);
 
 	const handleMouseEnter = (index: number) => {
-		setHoveredIndex(index); // Chỉ kích hoạt hiệu ứng khi hover
+		setHoveredIndex(index);
 		if (typeof window !== "undefined" && window.innerWidth <= 768) {
 			setTimeout(() => {
-				setHoveredIndex(null); // Reset hiệu ứng trên mobile sau 1s
+				setHoveredIndex(null);
 			}, 1000);
 		}
 	};
 
 	const handleMouseLeave = () => {
 		if (typeof window !== "undefined" && window.innerWidth > 768) {
-			setHoveredIndex(null); // Reset hiệu ứng trên desktop
+			setHoveredIndex(null);
 		}
 	};
 
-	const handleClick = (index: number) => {
-		setActiveIndex(index); // Kích hoạt activeIndex khi click
-		setHoveredIndex(index); // Kích hoạt hiệu ứng khi click
-		if (typeof window !== "undefined" && window.innerWidth <= 768) {
-			setTimeout(() => {
-				setHoveredIndex(null); // Reset hiệu ứng trên mobile sau 1s
-			}, 1000);
-		}
-	};
+	const handleClick = useCallback(
+		(index: number) => {
+			const categoryKey = categories[index].key;
+			router.push(`/services?category=${categoryKey}`);
+			setHoveredIndex(index);
+			if (typeof window !== "undefined" && window.innerWidth <= 768) {
+				setTimeout(() => setHoveredIndex(null), 1000);
+			}
+		},
+		[router, categories]
+	);
 
 	return (
 		<section
@@ -47,16 +50,23 @@ const Services = () => {
         px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 
         py-12 md:py-16 lg:py-24"
 		>
-			<div className="absolute left-1/2 transform -translate-x-1/2 text-center px-8 py-2 rounded-2xl bg-btn border border-white z-30">
+			{/* Animated Title */}
+			<motion.div
+				initial={{ opacity: 0, y: -40 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				transition={{ duration: 1 }}
+				viewport={{ once: false }}
+				className="absolute left-1/2 transform -translate-x-1/2 text-center px-8 py-2 rounded-2xl bg-btn border border-white z-30"
+			>
 				<Link href={"/services"}>
 					<h2 className="text-white uppercase text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold">
 						Services
 					</h2>
 				</Link>
-			</div>
+			</motion.div>
 
 			<div className="relative w-full px-3 overflow-visible">
-				<div className="relative min-h-[500px] md:min-h-[600px">
+				<div className="relative min-h-[400px] md:min-h-[600px]">
 					<Swiper
 						onSlideChange={(swiper) => setActiveIndex(swiper.realIndex + 1)}
 						modules={[Navigation]}
@@ -67,7 +77,7 @@ const Services = () => {
 						speed={2000}
 						initialSlide={0}
 						breakpoints={{
-							320: { slidesPerView: 1 },
+							320: { slidesPerView: 1, spaceBetween: 12 },
 							640: { slidesPerView: 2, spaceBetween: 12 },
 							1024: { slidesPerView: 3, spaceBetween: 24 },
 							1280: {
@@ -83,11 +93,16 @@ const Services = () => {
 
 							return (
 								<SwiperSlide key={cat.key}>
-									<div
-										className="mt-20 lg:mt-0 group relative h-full transition-all duration-500 ease-in-out cursor-pointer"
+									{/* Animate each card */}
+									<motion.div
+										initial={{ opacity: 0, scale: 0.9, y: 40 }}
+										whileInView={{ opacity: 1, scale: 1, y: 0 }}
+										transition={{ duration: 1, delay: idx * 0.15 }}
+										viewport={{ once: false }}
+										className="mt-24 lg:mt-0 group relative h-full transition-all duration-500 ease-in-out cursor-pointer"
 										onMouseEnter={() => handleMouseEnter(idx)}
 										onMouseLeave={handleMouseLeave}
-										onClick={() => handleClick(idx)} // Sử dụng handleClick thay vì handleMouseEnter
+										onClick={() => handleClick(idx)}
 									>
 										<div
 											className={`aspect-[3/4] overflow-hidden rounded-2xl border border-white transition-all duration-500 ${
@@ -97,7 +112,7 @@ const Services = () => {
 											<div
 												className={`relative w-full h-full ${
 													isHovered ? "shine-effect" : ""
-												}`} // Áp dụng hiệu ứng shine khi hover hoặc click
+												}`}
 											>
 												<Image
 													src={cat.imageHome}
@@ -108,13 +123,14 @@ const Services = () => {
 												/>
 											</div>
 										</div>
-									</div>
+									</motion.div>
 								</SwiperSlide>
 							);
 						})}
 					</Swiper>
 				</div>
 
+				{/* Prev button */}
 				<div className="hidden sm:block absolute top-1/2 sm:left-[-20px] md:left-[-25px] lg:left-[-50px] -translate-y-1/2 z-10">
 					<button
 						className={`card2-prev bg-white shadow-lg w-8 h-8 lg:w-12 lg:h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
@@ -134,6 +150,7 @@ const Services = () => {
 					</button>
 				</div>
 
+				{/* Next button */}
 				<div className="hidden sm:block absolute top-1/2 sm:right-[-20px] md:right-[-25px] lg:right-[-50px] -translate-y-1/2 z-10">
 					<button
 						className={`card2-next bg-white shadow-lg w-8 h-8 lg:w-12 lg:h-12 rounded-full flex items-center justify-center transition-all duration-300 ${

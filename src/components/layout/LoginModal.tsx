@@ -95,7 +95,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
 			>
 				<div className="w-full h-30 relative">
 					<Image
-						src="/banner.png"
+						src="/bannerservicepage.png"
 						alt="Login Banner"
 						fill
 						className="object-cover"

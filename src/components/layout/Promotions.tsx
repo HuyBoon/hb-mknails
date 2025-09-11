@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -22,16 +23,23 @@ export default function PromotionsSection() {
 			style={{ backgroundImage: `url(/separate.png)` }}
 		>
 			<div className="max-w-[1440px] mx-auto">
-				<div className="text-center px-6 py-3 sm:py-4 rounded-2xl bg-btn border border-white mb-8 sm:mb-12 mx-auto w-fit shadow-md">
+				{/* Animated Title */}
+				<motion.div
+					initial={{ opacity: 0, y: -30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					transition={{ duration: 1 }}
+					viewport={{ once: false }}
+					className="text-center px-6 py-3 sm:py-4 rounded-2xl bg-btn border border-white mb-8 sm:mb-12 mx-auto w-fit shadow-md"
+				>
 					<Link href={"/promotions"}>
 						<h2 className="text-white uppercase text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide">
 							Promotions
 						</h2>
 					</Link>
-				</div>
+				</motion.div>
 
 				{/* Swiper */}
-				<div className="relative mx-auto">
+				<div className="relative px-3 mx-auto">
 					<Swiper
 						modules={[Navigation]}
 						navigation={{
@@ -40,53 +48,39 @@ export default function PromotionsSection() {
 						}}
 						speed={2000}
 						breakpoints={{
-							0: {
-								slidesPerView: 1,
-								spaceBetween: 10,
-							},
-							480: {
-								slidesPerView: 1,
-								spaceBetween: 12,
-							},
-							640: {
-								slidesPerView: 2,
-								spaceBetween: 16,
-							},
-							768: {
-								slidesPerView: 2,
-								spaceBetween: 18,
-							},
-							1024: {
-								slidesPerView: 3,
-								spaceBetween: 20,
-							},
-							1280: {
-								slidesPerView: 4,
-								spaceBetween: 24,
-							},
-							1536: {
-								slidesPerView: 4,
-								spaceBetween: 28,
-							},
+							0: { slidesPerView: 1, spaceBetween: 12 },
+							480: { slidesPerView: 1, spaceBetween: 12 },
+							640: { slidesPerView: 2, spaceBetween: 16 },
+							768: { slidesPerView: 2, spaceBetween: 18 },
+							1024: { slidesPerView: 3, spaceBetween: 20 },
+							1280: { slidesPerView: 4, spaceBetween: 24 },
+							1536: { slidesPerView: 4, spaceBetween: 28 },
 						}}
-						className="w-full"
+						className="w-full mx-auto mb-12"
 					>
 						{fallbackImages.map((img, index) => (
 							<SwiperSlide key={`promo-${index}`}>
-								<div className="block relative rounded-xl overflow-hidden group aspect-[3/4] shadow-md border-4 border-white">
+								<motion.div
+									initial={{ opacity: 0, scale: 0.9, y: 40 }}
+									whileInView={{ opacity: 1, scale: 1, y: 0 }}
+									transition={{ duration: 1, delay: index * 0.15 }}
+									viewport={{ once: false }}
+									className="block relative rounded-xl overflow-hidden group aspect-[3/4] shadow-md border-4 border-white"
+								>
 									<Image
 										src={img.src}
 										alt={img.alt ?? ""}
 										width={800}
 										height={600}
 										sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 20vw"
-										className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105 group-hover:brightness-95"
+										className="w-full h-full object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105 group-hover:brightness-95"
 									/>
-								</div>
+								</motion.div>
 							</SwiperSlide>
 						))}
 					</Swiper>
 
+					{/* Prev Button */}
 					<div className="hidden sm:block absolute top-1/2 sm:left-[-20px] md:left-[-25px] lg:left-[-50px] -translate-y-1/2 z-10">
 						<button
 							type="button"
@@ -104,6 +98,7 @@ export default function PromotionsSection() {
 						</button>
 					</div>
 
+					{/* Next Button */}
 					<div className="hidden sm:block absolute top-1/2 sm:right-[-20px] md:right-[-25px] lg:right-[-50px] -translate-y-1/2 z-10">
 						<button
 							type="button"
