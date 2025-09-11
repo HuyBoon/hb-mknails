@@ -240,7 +240,7 @@ const ServicePageContent = () => {
 											width={600}
 											height={800}
 											sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-											className="aspect-[5/4] md:aspect-[3/4] object-cover rounded-2xl shadow-2xl w-[350px] sm:w-[450px] md:w-[600px] lg:w-[350px] "
+											className="aspect-[5/4] md:aspect-[3/4] object-cover rounded-2xl mx-auto shadow-2xl w-full max-w-[500px] lg:w-[350px] "
 											priority
 										/>
 									</motion.div>

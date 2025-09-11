@@ -13,7 +13,7 @@ const fallbackImages = [
 const PromotionsPage = () => {
 	return (
 		<motion.div
-			className="w-full h-screen flex items-center justify-center "
+			className="w-full min-h-screen flex items-center justify-center"
 			style={{
 				backgroundImage: `url(/bannerservicepage.png)`,
 				backgroundPosition: "center",
@@ -23,20 +23,21 @@ const PromotionsPage = () => {
 			animate={{ opacity: 1 }}
 			transition={{ duration: 0.5 }}
 		>
-			<div className="max-w-[1400px] mx-auto  py-12 md:py-16 lg:py-12 px-4 sm:px-6 md:px-12">
+			<div className="max-w-[1400px] w-full mx-auto py-12 md:py-16 lg:py-20 px-4 sm:px-6 md:px-12">
 				<motion.h2
-					className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-btn mb-14 text-center font-cinzel-decorative"
+					className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-btn mb-10 sm:mb-14 text-center font-cinzel-decorative"
 					initial={{ y: -20, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 0.5, delay: 0.2 }}
 				>
 					Our Exclusive Promotions
 				</motion.h2>
-				<div className="flex flex-wrap -mx-2 gap-y-6 justify-center">
+
+				{/* Grid layout */}
+				<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
 					{fallbackImages.map((img, index) => (
 						<motion.div
 							key={index}
-							className="px-2 w-full sm:w-1/2 md:w-1/2 lg:w-1/4"
 							initial={{ scale: 0.9, opacity: 0 }}
 							animate={{ scale: 1, opacity: 1 }}
 							transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
