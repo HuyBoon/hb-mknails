@@ -93,10 +93,9 @@ const Services = () => {
 
 							return (
 								<SwiperSlide key={cat.key}>
-									{/* Animate each card */}
 									<motion.div
-										initial={{ opacity: 0, scale: 0.9, y: 40 }}
-										whileInView={{ opacity: 1, scale: 1, y: 0 }}
+										initial={{ opacity: 0, scale: 1 }}
+										whileInView={{ opacity: 1, scale: 1 }}
 										transition={{ duration: 1, delay: idx * 0.15 }}
 										viewport={{ once: false }}
 										className="mt-24 lg:mt-0 group relative h-full transition-all duration-500 ease-in-out cursor-pointer"
@@ -150,7 +149,6 @@ const Services = () => {
 					</button>
 				</div>
 
-				{/* Next button */}
 				<div className="hidden sm:block absolute top-1/2 sm:right-[-20px] md:right-[-25px] lg:right-[-50px] -translate-y-1/2 z-10">
 					<button
 						className={`card2-next bg-white shadow-lg w-8 h-8 lg:w-12 lg:h-12 rounded-full flex items-center justify-center transition-all duration-300 ${

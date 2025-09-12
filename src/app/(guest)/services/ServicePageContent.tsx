@@ -168,7 +168,7 @@ const ServicePageContent = () => {
 					className="pt-20 sm:pt-18 lg:pt-24 mt-[-48px]"
 					initial={{ y: 0, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
-					transition={{ duration: 0.5 }}
+					transition={{ duration: 1 }}
 				>
 					<motion.div
 						className="relative mb-4 sm:mb-6 lg:mb-12"

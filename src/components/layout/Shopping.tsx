@@ -29,9 +29,8 @@ export default function Shopping() {
 	return (
 		<div className="bg-[#f2ecdb] px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 xl:py-16">
 			<div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row items-center gap-8">
-				{/* Image with Opening Hours Overlay */}
 				<motion.div
-					initial={{ opacity: 0, x: -60 }}
+					initial={{ opacity: 0, x: -10 }}
 					whileInView={{ opacity: 1, x: 0 }}
 					transition={{ duration: 0.8 }}
 					viewport={{ once: false }}
@@ -68,7 +67,7 @@ export default function Shopping() {
 
 				{/* Contact Form */}
 				<motion.div
-					initial={{ opacity: 0, x: 60 }}
+					initial={{ opacity: 0, x: 10 }}
 					whileInView={{ opacity: 1, x: 0 }}
 					transition={{ duration: 0.8, delay: 0.2 }}
 					viewport={{ once: false }}
