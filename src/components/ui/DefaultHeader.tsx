@@ -80,18 +80,18 @@ export default function DefaultHeader() {
 					</nav>
 
 					{/* Right placeholder */}
-					<div className="flex items-center justify-between gap-4 px-[20px] py-[5px] rounded-2xl bg-btn border border-white">
+					<div className="flex items-center justify-between gap-4 px-[10px] sm:px-[20px] py-[5px] rounded-2xl bg-btn border border-white">
 						<div className="flex items-center">
 							<Search
 								size={25}
-								className="cursor-pointer hover:text-[#e5c9af] text-white"
+								className="w-[20px] sm:w-full cursor-pointer hover:text-[#e5c9af] text-white"
 								onClick={() => setSidebar(!sidebar)}
 							/>
 						</div>
 						<div className="flex items-center">
 							<User
 								size={25}
-								className="cursor-pointer hover:text-[#e5c9af] text-white"
+								className="w-[20px] sm:w-full cursor-pointer hover:text-[#e5c9af] text-white"
 								onClick={() => setModalLogin(!modalLogin)}
 							/>
 						</div>

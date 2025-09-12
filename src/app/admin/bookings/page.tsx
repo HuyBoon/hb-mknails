@@ -1,16 +1,16 @@
 import HeaderTitle from "@/components/admin/HeaderTitle";
 import React from "react";
 
-const AdminDashboard = () => {
+const AdminBookingPage = () => {
 	return (
 		<div>
 			<HeaderTitle
-				title="MK-Dashboard"
-				path="/admin/booking"
+				title="Booking Management"
+				path="/addmin/booking"
 				addItem="Booking"
 			/>
 		</div>
 	);
 };
 
-export default AdminDashboard;
+export default AdminBookingPage;

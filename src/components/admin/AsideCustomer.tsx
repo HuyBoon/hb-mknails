@@ -11,6 +11,7 @@ import {
 	Image as ImageIcon,
 	ChevronDown,
 	ChevronRight,
+	Gift,
 } from "lucide-react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { useState } from "react";
@@ -64,6 +65,11 @@ export default function AsideCustomer({
 			],
 		},
 		{
+			url: "/admin/promotions",
+			icon: <Gift size={20} />,
+			label: "Promotions",
+		},
+		{
 			url: "/admin/bookings",
 			icon: <Calendar size={20} />,
 			label: "Bookings",
@@ -115,17 +121,17 @@ export default function AsideCustomer({
 		>
 			<div className="flex items-center justify-between px-3 py-3 border-b border-gray-200 relative">
 				<motion.h1
-					className={`mx-auto font-bold text-2xl text-pink-600 transition-all ${
+					className={`mx-auto font-bold text-2xl text-blue-600 transition-all ${
 						collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
 					}`}
 					variants={textVariants}
 					transition={{ duration: animationDuration }}
 				>
-					NAIL & SPA
+					MK NAIL & SPA
 				</motion.h1>
 				<span
 					onClick={() => setCollapsed(!collapsed)}
-					className="cursor-pointer text-pink-600 p-1 rounded hover:bg-gray-100 transition-all"
+					className="cursor-pointer text-blue-600 p-1 rounded hover:bg-gray-100 transition-all"
 				>
 					{collapsed ? (
 						<AiOutlineMenuUnfold size={22} />
@@ -145,7 +151,7 @@ export default function AsideCustomer({
 								<div
 									className={`flex items-center justify-between gap-2 rounded-md px-2 py-4 cursor-pointer transition-colors ${
 										isItemActive
-											? "bg-pink-100 text-pink-600 font-semibold"
+											? "bg-pink-100 text-blue-600 font-semibold"
 											: "hover:bg-gray-100 text-gray-700"
 									}`}
 								>
@@ -172,7 +178,7 @@ export default function AsideCustomer({
 									{hasSubmenu && !collapsed && (
 										<button
 											onClick={() => toggleMenu(item.label)}
-											className="ml-auto hover:text-pink-600"
+											className="ml-auto hover:text-blue-600"
 										>
 											{openMenus[item.label] ? (
 												<ChevronDown size={16} />
@@ -204,7 +210,7 @@ export default function AsideCustomer({
 														onClick={onSelect}
 														className={`block px-2 py-2 rounded-md text-sm transition-colors ${
 															isActive(sub.url)
-																? "bg-pink-100 text-pink-600 font-medium"
+																? "bg-pink-100 text-blue-600 font-medium"
 																: "text-gray-600 hover:bg-gray-100"
 														}`}
 													>
@@ -222,7 +228,7 @@ export default function AsideCustomer({
 			</div>
 			<div className="px-4 border-t border-gray-200">
 				<motion.h4
-					className="text-center font-bold text-sm text-pink-600 pt-4"
+					className="text-center font-bold text-sm text-blue-600 pt-4"
 					variants={textVariants}
 					transition={{ duration: animationDuration }}
 				>

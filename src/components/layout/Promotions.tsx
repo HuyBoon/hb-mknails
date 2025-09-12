@@ -10,17 +10,17 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const fallbackImages = [
-	{ src: "/promotions/allpack.png", alt: "All Packages" },
 	{ src: "/promotions/headspa.png", alt: "Head Spa" },
 	{ src: "/promotions/waxing.png", alt: "Waxing" },
 	{ src: "/promotions/deluxe.png", alt: "Deluxe" },
+	{ src: "/promotions/allpack.png", alt: "All Packages" },
 ];
 
 export default function PromotionsSection() {
 	return (
 		<section
 			className="relative w-full mx-auto py-12 md:py-16 lg:py-24 px-4 sm:px-6 md:px-12 bg-gray-700 bg-cover bg-center"
-			style={{ backgroundImage: `url(/separate.png)` }}
+			style={{ backgroundImage: `url(/banner1.png)` }}
 		>
 			<div className="max-w-[1440px] mx-auto">
 				{/* Animated Title */}
@@ -48,8 +48,8 @@ export default function PromotionsSection() {
 						}}
 						speed={2000}
 						breakpoints={{
-							0: { slidesPerView: 1, spaceBetween: 12 },
-							480: { slidesPerView: 1, spaceBetween: 12 },
+							0: { slidesPerView: 2, spaceBetween: 12 },
+							480: { slidesPerView: 2, spaceBetween: 12 },
 							640: { slidesPerView: 2, spaceBetween: 16 },
 							768: { slidesPerView: 2, spaceBetween: 18 },
 							1024: { slidesPerView: 3, spaceBetween: 20 },
@@ -65,7 +65,7 @@ export default function PromotionsSection() {
 									whileInView={{ opacity: 1, scale: 1, y: 0 }}
 									transition={{ duration: 1, delay: index * 0.15 }}
 									viewport={{ once: false }}
-									className="block relative rounded-xl overflow-hidden group aspect-[3/4] shadow-md border-4 border-white"
+									className="block relative rounded-2xl overflow-hidden group aspect-[3/4] shadow-md border-4 border-white"
 								>
 									<Image
 										src={img.src}

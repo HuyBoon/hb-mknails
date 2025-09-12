@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import Promotions from "@/components/layout/Promotions";
 import Services from "@/components/layout/Services";
 import type { Metadata } from "next";
+import Separate from "@/components/layout/Separate";
 
 export const metadata: Metadata = {
 	title: "MK Nails & Spa | Relaxation, Beauty & Self-Care",
@@ -59,6 +60,7 @@ export default function Home() {
 			<div className="bg-[#f2ecdb]">
 				<Services />
 			</div>
+			{/* <Separate /> */}
 			<Promotions />
 			<Shopping />
 			<Footer />

@@ -12,14 +12,14 @@ export default function ClientLayoutWrapper({
 	const [collapsed, setCollapsed] = useState(false);
 
 	return (
-		<div className="relative bg-light dark:bg-dark">
+		<div className="relative ">
 			<AsideCustomer collapsed={collapsed} setCollapsed={setCollapsed} />
 
 			<AdminHeader collapsed={collapsed} />
 			<main
 				className={`transition-all duration-300 ${
 					collapsed ? "ml-16" : "ml-64"
-				} pt-[64px]  min-h-screen`}
+				} pt-[90px] px-8 min-h-screen`}
 			>
 				{children}
 			</main>

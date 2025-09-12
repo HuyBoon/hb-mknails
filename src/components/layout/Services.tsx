@@ -77,7 +77,7 @@ const Services = () => {
 						speed={2000}
 						initialSlide={0}
 						breakpoints={{
-							320: { slidesPerView: 1, spaceBetween: 12 },
+							320: { slidesPerView: 2, spaceBetween: 8 },
 							640: { slidesPerView: 2, spaceBetween: 12 },
 							1024: { slidesPerView: 3, spaceBetween: 24 },
 							1280: {
@@ -94,8 +94,8 @@ const Services = () => {
 							return (
 								<SwiperSlide key={cat.key}>
 									<motion.div
-										initial={{ opacity: 0, scale: 1 }}
-										whileInView={{ opacity: 1, scale: 1 }}
+										initial={{ opacity: 0 }}
+										whileInView={{ opacity: 1 }}
 										transition={{ duration: 1, delay: idx * 0.15 }}
 										viewport={{ once: false }}
 										className="mt-24 lg:mt-0 group relative h-full transition-all duration-500 ease-in-out cursor-pointer"

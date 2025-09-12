@@ -65,6 +65,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
 		if (session) {
 			if (session.user?.role === "admin") {
 				window.open("/admin/dashboard", "_blank");
+				router.push("/");
 			} else {
 				router.push("/");
 			}

@@ -1,16 +1,16 @@
 import HeaderTitle from "@/components/admin/HeaderTitle";
 import React from "react";
 
-const ServicePage = () => {
+const GalleryAdmin = () => {
 	return (
 		<div>
 			<HeaderTitle
-				title="Services Management"
-				path="/admin/addnew"
-				addItem="New Service"
+				title="Customer Management"
+				path="/admin/customer"
+				addItem=""
 			/>
 		</div>
 	);
 };
 
-export default ServicePage;
+export default GalleryAdmin;
