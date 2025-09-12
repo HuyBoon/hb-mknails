@@ -54,14 +54,18 @@ export const metadata: Metadata = {
 
 export default function Home() {
 	return (
-		<div className="">
+		<div className="bg-[#f2ecdb]">
 			<Header />
 			<Banner />
-			<div className="bg-[#f2ecdb]">
+			<div className=" bg-[#f2ecdb]">
 				<Services />
 			</div>
-			{/* <Separate /> */}
-			<Promotions />
+			<div className="overflow-hidden mt-2  ">
+				<Separate />
+			</div>
+			<div className=" z-10">
+				<Promotions />
+			</div>
 			<Shopping />
 			<Footer />
 		</div>

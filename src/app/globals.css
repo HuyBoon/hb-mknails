@@ -18,6 +18,33 @@
 	--font-satify: var(--font-satify);
 	--font-greatvibes: var(--font-greatvibes);
 	--font-cinzel-decorative: var(--font-cinzel-decorative);
+	--font-mrDafoe: var(--font-mrDafoe);
+}
+
+@theme {
+	--font-lora: "Lora", serif;
+	--font-satisfy: "Satisfy", cursive;
+	--font-greatvibes: "Great Vibes", cursive;
+	--font-cinzel-decorative: "Cinzel Decorative", serif;
+	--font-mr-dafoe: "Mr Dafoe", cursive;
+
+	--color-primary: #63ab45;
+	--color-secondary: #18392b;
+	--color-title: #100c08;
+	--color-black: #000;
+	--color-btn: #5c422e;
+	--color-bg-btn-hover: black;
+	--color-white-15: rgba(255, 255, 255, 0.15);
+	--color-header-light: rgba(255, 255, 255, 0.2);
+	--color-header-dark: rgba(0, 0, 0, 0.8);
+	--color-text: #787878;
+
+	--breakpoint-xs: 480px;
+	--breakpoint-sm: 640px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 1024px;
+	--breakpoint-xl: 1280px;
+	--breakpoint-2xl: 1536px;
 }
 
 @theme {

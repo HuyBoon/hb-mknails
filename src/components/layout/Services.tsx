@@ -46,9 +46,9 @@ const Services = () => {
 
 	return (
 		<section
-			className="relative max-w-[1400px] w-full mx-auto z-20 
+			className="relative max-w-[1400px] w-full mx-auto 
         px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 
-        py-12 md:py-16 lg:py-24"
+        pt-12 md:pt-16 lg:pt-24"
 		>
 			{/* Animated Title */}
 			<motion.div
@@ -66,7 +66,7 @@ const Services = () => {
 			</motion.div>
 
 			<div className="relative w-full px-3 overflow-visible">
-				<div className="relative min-h-[400px] md:min-h-[600px]">
+				<div className="relative min-h-[350px] xs:min-h-[420px]   sm:min-h-[450px] md:min-h-[600px]">
 					<Swiper
 						onSlideChange={(swiper) => setActiveIndex(swiper.realIndex + 1)}
 						modules={[Navigation]}

@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Lora, Great_Vibes, Cinzel_Decorative } from "next/font/google";
+import {
+	Lora,
+	Great_Vibes,
+	Cinzel_Decorative,
+	Mr_Dafoe,
+} from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/components/contexts/AppContext";
 import { ClientToaster } from "@/components/shared/ClientToaster";
@@ -9,6 +14,12 @@ export const metadata: Metadata = {
 	description: "Nature is the best medicine",
 };
 
+const mrDafoe = Mr_Dafoe({
+	weight: "400",
+	subsets: ["latin"],
+	variable: "--font-mrDafoe",
+	display: "swap",
+});
 const lora = Lora({
 	subsets: ["latin"],
 	weight: ["400", "500", "600", "700"],
@@ -37,7 +48,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${lora.variable} ${greatVibes.variable} ${cinzelDecorative.variable}`}
+				className={`${lora.variable} ${greatVibes.variable} ${cinzelDecorative.variable} ${mrDafoe.variable}`}
 			>
 				<AppProvider>{children}</AppProvider>
 				<ClientToaster />
