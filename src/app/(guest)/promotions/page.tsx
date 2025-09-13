@@ -4,10 +4,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const fallbackImages = [
+	{ src: "/promotions/deluxe.png", alt: "deluxe" },
+	{ src: "/promotions/relexology.png", alt: "relexology" },
+	{ src: "/promotions/facial.png", alt: "facial" },
 	{ src: "/promotions/allpack.png", alt: "All Packages" },
-	{ src: "/promotions/headspa.png", alt: "Head Spa" },
-	{ src: "/promotions/waxing.png", alt: "Waxing" },
-	{ src: "/promotions/deluxe.png", alt: "Deluxe" },
 ];
 
 const PromotionsPage = () => {
@@ -25,14 +25,22 @@ const PromotionsPage = () => {
 		>
 			<div className="max-w-[1400px] w-full mx-auto py-12 md:py-16 lg:py-20 px-4 sm:px-6 md:px-12">
 				<motion.h2
-					className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-btn mb-10 sm:mb-14 text-center font-cinzel-decorative"
+					className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-btn  text-center font-cinzel-decorative"
 					initial={{ y: -20, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 0.5, delay: 0.2 }}
 				>
 					Our Exclusive Promotions
 				</motion.h2>
-
+				<motion.h3
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					transition={{ duration: 1 }}
+					viewport={{ once: false }}
+					className="text-center font-bold text-btn italic text-lg sm:text-xl md:text-2xl  mb-8 sm:mb-12 mx-auto "
+				>
+					Only applies for Saturday
+				</motion.h3>
 				{/* Grid layout */}
 				<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
 					{fallbackImages.map((img, index) => (

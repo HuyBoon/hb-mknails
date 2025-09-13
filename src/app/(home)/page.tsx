@@ -6,6 +6,7 @@ import Promotions from "@/components/layout/Promotions";
 import Services from "@/components/layout/Services";
 import type { Metadata } from "next";
 import Separate from "@/components/layout/Separate";
+import AboutMK from "@/components/layout/AboutMK";
 
 export const metadata: Metadata = {
 	title: "MK Nails & Spa | Relaxation, Beauty & Self-Care",
@@ -57,12 +58,13 @@ export default function Home() {
 		<div className="bg-[#f2ecdb]">
 			<Header />
 			<Banner />
+			{/* <AboutMK /> */}
 			<div className=" bg-[#f2ecdb]">
 				<Services />
 			</div>
-			<div className="overflow-hidden mt-2  ">
+			{/* <div className="overflow-hidden mt-2  ">
 				<Separate />
-			</div>
+			</div> */}
 			<div className=" z-10">
 				<Promotions />
 			</div>

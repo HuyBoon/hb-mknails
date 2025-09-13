@@ -48,7 +48,7 @@ const Services = () => {
 		<section
 			className="relative max-w-[1400px] w-full mx-auto 
         px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 
-        pt-12 md:pt-16 lg:pt-24"
+        pt-12 md:pt-16 lg:pt-12"
 		>
 			{/* Animated Title */}
 			<motion.div

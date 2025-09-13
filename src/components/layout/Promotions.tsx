@@ -10,9 +10,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const fallbackImages = [
-	{ src: "/promotions/headspa.png", alt: "Head Spa" },
-	{ src: "/promotions/waxing.png", alt: "Waxing" },
-	{ src: "/promotions/deluxe.png", alt: "Deluxe" },
+	{ src: "/promotions/deluxe.png", alt: "deluxe" },
+	{ src: "/promotions/relexology.png", alt: "relexology" },
+	{ src: "/promotions/facial.png", alt: "facial" },
 	{ src: "/promotions/allpack.png", alt: "All Packages" },
 ];
 
@@ -29,7 +29,7 @@ export default function PromotionsSection() {
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 1 }}
 					viewport={{ once: false }}
-					className="text-center px-6 py-3 sm:py-4 rounded-2xl bg-btn border border-white mb-8 sm:mb-12 mx-auto w-fit shadow-md"
+					className="text-center px-6 py-3 sm:py-4 rounded-2xl bg-btn border border-white mx-auto w-fit shadow-md"
 				>
 					<Link href={"/promotions"}>
 						<h2 className="text-white uppercase text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide">
@@ -37,6 +37,15 @@ export default function PromotionsSection() {
 						</h2>
 					</Link>
 				</motion.div>
+				<motion.h3
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					transition={{ duration: 1 }}
+					viewport={{ once: false }}
+					className="text-center font-bold text-btn italic mt-4 text-lg sm:text-xl md:text-2xl  mb-8 sm:mb-12 mx-auto "
+				>
+					Only applies for Saturday
+				</motion.h3>
 
 				{/* Swiper */}
 				<div className="relative px-3 mx-auto">

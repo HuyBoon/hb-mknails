@@ -10,10 +10,10 @@ export default function GuestLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<>
+		<div className="flex flex-col min-h-screen">
 			<DefaultHeader />
-			<main className="pt-16 sm:pt-18 min-h-screen ">{children}</main>
+			<main className=" flex-1 pt-16 sm:pt-18 min-h-screen ">{children}</main>
 			<Footer />
-		</>
+		</div>
 	);
 }
