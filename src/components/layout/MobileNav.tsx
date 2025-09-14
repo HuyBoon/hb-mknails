@@ -7,6 +7,7 @@ import { X, Phone } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 
 interface NavMobileProps {
 	onClose: () => void;
@@ -18,10 +19,10 @@ const MobileNav = ({ onClose }: NavMobileProps) => {
 	const [closing, setClosing] = useState(false);
 	const [showSubMenu, setShowSubMenu] = useState(false);
 	const navLinks = [
-		{ href: `/sanpham`, label: "Sản phẩm" },
-		{ href: `/blog`, label: "Blog" },
-		{ href: `/gioithieu`, label: "Giới thiệu" },
-		{ href: `/lienhe`, label: "Liên hệ" },
+		{ href: `/services`, label: "Services" },
+		{ href: `/promotions`, label: "Promotions" },
+		{ href: `/aboutus`, label: "About us" },
+		{ href: `/contact`, label: "Contact us" },
 	];
 	const handleClose = () => {
 		setClosing(true);
@@ -57,26 +58,32 @@ const MobileNav = ({ onClose }: NavMobileProps) => {
 
 			{/* Menu */}
 			<div
-				className={`absolute left-0 top-0 flex flex-col min-h-screen w-[300px] bg-title text-white px-[20px] py-[30px] shadow-xl transition-transform duration-400 overflow-y-auto ${
+				className={`absolute left-0 top-0 flex flex-col min-h-screen w-[300px] bg-[#5c412e] text-white px-[20px] py-[30px] shadow-xl transition-transform duration-400 overflow-y-auto ${
 					closing ? "animate-slideOut" : "animate-slideIn"
 				}`}
 			>
 				{/* Header */}
 				<div className="flex items-center justify-between">
 					<Link href={`/`}>
-						<h1 className="font-bold text-[20px] text-primary">COOCOO</h1>
+						<Image
+							src={"/logoName.png"}
+							alt="mknails logo"
+							width={200}
+							height={40}
+							className="w-[150px] sm:w-[180px] lg:w-[200px] object-cover "
+						/>
 					</Link>
 					<button
 						onClick={handleClose}
 						aria-label="Close Menu"
-						className="w-[30px] h-[30px] border flex items-center justify-center rounded-full transition-all duration-300 bg-transparent hover:bg-primary cursor-pointer"
+						className="w-[30px] h-[30px] border flex items-center justify-center rounded-full transition-all duration-300 bg-transparent hover:bg-[#e5c9af] cursor-pointer"
 					>
 						<X size={20} />
 					</button>
 				</div>
 
-				<div className="pt-[20px]">
-					<ul className="text-left uppercase">
+				<div className=" min-h-[50vh]">
+					<ul className="mt-[50px] text-left uppercase">
 						{navLinks.map((item, idx) => {
 							const isActive =
 								pathname === item.href ||
@@ -90,7 +97,7 @@ const MobileNav = ({ onClose }: NavMobileProps) => {
 											href={item.href}
 											className={`flex-1 transition-all duration-400 ${
 												isActive ? "text-primary" : "text-white"
-											} hover:text-primary hover:translate-x-1`}
+											} hover:text-[#e5c9af] hover:translate-x-1`}
 										>
 											{item.label}
 										</Link>
@@ -103,17 +110,17 @@ const MobileNav = ({ onClose }: NavMobileProps) => {
 
 				{/* Hotline */}
 				<div className="mt-6 flex items-center gap-4 border-t border-gray-700 pt-4">
-					<div className="bg-primary p-2 rounded-full">
+					<div className="bg-[] border border-title p-2 rounded-full">
 						<Phone size={20} className="text-white" />
 					</div>
 					<div>
-						<span className="block text-xs text-gray-400">To More Inquiry</span>
+						<span className="block text-xs text-white">To More Inquiry</span>
 						<h6 className="text-sm font-bold text-gray-800">
 							<Link
-								href="tel:+(84)903102716"
-								className="text-primary text-[18px] leading-[20px] font-[600]"
+								href="(519) 429 2637"
+								className="text-white text-[18px] leading-[20px] font-[600]"
 							>
-								+(84) 903 102 716
+								(519) 429 2637
 							</Link>
 						</h6>
 					</div>

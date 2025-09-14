@@ -3,13 +3,14 @@
 :root {
 	--font-lora: "Lora", serif;
 	--font-satify: "Satisfy", cursive;
+
 	--white-color: #fff;
 	--black-color: #000;
 	--theme-color: #f2ecdb;
 	--title-color: #100c08;
 	--text-color: #787878;
 	--btn-color: #5c422e;
-	--primary-color: #63ab45;
+	--primary-color: #5c412e;
 	--primary-color2: #18392b;
 }
 
@@ -19,6 +20,7 @@
 	--font-greatvibes: var(--font-greatvibes);
 	--font-cinzel-decorative: var(--font-cinzel-decorative);
 	--font-mrDafoe: var(--font-mrDafoe);
+	--font-baloo: var(--font-baloo);
 }
 
 @theme {
@@ -27,8 +29,8 @@
 	--font-greatvibes: "Great Vibes", cursive;
 	--font-cinzel-decorative: "Cinzel Decorative", serif;
 	--font-mr-dafoe: "Mr Dafoe", cursive;
-
-	--color-primary: #63ab45;
+	--font-baloo:"Baloo","san-serif"
+	--color-primary: #5c412e;
 	--color-secondary: #18392b;
 	--color-title: #100c08;
 	--color-black: #000;

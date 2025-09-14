@@ -6,6 +6,7 @@ import Image from "next/image";
 import {
 	CircleUser,
 	LayoutGrid,
+	Menu,
 	Plane,
 	Search,
 	Sprout,
@@ -197,6 +198,13 @@ export default function Header() {
 									/>
 								)}
 							</div>
+						</div>
+						<div className="lg:hidden flex items-center">
+							<Menu
+								size={25}
+								className="w-[20px] sm:w-full cursor-pointer hover:text-[#e5c9af] text-white"
+								onClick={() => setMobileOpen(!mobileOpen)}
+							/>
 						</div>
 					</div>
 				</div>

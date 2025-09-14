@@ -6,6 +6,7 @@ import Image from "next/image";
 import {
 	CircleUser,
 	LayoutGrid,
+	Menu,
 	Plane,
 	Search,
 	Sprout,
@@ -80,7 +81,7 @@ export default function DefaultHeader() {
 					</nav>
 
 					{/* Right placeholder */}
-					<div className="flex items-center justify-between gap-4 px-[10px] sm:px-[20px] py-[5px] rounded-2xl bg-btn border border-white">
+					<div className="flex items-center justify-between gap-4 px-[10px] sm:px-[20px] py-[5px] rounded-2xl bg-btn lg:border border-white">
 						<div className="flex items-center">
 							<Search
 								size={25}
@@ -93,6 +94,13 @@ export default function DefaultHeader() {
 								size={25}
 								className="w-[20px] sm:w-full cursor-pointer hover:text-[#e5c9af] text-white"
 								onClick={() => setModalLogin(!modalLogin)}
+							/>
+						</div>
+						<div className="lg:hidden flex items-center">
+							<Menu
+								size={25}
+								className="w-[20px] sm:w-full cursor-pointer hover:text-[#e5c9af] text-white"
+								onClick={() => setMobileOpen(!mobileOpen)}
 							/>
 						</div>
 					</div>

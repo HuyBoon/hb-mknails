@@ -4,6 +4,7 @@ import {
 	Great_Vibes,
 	Cinzel_Decorative,
 	Mr_Dafoe,
+	Baloo_2,
 } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/components/contexts/AppContext";
@@ -40,6 +41,13 @@ const greatVibes = Great_Vibes({
 	display: "swap",
 });
 
+const baloo = Baloo_2({
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700", "800"],
+	variable: "--font-baloo",
+	display: "swap",
+});
+
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -48,7 +56,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${lora.variable} ${greatVibes.variable} ${cinzelDecorative.variable} ${mrDafoe.variable}`}
+				className={`${lora.variable} ${greatVibes.variable} ${cinzelDecorative.variable} ${mrDafoe.variable} ${baloo.variable}`}
 			>
 				<AppProvider>{children}</AppProvider>
 				<ClientToaster />
