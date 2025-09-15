@@ -8,3 +8,8 @@ export interface UserType {
     active: boolean;
     createdAt: Date;
 }
+
+export interface ImageData {
+    url: string;
+    publicId: string;
+}

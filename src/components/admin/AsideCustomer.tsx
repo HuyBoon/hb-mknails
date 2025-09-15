@@ -127,7 +127,7 @@ export default function AsideCustomer({
 					variants={textVariants}
 					transition={{ duration: animationDuration }}
 				>
-					MK NAIL & SPA
+					MK NAILS & SPA
 				</motion.h1>
 				<span
 					onClick={() => setCollapsed(!collapsed)}

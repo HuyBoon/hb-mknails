@@ -1,212 +1,211 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import HeaderTitle from "@/components/admin/HeaderTitle";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { ImageData } from "@/types/interface";
+import ImageComponent from "@/components/admin/image/ImageComponent";
+import { toast } from "sonner";
 
-import { Trash2, Plus } from "lucide-react";
-
-interface Item {
-	details: {
-		description: string;
-	};
-	image: {
-		url: string;
-		public_id: string;
-	};
+interface Image {
+    url: string;
+    public_id: string;
 }
 
-interface Promotion {
-	_id?: string;
-	title: string;
-	items: Item[];
+interface PromotionForm {
+    title: string;
+    images: Image[];
 }
 
 const PromotionAdmin = () => {
-	const [promotion, setPromotion] = useState<Promotion>({
-		title: "",
-		items: [],
-	});
-	const [loading, setLoading] = useState(true);
-	const [isEditing, setIsEditing] = useState(false);
+    const {
+        control,
+        handleSubmit,
+        setValue,
+        watch,
+        reset,
+        formState: { errors },
+    } = useForm<PromotionForm>({
+        defaultValues: {
+            title: "",
+            images: [],
+        },
+    });
 
-	useEffect(() => {
-		fetchPromotion();
-	}, []);
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "images",
+    });
 
-	const fetchPromotion = async () => {
-		try {
-			const response = await fetch("/api/promotion");
-			const data = await response.json();
-			if (data.success && data.data) {
-				setPromotion(data.data);
-				setIsEditing(true);
-			}
-		} catch (error) {
-			console.error("Error fetching promotion:", error);
-		} finally {
-			setLoading(false);
-		}
-	};
+    // Fetch existing promotion on mount
+    useEffect(() => {
+        const fetchPromotion = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/promotion`);
+                const result = await res.json();
+                if (res.ok && result.success && result.data) {
+                    reset({
+                        title: result.data.title,
+                        images: result.data.images || [],
+                    });
+                }
+            } catch (error) {
+                console.error("Fetch promotion error:", error);
+                toast.error("Không thể tải promotion");
+            }
+        };
+        fetchPromotion();
+    }, [reset]);
 
-	const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setPromotion({ ...promotion, title: e.target.value });
-	};
+    // Handle image upload
+    const handleImageUploaded = (images: ImageData[], index: number) => {
+        if (images.length > 0) {
+            const { url, publicId } = images[0];
+            setValue(`images.${index}.url`, url);
+            setValue(`images.${index}.public_id`, publicId);
+            toast.info("Ảnh đã được tải lên, nhấn Lưu để xác nhận");
+        }
+    };
 
-	const handleItemChange = (
-		index: number,
-		field: keyof Item | keyof Item["details"] | keyof Item["image"],
-		subfield?: "details" | "image",
-		value?: any
-	) => {
-		const newItems = [...promotion.items];
-		if (subfield === "details") {
-			newItems[index].details = { ...newItems[index].details, [field]: value };
-		} else if (subfield === "image") {
-			newItems[index].image = { ...newItems[index].image, [field]: value };
-		}
-		setPromotion({ ...promotion, items: newItems });
-	};
+    // Handle image removal
+    const handleRemoveImage = async (index: number) => {
+        const publicId = watch(`images.${index}.public_id`);
+        if (!publicId) {
+            remove(index);
+            return;
+        }
 
-	const addItem = () => {
-		setPromotion({
-			...promotion,
-			items: [
-				...promotion.items,
-				{
-					details: { description: "" },
-					image: { url: "", public_id: "" },
-				},
-			],
-		});
-	};
+        try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/api/deleteImages`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ publicIds: [publicId] }),
+                }
+            );
+            const result = await response.json();
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || "Xóa ảnh thất bại");
+            }
 
-	const removeItem = (index: number) => {
-		const newItems = promotion.items.filter((_, i) => i !== index);
-		setPromotion({ ...promotion, items: newItems });
-	};
+            remove(index);
+            toast.success("Đã xóa ảnh");
+        } catch (error: any) {
+            console.error("Remove image error:", error);
+            toast.error(error.message || "Không thể xóa ảnh");
+        }
+    };
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		try {
-			const method = isEditing ? "PUT" : "POST";
-			const response = await fetch("/api/promotion", {
-				method,
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(promotion),
-			});
-			if (response.ok) {
-				const data = await response.json();
-				setPromotion(data.data);
-				setIsEditing(true);
-				alert("Promotion saved successfully");
-			} else {
-				alert("Error saving promotion");
-			}
-		} catch (error) {
-			console.error("Error submitting promotion:", error);
-			alert("Error saving promotion");
-		}
-	};
+    const onSubmit = async (data: PromotionForm) => {
+        try {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/api/promotion`,
+                {
+                    method: "PUT", // Always use PUT to create or update
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                }
+            );
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.message || "Lưu promotion thất bại");
 
-	const handleDelete = async () => {
-		if (!confirm("Are you sure you want to delete the promotion?")) return;
-		try {
-			const response = await fetch("/api/promotion", { method: "DELETE" });
-			if (response.ok) {
-				setPromotion({ title: "", items: [] });
-				setIsEditing(false);
-				alert("Promotion deleted successfully");
-			}
-		} catch (error) {
-			console.error("Error deleting promotion:", error);
-		}
-	};
+            toast.success("Lưu promotion thành công!");
+        } catch (err: any) {
+            console.error(err);
+            toast.error(err.message || "Có lỗi xảy ra");
+        }
+    };
 
-	if (loading) return <div>Loading...</div>;
+    return (
+        <div className="container mx-auto p-6">
+            <HeaderTitle title="Promotions Management" path="" addItem="" />
 
-	return (
-		<div className="container mx-auto p-6">
-			<HeaderTitle title="Promotions Management" path="" addItem="" />
-			<form onSubmit={handleSubmit} className="mt-6 space-y-6">
-				<div>
-					<label htmlFor="title">Title</label>
-					<input
-						id="title"
-						value={promotion.title}
-						onChange={handleTitleChange}
-						required
-					/>
-				</div>
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-6">
+                <div>
+                    <label className="block mb-1 font-semibold">Promotion Title</label>
+                    <Controller
+                        name="title"
+                        control={control}
+                        rules={{ required: "Vui lòng nhập tiêu đề" }}
+                        render={({ field }) => (
+                            <input
+                                {...field}
+                                className="w-full border rounded-lg p-2"
+                                placeholder="Tiêu đề promotion"
+                            />
+                        )}
+                    />
+                    {errors.title && (
+                        <p className="text-red-500 text-sm">{errors.title.message}</p>
+                    )}
+                </div>
 
-				<div>
-					<div className="flex justify-between items-center mb-2">
-						<label>Items</label>
-						<button type="button" onClick={addItem}>
-							<Plus size={16} className="mr-2" /> Add Item
-						</button>
-					</div>
-					{promotion.items.map((item, index) => (
-						<div key={index} className="border rounded-lg p-4 mb-4 space-y-4">
-							<div>
-								<label>Description</label>
-								<input
-									value={item.details.description}
-									onChange={(e) =>
-										handleItemChange(
-											index,
-											"description",
-											"details",
-											e.target.value
-										)
-									}
-									required
-								/>
-							</div>
+                <div className="space-y-6">
+                    {fields.map((field, index) => {
+                        const imageUrl = watch(`images.${index}.url`);
+                        return (
+                            <div
+                                key={field.id}
+                                className="border rounded-lg p-4 space-y-4 bg-gray-50"
+                            >
+                                <div className="space-y-4">
+                                    {!imageUrl ? (
+                                        <ImageComponent
+                                            setImagePublicIds={(imgs) =>
+                                                handleImageUploaded(imgs, index)
+                                            }
+                                            maxFiles={1}
+                                            category="promotion"
+                                        />
+                                    ) : (
+                                        <div className="relative w-64">
+                                            <img
+                                                src={imageUrl}
+                                                alt="Ảnh promotion"
+                                                className="w-full h-40 object-cover rounded"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => handleRemoveImage(index)}
+                                                className="absolute top-1 right-1 bg-red-500 text-white px-2 py-1 text-xs rounded"
+                                            >
+                                                Xóa
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
 
-							<div>
-								<label>Image URL</label>
-								<input
-									value={item.image.url}
-									onChange={(e) =>
-										handleItemChange(index, "url", "image", e.target.value)
-									}
-									required
-								/>
-							</div>
-							<div>
-								<label>Image Public ID</label>
-								<input
-									value={item.image.public_id}
-									onChange={(e) =>
-										handleItemChange(
-											index,
-											"public_id",
-											"image",
-											e.target.value
-										)
-									}
-									required
-								/>
-							</div>
-							<button type="button" onClick={() => removeItem(index)}>
-								<Trash2 size={16} className="mr-2" /> Remove Item
-							</button>
-						</div>
-					))}
-				</div>
+                                <button
+                                    type="button"
+                                    onClick={() => handleRemoveImage(index)}
+                                    className="px-3 py-2 bg-red-500 text-white rounded-lg"
+                                >
+                                    Xóa ảnh
+                                </button>
+                            </div>
+                        );
+                    })}
+                </div>
 
-				<div className="flex gap-4">
-					<button type="submit">
-						{isEditing ? "Update" : "Create"} Promotion
-					</button>
-					{isEditing && (
-						<button type="button" onClick={handleDelete}>
-							Delete Promotion
-						</button>
-					)}
-				</div>
-			</form>
-		</div>
-	);
+                <button
+                    type="button"
+                    onClick={() => append({ url: "", public_id: "" })}
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg"
+                >
+                    + Thêm Ảnh
+                </button>
+
+                <div>
+                    <button
+                        type="submit"
+                        className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
+                    >
+                        Lưu Promotion
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
 };
 
 export default PromotionAdmin;

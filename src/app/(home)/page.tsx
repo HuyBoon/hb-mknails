@@ -69,7 +69,7 @@ export default function Home() {
 			<div className=" z-10">
 				<Promotions />
 			</div>
-			<Sologan />
+			{/* <Sologan /> */}
 			<Shopping />
 			<Footer />
 		</div>

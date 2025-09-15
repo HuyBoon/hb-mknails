@@ -96,7 +96,7 @@ const MobileNav = ({ onClose }: NavMobileProps) => {
 											onClick={handleClose}
 											href={item.href}
 											className={`flex-1 transition-all duration-400 ${
-												isActive ? "text-primary" : "text-white"
+												isActive ? "text-secondary" : "text-white"
 											} hover:text-[#e5c9af] hover:translate-x-1`}
 										>
 											{item.label}
@@ -110,7 +110,7 @@ const MobileNav = ({ onClose }: NavMobileProps) => {
 
 				{/* Hotline */}
 				<div className="mt-6 flex items-center gap-4 border-t border-gray-700 pt-4">
-					<div className="bg-[] border border-title p-2 rounded-full">
+					<div className="border border-title p-2 rounded-full">
 						<Phone size={20} className="text-white" />
 					</div>
 					<div>
