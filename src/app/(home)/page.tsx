@@ -63,12 +63,8 @@ export default function Home() {
 			<div className=" bg-[#f2ecdb]">
 				<Services />
 			</div>
-			{/* <div className="overflow-hidden mt-2  ">
-				<Separate />
-			</div> */}
-			<div className=" z-10">
-				<Promotions />
-			</div>
+			<Separate />
+			<Promotions />
 			{/* <Sologan /> */}
 			<Shopping />
 			<Footer />

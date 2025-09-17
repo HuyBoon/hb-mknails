@@ -25,12 +25,12 @@ const AboutMK = () => {
 	};
 
 	return (
-		<section className="w-full">
+		<section className="w-full ">
 			<div
 				className="w-full bg-cover bg-center bg-no-repeat mx-auto"
 				style={{ backgroundImage: `url(/bg-default.png)` }}
 			>
-				<div className="max-w-[1400px] py-8 px-4 sm:px-6 md:px-12 w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 md:gap-8 items-center">
+				<div className="max-w-[1400px] py-12 md:py-16 lg:py-24 px-4 sm:px-6 md:px-12 w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 md:gap-8 items-center">
 					<motion.div
 						initial={{ opacity: 0, x: -10 }}
 						whileInView={{ opacity: 1, x: 0 }}

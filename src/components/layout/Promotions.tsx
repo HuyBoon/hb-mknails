@@ -19,7 +19,7 @@ const fallbackImages = [
 export default function PromotionsSection() {
 	return (
 		<section
-			className="relative w-full mx-auto py-12 md:py-16 lg:py-24 px-4 sm:px-6 md:px-12 bg-gray-700 bg-cover bg-center"
+			className="relative w-full mx-auto  py-4 px-4 sm:px-6 md:px-12  bg-cover overflow-hidden bg-top"
 			style={{ backgroundImage: `url(/banner1.png)` }}
 		>
 			<div className="max-w-[1440px] mx-auto">
@@ -29,7 +29,7 @@ export default function PromotionsSection() {
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 1 }}
 					viewport={{ once: false }}
-					className="text-center px-6 py-3 sm:py-4 rounded-2xl bg-btn border border-white mx-auto w-fit shadow-md"
+					className="text-center px-6 py-3 sm:py-4 rounded-2xl bg-btn mx-auto w-fit shadow-md"
 				>
 					<Link href={"/promotions"}>
 						<h2 className="text-white uppercase text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide">
