@@ -9,6 +9,7 @@ import {
 import "./globals.css";
 import { AppProvider } from "@/components/contexts/AppContext";
 import { ClientToaster } from "@/components/shared/ClientToaster";
+import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
 
 export const metadata: Metadata = {
 	title: "MK NAIL & SPA",
@@ -59,6 +60,7 @@ export default function RootLayout({
 				className={`${lora.variable} ${greatVibes.variable} ${cinzelDecorative.variable} ${mrDafoe.variable} ${baloo.variable}`}
 			>
 				<AppProvider>{children}</AppProvider>
+				<ScrollToTopButton />
 				<ClientToaster />
 			</body>
 		</html>

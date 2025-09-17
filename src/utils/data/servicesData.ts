@@ -101,7 +101,7 @@ export const servicesData: ServicesData = {
     },
     otherServices: {
         key: "otherServices",
-        title: "Other Services ",
+        title: "Other Services",
         imageHome: "/services/otherServices.png",
         image: "/servicepage/otherServices.png",
         items: [

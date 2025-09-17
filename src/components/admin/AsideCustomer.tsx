@@ -53,16 +53,6 @@ export default function AsideCustomer({
 			url: "/admin/services",
 			icon: <Scissors size={20} />,
 			label: "Services",
-			submenu: [
-				{
-					url: "/admin/services/categories",
-					label: "Service Categories",
-				},
-				{
-					url: "/admin/services/list",
-					label: "Service List",
-				},
-			],
 		},
 		{
 			url: "/admin/promotions",

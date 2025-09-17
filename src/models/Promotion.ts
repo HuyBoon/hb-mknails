@@ -10,7 +10,7 @@ const PromotionSchema = new Schema(
         items: [
             {
                 details: {
-                    description: { type: String, required: [true, "Item description is required"] },
+                    description: { type: String },
                 },
                 image: {
                     url: { type: String, required: [true, "Image URL is required"] },
