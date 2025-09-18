@@ -4,6 +4,7 @@ import Shopping from "@/components/layout/Shopping";
 import Footer from "@/components/layout/Footer";
 import Promotions from "@/components/layout/Promotions";
 import Services from "@/components/layout/Services";
+import { servicesData } from "@/utils/data/servicesData"; // Import fallback data
 import type { Metadata } from "next";
 import Separate from "@/components/layout/Separate";
 import AboutMK from "@/components/layout/AboutMK";
@@ -54,18 +55,40 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function Home() {
+// Fetch services data server-side
+async function fetchServices() {
+	try {
+		const response = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/api/service`,
+			{
+				cache: "no-store",
+			}
+		);
+		const result = await response.json();
+
+		if (result.success && result.data) {
+			return result.data;
+		} else {
+			console.error("Failed to fetch services:", result.message);
+			return Object.values(servicesData);
+		}
+	} catch (error) {
+		console.error("Error fetching services:", error);
+		return Object.values(servicesData);
+	}
+}
+
+export default async function Home() {
+	const services = await fetchServices();
+
 	return (
 		<div className="bg-[#f2ecdb]">
 			<Header />
 			<Banner />
 			<AboutMK />
-			<div className=" bg-[#f2ecdb]">
-				<Services />
-			</div>
+			<Services services={services} /> {/* Pass services as prop */}
 			<Separate />
 			<Promotions />
-			{/* <Sologan /> */}
 			<Shopping />
 			<Footer />
 		</div>

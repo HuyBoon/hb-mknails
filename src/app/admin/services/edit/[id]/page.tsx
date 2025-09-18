@@ -38,11 +38,11 @@ export default async function EditService({
 		return (
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				<HeaderTitle
-					title="Chỉnh sửa danh mục dịch vụ"
+					title="Edit Service Category"
 					path="/admin/services"
-					addItem="Quay lại"
+					addItem="Go Back"
 				/>
-				<div className="mt-5 text-red-500">Danh mục không tồn tại</div>
+				<div className="mt-5 text-red-500">Service category not found</div>
 			</div>
 		);
 	}
@@ -50,9 +50,9 @@ export default async function EditService({
 	return (
 		<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<HeaderTitle
-				title="Chỉnh sửa danh mục dịch vụ"
+				title="Edit Service Category"
 				path="/admin/services"
-				addItem="Quay lại"
+				addItem="Go Back"
 			/>
 			<div className="mt-5">
 				<ServicesForm

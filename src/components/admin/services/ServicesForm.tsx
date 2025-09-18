@@ -5,7 +5,7 @@ import { ServiceCategory, ServiceItem } from "@/types/types";
 import ImageComponent from "@/components/admin/image/ImageComponent";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Save, Trash2 } from "lucide-react";
 
 interface ImageData {
 	url: string;
@@ -53,21 +53,39 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 		image: { selectedFiles: [], handleUpload: async () => {} },
 		imagePage: { selectedFiles: [], handleUpload: async () => {} },
 	});
+	const itemRefs = useRef<React.RefObject<HTMLDivElement | null>[]>([]);
 
-	// Initialize form and expanded state
 	useEffect(() => {
 		if (service) {
 			reset(service);
-			setExpandedItems(new Array(service.items.length).fill(true));
-			if (itemIndex !== undefined) {
-				setExpandedItems((prev) =>
-					prev.map((val, idx) => (idx === itemIndex ? true : val))
-				);
+			const initialExpanded = new Array(service.items.length).fill(false);
+			itemRefs.current = Array(service.items.length)
+				.fill(null)
+				.map(() => React.createRef<HTMLDivElement>());
+			if (
+				itemIndex !== undefined &&
+				itemIndex >= 0 &&
+				itemIndex < service.items.length
+			) {
+				initialExpanded[itemIndex] = true;
+				// Scroll to and focus the specified item
+				setTimeout(() => {
+					const itemElement = itemRefs.current[itemIndex]?.current;
+					if (itemElement) {
+						itemElement.scrollIntoView({ behavior: "smooth", block: "start" });
+						const firstInput = itemElement.querySelector("input");
+						if (firstInput) {
+							firstInput.focus();
+						}
+					}
+				}, 100);
+			} else if (service.items.length > 0) {
+				initialExpanded[0] = true;
 			}
+			setExpandedItems(initialExpanded);
 		}
 	}, [service, itemIndex, reset]);
 
-	// Register ImageComponent instance
 	const registerImageComponent = (
 		field: "imageHome" | "image" | "imagePage",
 		selectedFiles: File[],
@@ -76,25 +94,25 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 		imageComponentRefs.current[field] = { selectedFiles, handleUpload };
 	};
 
-	// Handle image upload
 	const handleImageUploaded = (
 		images: ImageData[],
 		field: "imageHome" | "image" | "imagePage"
 	) => {
 		if (images.length > 0) {
 			setValue(field, images[0].url);
-			toast.info(`Ảnh ${field} đã được tải lên`);
+			toast.info(`Image ${field} uploaded successfully`);
 		}
 	};
 
-	// Handle image deletion
 	const handleRemoveImage = async (
 		field: "imageHome" | "image" | "imagePage"
 	) => {
 		const imageUrl = watch(field);
 		if (!imageUrl) return;
 
-		const confirmDelete = window.confirm(`Bạn có chắc muốn xóa ảnh ${field}?`);
+		const confirmDelete = window.confirm(
+			`Are you sure you want to delete the ${field} image?`
+		);
 		if (!confirmDelete) return;
 
 		try {
@@ -110,18 +128,19 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 			);
 			const result = await res.json();
 			if (!res.ok || !result.success) {
-				throw new Error(result.message || `Xóa ảnh ${field} thất bại`);
+				throw new Error(result.message || `Failed to delete ${field} image`);
 			}
 
 			setValue(field, "");
-			toast.success(`Xóa ảnh ${field} thành công`);
+			toast.success(`Image ${field} deleted successfully`);
 		} catch (error: any) {
 			console.error(`Remove ${field} error:`, error);
-			toast.error(error.message || `Không thể xóa ảnh ${field}`);
+			toast.info(
+				error.message || `Unable to delete ${field} image. Please try again.`
+			);
 		}
 	};
 
-	// Handle item deletion
 	const handleRemoveItem = async (index: number) => {
 		const item = watch(`items.${index}`);
 		const hasData = item.name || item.description || item.price;
@@ -129,26 +148,72 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 		if (!hasData) {
 			remove(index);
 			setExpandedItems((prev) => prev.filter((_, i) => i !== index));
+			itemRefs.current = itemRefs.current.filter((_, i) => i !== index);
 			return;
 		}
 
-		const confirmDelete = window.confirm("Bạn có chắc muốn xóa item này?");
+		const confirmDelete = window.confirm(
+			"Are you sure you want to delete this service?"
+		);
 		if (!confirmDelete) return;
 
 		try {
 			remove(index);
 			setExpandedItems((prev) => prev.filter((_, i) => i !== index));
-			toast.success("Xóa item thành công");
+			itemRefs.current = itemRefs.current.filter((_, i) => i !== index);
+			toast.success("Service deleted successfully");
 		} catch (error: any) {
-			console.error("Remove item error:", error);
-			toast.error(error.message || "Không thể xóa item");
+			console.error("Remove service error:", error);
+			toast.info(
+				error.message || "Unable to delete service. Please try again."
+			);
 		}
 	};
 
-	// Handle form submission
+	const handleSaveItem = async (index: number) => {
+		const item = watch(`items.${index}`);
+		const categoryKey = watch("key");
+		if (!categoryKey) {
+			toast.info("Category key is missing. Please save the category first.");
+			return;
+		}
+
+		try {
+			const currentItems = watch("items");
+			const updatedItems = [...currentItems];
+			updatedItems[index] = item;
+
+			const categoryData: ServiceCategory = {
+				...service,
+				key: categoryKey,
+				title: watch("title"),
+				imageHome: watch("imageHome"),
+				image: watch("image"),
+				imagePage: watch("imagePage"),
+				items: updatedItems,
+			};
+
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_API_URL}/api/service/${categoryKey}`,
+				{
+					method: "PUT",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(categoryData),
+				}
+			);
+			const result = await res.json();
+			if (!res.ok) throw new Error(result.message || "Failed to save service");
+
+			toast.success("Service saved successfully");
+			router.push("/admin/services");
+		} catch (error: any) {
+			console.error("Save service error:", error);
+			toast.info(error.message || "Unable to save service. Please try again.");
+		}
+	};
+
 	const onSubmit = async (data: ServiceCategory) => {
 		try {
-			// Upload pending images
 			for (const field of ["imageHome", "image", "imagePage"] as const) {
 				const ref = imageComponentRefs.current[field];
 				if (ref && ref.selectedFiles.length > 0) {
@@ -156,7 +221,6 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 				}
 			}
 
-			// Submit form data
 			const method = service ? "PUT" : "POST";
 			const url = service
 				? `${process.env.NEXT_PUBLIC_API_URL}/api/service/${data.key}`
@@ -168,19 +232,20 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 				body: JSON.stringify(data),
 			});
 			const result = await res.json();
-			if (!res.ok) throw new Error(result.message || "Lưu danh mục thất bại");
+			if (!res.ok) throw new Error(result.message || "Failed to save category");
 
 			toast.success(
-				service ? "Cập nhật danh mục thành công" : "Thêm danh mục thành công"
+				service
+					? "Category updated successfully"
+					: "Category added successfully"
 			);
 			router.push("/admin/services");
 		} catch (err: any) {
 			console.error(err);
-			toast.error(err.message || "Có lỗi xảy ra");
+			toast.info(err.message || "An error occurred. Please try again.");
 		}
 	};
 
-	// Toggle item expansion
 	const toggleExpand = (index: number) => {
 		setExpandedItems((prev) => {
 			const newExpanded = [...prev];
@@ -198,7 +263,7 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 				<Controller
 					name="key"
 					control={control}
-					rules={{ required: "Vui lòng nhập key" }}
+					rules={{ required: "Please enter a key" }}
 					render={({ field }) => (
 						<input
 							{...field}
@@ -218,12 +283,12 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 				<Controller
 					name="title"
 					control={control}
-					rules={{ required: "Vui lòng nhập tiêu đề" }}
+					rules={{ required: "Please enter a title" }}
 					render={({ field }) => (
 						<input
 							{...field}
 							className="w-full border rounded-lg p-2"
-							placeholder="Tiêu đề danh mục"
+							placeholder="Category title"
 						/>
 					)}
 				/>
@@ -253,7 +318,7 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 								onClick={() => handleRemoveImage(field)}
 								className="absolute top-1 right-1 bg-red-500 text-white px-2 py-1 text-xs rounded"
 							>
-								Xóa
+								Delete
 							</button>
 						</div>
 					) : (
@@ -270,13 +335,17 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 			))}
 
 			<div className="space-y-6">
-				<h3 className="text-lg font-semibold">Items</h3>
+				<h3 className="text-lg font-semibold">Services</h3>
 				{fields.map((field, index) => {
 					const isExpanded = expandedItems[index] ?? true;
 					return (
-						<div key={field.id} className="border rounded-lg p-4 bg-gray-50">
+						<div
+							key={field.id}
+							className="border rounded-lg p-4 bg-gray-50"
+							ref={itemRefs.current[index]}
+						>
 							<div className="flex items-center justify-between">
-								<h4 className="font-semibold">{`Item ${index + 1}`}</h4>
+								<h4 className="font-semibold">{`Service ${index + 1}`}</h4>
 								<button
 									type="button"
 									onClick={() => toggleExpand(index)}
@@ -284,11 +353,11 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 								>
 									{isExpanded ? (
 										<>
-											<ChevronUp size={20} /> Thu gọn
+											<ChevronUp size={20} /> Collapse
 										</>
 									) : (
 										<>
-											<ChevronDown size={20} /> Mở rộng
+											<ChevronDown size={20} /> Expand
 										</>
 									)}
 								</button>
@@ -298,17 +367,17 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 								<>
 									<div>
 										<label className="block mb-1 font-semibold">
-											Item Name
+											Service Name
 										</label>
 										<Controller
 											name={`items.${index}.name`}
 											control={control}
-											rules={{ required: "Vui lòng nhập tên item" }}
+											rules={{ required: "Please enter service name" }}
 											render={({ field }) => (
 												<input
 													{...field}
 													className="w-full border rounded-lg p-2"
-													placeholder="Tên item"
+													placeholder="Service name"
 												/>
 											)}
 										/>
@@ -330,7 +399,7 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 												<textarea
 													{...field}
 													className="w-full border rounded-lg p-2"
-													placeholder="Mô tả..."
+													placeholder="Description..."
 												/>
 											)}
 										/>
@@ -341,12 +410,12 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 										<Controller
 											name={`items.${index}.price`}
 											control={control}
-											rules={{ required: "Vui lòng nhập giá" }}
+											rules={{ required: "Please enter price" }}
 											render={({ field }) => (
 												<input
 													{...field}
 													className="w-full border rounded-lg p-2"
-													placeholder="Giá (e.g., 30 hoặc From $30)"
+													placeholder="Price (e.g., 30 or From $30)"
 												/>
 											)}
 										/>
@@ -357,13 +426,24 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 										)}
 									</div>
 
-									<button
-										type="button"
-										onClick={() => handleRemoveItem(index)}
-										className="px-3 py-2 bg-red-600 text-white rounded-lg mt-2"
-									>
-										Xóa Item
-									</button>
+									<div className="flex gap-2 mt-2">
+										<button
+											type="button"
+											onClick={() => handleRemoveItem(index)}
+											className="px-3 py-2 bg-red-600 text-white rounded-lg"
+											title="Delete Service"
+										>
+											<Trash2 size={14} />
+										</button>
+										<button
+											type="button"
+											onClick={() => handleSaveItem(index)}
+											className="px-3 py-2 bg-blue-600 text-white rounded-lg"
+											title="Save Service"
+										>
+											<Save size={14} />
+										</button>
+									</div>
 								</>
 							)}
 						</div>
@@ -373,11 +453,12 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 					type="button"
 					onClick={() => {
 						append({ name: "", description: "", price: "" });
-						setExpandedItems((prev) => [...prev, true]);
+						setExpandedItems((prev) => [...prev, false]);
+						itemRefs.current.push(React.createRef<HTMLDivElement>());
 					}}
 					className="px-4 py-2 bg-green-600 text-white rounded-lg"
 				>
-					+ Thêm Item
+					+ Add Service
 				</button>
 			</div>
 
@@ -386,7 +467,7 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ service, itemIndex }) => {
 					type="submit"
 					className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
 				>
-					{service ? "Cập nhật danh mục" : "Thêm danh mục"}
+					{service ? "Update Category" : "Add Category"}
 				</button>
 			</div>
 		</form>

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import ServicePageContent from "./ServicePageContent";
+import { servicesData } from "@/utils/data/servicesData"; // Import for fallback
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,11 +21,11 @@ export const metadata: Metadata = {
 		title: "Nail & Spa Services | MK Nails & Spa",
 		description:
 			"Relax and beautify with manicure, pedicure, and spa treatments at MK Nails & Spa.",
-		url: "https://your-domain.com/service", // replace with your real domain
+		url: "https://your-domain.com/service",
 		siteName: "MK Nails & Spa",
 		images: [
 			{
-				url: "https://your-domain.com/og-image.jpg", // replace with your real OG image
+				url: "https://your-domain.com/og-image.jpg",
 				width: 1200,
 				height: 630,
 				alt: "MK Nails & Spa Service Page",
@@ -38,14 +39,38 @@ export const metadata: Metadata = {
 		title: "Nail & Spa Services | MK Nails & Spa",
 		description:
 			"Explore manicures, pedicures, and spa treatments at MK Nails & Spa. Your destination for beauty and relaxation.",
-		images: ["https://your-domain.com/og-image.jpg"], // same OG image
+		images: ["https://your-domain.com/og-image.jpg"],
 	},
 	alternates: {
 		canonical: "https://your-domain.com/service",
 	},
 };
 
-const ServicePage = () => {
+async function fetchServices() {
+	try {
+		const response = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/api/service`,
+			{
+				cache: "no-store",
+			}
+		);
+		const result = await response.json();
+
+		if (result.success && result.data) {
+			return result.data;
+		} else {
+			console.error("Failed to fetch services:", result.message);
+			return Object.values(servicesData);
+		}
+	} catch (error) {
+		console.error("Error fetching services:", error);
+		return Object.values(servicesData);
+	}
+}
+
+const ServicePage = async () => {
+	const services = await fetchServices();
+
 	return (
 		<Suspense
 			fallback={
@@ -54,7 +79,7 @@ const ServicePage = () => {
 				</div>
 			}
 		>
-			<ServicePageContent />
+			<ServicePageContent services={services} />
 		</Suspense>
 	);
 };

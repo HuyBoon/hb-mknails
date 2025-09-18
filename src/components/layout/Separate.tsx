@@ -5,7 +5,13 @@ import { motion } from "framer-motion";
 
 export default function Separate() {
 	return (
-		<div className="mx-auto bg-[#f2ecdb]  overflow-hidden relative">
+		<motion.div
+			initial={{ opacity: 0, x: -60 }}
+			whileInView={{ opacity: 1, x: 0 }}
+			transition={{ duration: 1 }}
+			viewport={{ once: false }}
+			className="mx-auto bg-[#f2ecdb]  overflow-hidden relative"
+		>
 			<Image
 				src={"/sologannew.png"}
 				width={1920}
@@ -13,6 +19,6 @@ export default function Separate() {
 				alt="sologan"
 				className="object-cover aspect-[1920/400]"
 			/>
-		</div>
+		</motion.div>
 	);
 }

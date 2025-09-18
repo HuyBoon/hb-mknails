@@ -69,11 +69,7 @@ export default function AsideCustomer({
 			icon: <UsersRound size={20} />,
 			label: "Customers",
 		},
-		{
-			url: "/admin/gallery",
-			icon: <ImageIcon size={20} />,
-			label: "Gallery",
-		},
+
 		{
 			url: "/admin/settings",
 			icon: <Settings size={20} />,

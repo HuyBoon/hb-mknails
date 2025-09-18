@@ -7,16 +7,25 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { servicesData } from "@/utils/data/servicesData";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const Services = () => {
+interface Service {
+	key: string;
+	title: string;
+	imageHome: string;
+	image: string;
+	items: { name: string; price: number | string; description?: string }[];
+}
+
+interface ServicesProps {
+	services: Service[];
+}
+
+const Services = ({ services }: ServicesProps) => {
 	const [activeIndex, setActiveIndex] = useState(1);
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 	const router = useRouter();
-
-	const categories = Object.values(servicesData);
 
 	const handleMouseEnter = (index: number) => {
 		setHoveredIndex(index);
@@ -35,14 +44,14 @@ const Services = () => {
 
 	const handleClick = useCallback(
 		(index: number) => {
-			const categoryKey = categories[index].key;
+			const categoryKey = services[index].key;
 			router.push(`/services?category=${categoryKey}`);
 			setHoveredIndex(index);
 			if (typeof window !== "undefined" && window.innerWidth <= 768) {
 				setTimeout(() => setHoveredIndex(null), 1000);
 			}
 		},
-		[router, categories]
+		[router, services]
 	);
 
 	return (
@@ -80,7 +89,7 @@ const Services = () => {
 						}}
 						className="w-[100%] mx-auto mb-12"
 					>
-						{categories.map((cat, idx) => {
+						{services.map((cat, idx) => {
 							const isActive = idx === activeIndex;
 							const isHovered = idx === hoveredIndex;
 
@@ -101,7 +110,7 @@ const Services = () => {
 										onClick={() => handleClick(idx)}
 									>
 										<div
-											className={`aspect-[3/4] overflow-hidden rounded-2xl  border-white transition-all duration-500 shadow-md border-2 ${
+											className={`aspect-[3/4] overflow-hidden rounded-2xl border-white transition-all duration-500 shadow-md border-2 ${
 												isActive ? "lg:mt-22" : "mt-0"
 											} group-hover:shadow-xl`}
 										>
@@ -151,11 +160,11 @@ const Services = () => {
 				<div className="hidden sm:block absolute top-1/2 sm:right-[-20px] md:right-[-25px] lg:right-[-50px] -translate-y-1/2 z-10">
 					<button
 						className={`card2-next bg-white shadow-lg w-8 h-8 lg:w-12 lg:h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-							activeIndex === categories.length - 2
+							activeIndex === services.length - 2
 								? "opacity-50 cursor-not-allowed"
 								: "hover:bg-btn hover:text-white cursor-pointer"
 						}`}
-						disabled={activeIndex === categories.length - 2}
+						disabled={activeIndex === services.length - 2}
 					>
 						<Image
 							src="/arrow.png"

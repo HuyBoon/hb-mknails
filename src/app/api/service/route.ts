@@ -1,27 +1,45 @@
+// api/service/route.ts
 import { authOptions } from "@/libs/authOptions";
 import { dbConnect } from "@/libs/dbConnection";
 import { Service } from "@/models/Service";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
     try {
         await dbConnect();
+
+        const { searchParams } = new URL(req.url);
+        const category = searchParams.get("category");
+
+        if (category) {
+
+            const service = await Service.findOne({ key: category });
+            if (!service) {
+                return NextResponse.json(
+                    { success: false, message: `Không tìm thấy danh mục ${category}` },
+                    { status: 404 }
+                );
+            }
+            return NextResponse.json({ success: true, data: service }, { status: 200 });
+        }
+
+
         const services = await Service.find({});
         return NextResponse.json({ success: true, data: services }, { status: 200 });
     } catch (error: any) {
         console.error("GET error:", error);
         return NextResponse.json(
-            { success: false, message: "Lỗi server" },
+            { success: false, message: "Không thể tải dữ liệu dịch vụ. Vui lòng thử lại sau." },
             { status: 500 }
         );
     }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     const session = await getServerSession(authOptions);
     if (!session) {
-        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        return NextResponse.json({ message: "Không được phép truy cập" }, { status: 401 });
     }
 
     try {
@@ -33,53 +51,7 @@ export async function POST(request: Request) {
     } catch (error: any) {
         console.error("POST error:", error);
         return NextResponse.json(
-            { success: false, message: error.message || "Lỗi khi tạo service" },
-            { status: 400 }
-        );
-    }
-}
-
-export async function PUT(request: Request) {
-    const session = await getServerSession(authOptions);
-    if (!session) {
-        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
-    try {
-        await dbConnect();
-        const body = await request.json();
-        const services = await Service.findOneAndUpdate(
-            {},
-            { $set: body },
-            { new: true, runValidators: true, upsert: true }
-        );
-        return NextResponse.json({ success: true, data: services }, { status: 200 });
-    } catch (error: any) {
-        console.error("PUT error:", error);
-        return NextResponse.json(
-            { success: false, message: error.message || "Lỗi khi cập nhật services" },
-            { status: 400 }
-        );
-    }
-}
-
-export async function DELETE(request: Request) {
-    const session = await getServerSession(authOptions);
-    if (!session) {
-        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
-    try {
-        await dbConnect();
-        await Service.deleteMany({});
-        return NextResponse.json(
-            { success: true, message: "Xóa tất cả services thành công" },
-            { status: 200 }
-        );
-    } catch (error: any) {
-        console.error("DELETE error:", error);
-        return NextResponse.json(
-            { success: false, message: error.message || "Lỗi khi xóa services" },
+            { success: false, message: error.message || "Không thể tạo dịch vụ mới. Vui lòng thử lại." },
             { status: 400 }
         );
     }

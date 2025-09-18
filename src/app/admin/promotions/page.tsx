@@ -42,7 +42,6 @@ const PromotionAdmin = () => {
 		Array<{ selectedFiles: File[]; handleUpload: () => Promise<void> }>
 	>([]);
 
-	// Fetch existing promotion on mount
 	useEffect(() => {
 		const fetchPromotion = async () => {
 			try {
@@ -66,11 +65,15 @@ const PromotionAdmin = () => {
 						}
 					);
 				} else {
-					toast.error("Failed to load promotion");
+					toast.info(
+						"Unable to load promotion data at this time. Please try again later."
+					);
 				}
 			} catch (error) {
 				console.error("Fetch promotion error:", error);
-				toast.error("Server error while loading promotion");
+				toast.info(
+					"Unable to load promotion data at this time. Please try again later."
+				);
 			}
 		};
 		fetchPromotion();
@@ -118,7 +121,9 @@ const PromotionAdmin = () => {
 		}
 
 		// Confirmation for items with data
-		const confirmDelete = window.confirm("Are you sure you want to delete this item?");
+		const confirmDelete = window.confirm(
+			"Are you sure you want to delete this item?"
+		);
 		if (!confirmDelete) return;
 
 		const publicId = item.image.public_id;
@@ -184,7 +189,8 @@ const PromotionAdmin = () => {
 				}
 			);
 			const result = await res.json();
-			if (!res.ok) throw new Error(result.message || "Failed to save promotion");
+			if (!res.ok)
+				throw new Error(result.message || "Failed to save promotion");
 
 			toast.success("Promotion saved successfully!");
 		} catch (err: any) {
@@ -320,7 +326,7 @@ const PromotionAdmin = () => {
 									aria-label="Delete item"
 									title="Delete item"
 								>
-									<Trash2 size={14} /> Delete Item
+									<Trash2 size={14} /> Delete Promotion
 								</button>
 							</div>
 						);
@@ -342,7 +348,7 @@ const PromotionAdmin = () => {
 					}}
 					className="px-3 py-1.5 bg-green-600 text-white rounded-lg text-sm"
 				>
-					+ Add Item
+					+ Add New Promotion
 				</button>
 
 				<div>

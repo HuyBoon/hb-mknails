@@ -2,12 +2,13 @@ import { authOptions } from "@/libs/authOptions";
 import { dbConnect } from "@/libs/dbConnection";
 import { Service } from "@/models/Service";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
     try {
+        const { id } = await context.params;
         await dbConnect();
-        const service = await Service.findOne({ key: params.id });
+        const service = await Service.findOne({ key: id });
         if (!service) {
             return NextResponse.json(
                 { success: false, message: "Không tìm thấy service" },
@@ -24,7 +25,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
     }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, context: { params: Promise<{ id: string }> }) {
+
     const session = await getServerSession(authOptions);
     if (!session) {
         return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -32,9 +34,10 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
     try {
         await dbConnect();
-        const body = await request.json();
+        const { id } = await context.params;
+        const body = await req.json();
         const service = await Service.findOneAndUpdate(
-            { key: params.id },
+            { key: id },
             { $set: body },
             { new: true, runValidators: true }
         );
@@ -54,15 +57,16 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context: { params: Promise<{ id: string }> }) {
     const session = await getServerSession(authOptions);
     if (!session) {
         return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     try {
+        const { id } = await context.params;
         await dbConnect();
-        const service = await Service.findOneAndDelete({ key: params.id });
+        const service = await Service.findOneAndDelete({ key: id });
         if (!service) {
             return NextResponse.json(
                 { success: false, message: "Không tìm thấy service" },

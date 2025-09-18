@@ -1,15 +1,32 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { servicesData } from "@/utils/data/servicesData";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { ServiceItem } from "@/types/types";
 import { motion, AnimatePresence } from "framer-motion";
 
-const ServicePageContent = () => {
+interface ServiceItem {
+	name: string;
+	price: number | string;
+	description?: string;
+}
+
+interface Service {
+	key: string;
+	title: string;
+	image: string;
+	imageHome?: string;
+	imagePage?: string;
+	items: ServiceItem[];
+}
+
+interface ServicePageContentProps {
+	services: Service[];
+}
+
+const ServicePageContent = ({ services }: ServicePageContentProps) => {
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const categoryParam = searchParams.get("category");
@@ -54,7 +71,7 @@ const ServicePageContent = () => {
 		}
 	}, [showServices, activeCategory]);
 
-	const categories = Object.keys(servicesData);
+	const categories = services.map((s) => s.key);
 
 	const handleCategoryClick = (key: string) => {
 		setActiveCategory(key);
@@ -70,6 +87,9 @@ const ServicePageContent = () => {
 	const handleAddToCart = (item: ServiceItem) => {
 		console.log(`Added ${item.name} to cart`);
 	};
+
+	// Find the active service based on category
+	const activeService = services.find((s) => s.key === activeCategory);
 
 	return (
 		<div className="flex flex-col ">
@@ -118,23 +138,23 @@ const ServicePageContent = () => {
 							</div>
 						</motion.div>
 
-						{categories.map((key, index) => (
+						{services.map((service, index) => (
 							<motion.div
-								key={key}
+								key={service.key}
 								className="px-2  w-1/2  sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-[250px] 2xl:w-[300px]"
 								initial={{ scale: 0.9, opacity: 0 }}
 								animate={{ scale: 1, opacity: 1 }}
 								transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
 							>
 								<button
-									onClick={() => handleCategoryClick(key)}
+									onClick={() => handleCategoryClick(service.key)}
 									className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500"
-									aria-pressed={activeCategory === key}
-									aria-label={servicesData[key].title}
+									aria-pressed={activeCategory === service.key}
+									aria-label={service.title}
 								>
 									<Image
-										src={servicesData[key].image}
-										alt={servicesData[key].title}
+										src={service.image}
+										alt={service.title}
 										width={600}
 										height={800}
 										sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -142,15 +162,17 @@ const ServicePageContent = () => {
 									/>
 									<div
 										className={`absolute inset-0 flex items-center justify-center transition-colors ${
-											activeCategory === key ? "bg-black/30" : "bg-black/40"
+											activeCategory === service.key
+												? "bg-black/30"
+												: "bg-black/40"
 										}`}
 									>
 										<span
 											className={`text-white uppercase font-semibold text-xl sm:text-2xl md:text-3xl text-center ${
-												activeCategory === key ? "text-yellow-300" : ""
+												activeCategory === service.key ? "text-yellow-300" : ""
 											}`}
 										>
-											{servicesData[key].title}
+											{service.title}
 										</span>
 									</div>
 								</button>
@@ -160,8 +182,7 @@ const ServicePageContent = () => {
 				</div>
 			</motion.div>
 
-			{/* Section dưới */}
-			{showServices && activeCategory && (
+			{showServices && activeCategory && activeService && (
 				<motion.div
 					id="services-section"
 					ref={servicesRef}
@@ -183,12 +204,12 @@ const ServicePageContent = () => {
 							className="w-[90%] max-w-7xl mx-auto"
 						>
 							<div className="flex justify-center">
-								{categories.map((key, index) => (
-									<SwiperSlide key={key} className="!w-auto mx-auto">
+								{services.map((service, index) => (
+									<SwiperSlide key={service.key} className="!w-auto mx-auto">
 										<motion.button
-											onClick={() => handleCategoryClick(key)}
+											onClick={() => handleCategoryClick(service.key)}
 											className={`flex items-center gap-2 px-4 sm:px-3 lg:px-4 py-1 sm:py-2 rounded-full border transition-all duration-300 ${
-												activeCategory === key
+												activeCategory === service.key
 													? "bg-[#f3dbc1]/50 text-black border-[#e5c9af] shadow-sm"
 													: "bg-white text-gray-700 border-gray-200 hover:bg-gray-100"
 											}`}
@@ -197,15 +218,15 @@ const ServicePageContent = () => {
 											transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
 										>
 											<Image
-												src={servicesData[key].image}
-												alt={servicesData[key].title}
+												src={service.image}
+												alt={service.title}
 												width={20}
 												height={20}
 												className="rounded-sm hidden sm:inline-block w-4 h-4 sm:w-5 sm:h-5"
 												sizes="(max-width: 640px) 0vw, 5vw"
 											/>
 											<span className="font-medium text-sm sm:text-sm md:text-base">
-												{servicesData[key].title}
+												{service.title}
 											</span>
 										</motion.button>
 									</SwiperSlide>
@@ -235,8 +256,8 @@ const ServicePageContent = () => {
 										transition={{ duration: 0.5 }}
 									>
 										<Image
-											src={servicesData[activeCategory].image}
-											alt={servicesData[activeCategory].title}
+											src={activeService.image}
+											alt={activeService.title}
 											width={600}
 											height={800}
 											sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -244,7 +265,7 @@ const ServicePageContent = () => {
 											priority
 										/>
 									</motion.div>
-									{servicesData[activeCategory].imagePage && (
+									{activeService.imagePage && (
 										<div className="relative hidden md:block">
 											<motion.div
 												initial={{ scale: 0.9, opacity: 0 }}
@@ -253,8 +274,8 @@ const ServicePageContent = () => {
 												className="relative xl:pl-24"
 											>
 												<Image
-													src={servicesData[activeCategory].imagePage}
-													alt={servicesData[activeCategory].title}
+													src={activeService.imagePage}
+													alt={activeService.title}
 													width={400}
 													height={457}
 													sizes="(min-width: 640px) (max-width: 1024px) 50vw, 33vw"
@@ -282,10 +303,10 @@ const ServicePageContent = () => {
 									transition={{ duration: 0.5, delay: 0.2 }}
 								>
 									<h3 className="text-lg sm:text-2xl md:text-2xl font-bold text-gray-800 mb-2 sm:mb-4">
-										{servicesData[activeCategory].title}
+										{activeService.title}
 									</h3>
 									<ul className="space-y-2 sm:space-y-3">
-										{servicesData[activeCategory].items.map((item, idx) => (
+										{activeService.items.map((item, idx) => (
 											<motion.li
 												key={idx}
 												className="flex items-center justify-between border-b py-2 sm:py-3 gap-2"

@@ -1,7 +1,6 @@
 "use client";
 
-import { Bell, Search, Sun, Moon, LogIn, LogOut } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Bell, Search, LogIn, LogOut } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
